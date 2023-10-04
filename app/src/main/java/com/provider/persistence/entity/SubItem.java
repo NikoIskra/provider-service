@@ -22,9 +22,6 @@ public class SubItem {
     @SequenceGenerator(name = "subItemSequenceGenerator", sequenceName = "sub_item_id_seq")    
     private Long id;
 
-    @Column(name = "item_id")
-    private Long itemsId;
-
     @Column(nullable = false)
     private String title;
 
@@ -70,14 +67,6 @@ public class SubItem {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getItemsId() {
-        return itemsId;
-    }
-
-    public void setItemsId(Long itemsId) {
-        this.itemsId = itemsId;
     }
 
     public String getTitle() {

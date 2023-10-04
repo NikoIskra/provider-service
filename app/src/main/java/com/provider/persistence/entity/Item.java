@@ -24,12 +24,8 @@ public class Item {
     @SequenceGenerator(name = "itemSequenceGenerator", sequenceName = "item_id_seq")    
     private Long id;
 
-    @Column(name = "provider_id")
-    private Long providerId;
-
     @Column(nullable = false)
     private String title;
-
 
     private String description;
 
@@ -77,14 +73,6 @@ public class Item {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getProviderId() {
-        return providerId;
-    }
-
-    public void setProviderId(Long providerId) {
-        this.providerId = providerId;
     }
 
     public String getTitle() {
