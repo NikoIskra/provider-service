@@ -1,6 +1,7 @@
 package com.provider.persistence.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -45,10 +47,24 @@ public class Provider {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
+    @OneToMany(mappedBy = "provider")
+    private List<Item> items;
+
     public Provider() {
     }
 
     
+
+    public Provider(UUID ownerId, String name, String title, String phoneNumber, String status, List<Item> items) {
+        this.ownerId = ownerId;
+        this.name = name;
+        this.title = title;
+        this.phoneNumber = phoneNumber;
+        this.status = status;
+        this.items = items;
+    }
+
+
 
     public Provider(UUID ownerId, String name, String title, String phoneNumber, String status) {
         this.ownerId = ownerId;
@@ -130,6 +146,18 @@ public class Provider {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     

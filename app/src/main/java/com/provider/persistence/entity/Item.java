@@ -1,6 +1,7 @@
 package com.provider.persistence.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -42,10 +46,15 @@ public class Item {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
+
+    @OneToMany(mappedBy = "item")
+    private List<SubItem> subItems;
+
     public Item() {
     }
-
-    
 
     public Item(String title, Integer priceCents, String status) {
         this.title = title;
@@ -54,6 +63,13 @@ public class Item {
     }
 
 
+    public Item(String title, Integer priceCents, String status, Provider provider, List<SubItem> subItems) {
+        this.title = title;
+        this.priceCents = priceCents;
+        this.status = status;
+        this.provider = provider;
+        this.subItems = subItems;
+    }
 
     public Long getId() {
         return id;
@@ -119,5 +135,19 @@ public class Item {
         this.updatedAt = updatedAt;
     }
 
-    
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public List<SubItem> getSubItems() {
+        return subItems;
+    }
+
+    public void setSubItems(List<SubItem> subItems) {
+        this.subItems = subItems;
+    }
 }

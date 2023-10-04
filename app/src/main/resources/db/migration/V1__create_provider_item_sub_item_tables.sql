@@ -1,6 +1,12 @@
-CREATE TABLE IF NOT EXISTS "provider-service".provider
+CREATE SEQUENCE IF NOT EXISTS item_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    CACHE 1;
+
+CREATE TABLE IF NOT EXISTS provider
 (
-    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1000 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    id bigint NOT NULL DEFAULT NEXT VALUE FOR item_id_seq,
     owner_id uuid NOT NULL,
     name character varying(64) NOT NULL,
     title character varying(128) NOT NULL,
@@ -27,12 +33,12 @@ CREATE TABLE IF NOT EXISTS item
     CONSTRAINT provider_id_fk FOREIGN KEY (provider_id)
         REFERENCES provider (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
 )
 
 CREATE TABLE IF NOT EXISTS sub_item
 (
-    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 CACHE 1 ),
     item_id bigint,
     title character varying(128) NOT NULL,
     description character varying(512),
@@ -44,5 +50,5 @@ CREATE TABLE IF NOT EXISTS sub_item
     CONSTRAINT fk_item_id FOREIGN KEY (item_id)
         REFERENCES item (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
 )

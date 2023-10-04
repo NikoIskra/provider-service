@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -42,10 +44,12 @@ public class SubItem {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+
     public SubItem() {
     }
-
-    
 
     public SubItem(String title, Integer priceCents, String status) {
         this.title = title;
@@ -53,7 +57,12 @@ public class SubItem {
         this.status = status;
     }
 
-
+    public SubItem(String title, Integer priceCents, String status, Item item) {
+        this.title = title;
+        this.priceCents = priceCents;
+        this.status = status;
+        this.item = item;
+    }
 
     public Long getId() {
         return id;
@@ -119,6 +128,11 @@ public class SubItem {
         this.updatedAt = updatedAt;
     }
 
-    
-    
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
 }
