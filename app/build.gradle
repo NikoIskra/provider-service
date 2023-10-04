@@ -9,7 +9,7 @@ plugins {
     id 'java'
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
-    id 'org.springframework.boot' version '3.1.3'
+    id 'org.springframework.boot' version '3.1.4'
     id 'io.spring.dependency-management' version '1.1.3'
     id "org.flywaydb.flyway" version "9.22.0"
     id "org.openapi.generator" version "6.6.0"
@@ -27,18 +27,18 @@ repositories {
 
 dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter:5.4.0')
-
-
     // This dependency is used by the application.
     implementation 'org.postgresql:postgresql'
-
     implementation 'org.springframework.boot:spring-boot-starter-web:3.1.3'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.1.3'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.1.3'
-
-    // https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'   
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    testImplementation 'com.h2database:h2:2.2.224'
 
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+    implementation 'javax.validation:validation-api:2.0.0.Final'
 }
 
 test {
@@ -62,25 +62,37 @@ application {
 
 openApiGenerate {
     generatorName.set("spring")
-    inputSpec.set("$rootDir/template-openAPI.json")
-    outputDir.set("$rootDir/generated")
-    apiPackage.set("practicetask")
-    modelPackage.set("practicetask")
+    inputSpec.set("$rootDir/OpenAPI/openApi.json")
+    outputDir.set("$rootDir/app/")
+    apiPackage.set("com.provider.controller")
+    modelPackage.set("com.provider.model")
     globalProperties.set([
         apis: "",
     ])
     configOptions = [    
-        library: "spring-cloud",
-        skipDefaultInterface: "true",
-        swaggerDocketConfig: "false",
-        unhandledException: "true",
-        booleanGetterPrefix: "is",
-        hideGenerationTimestamp: "true",
-        interfaceOnly: "true",    
-        dateLibrary: "java8",    
-        useBeanValidation: "false",    
-        openApiNullable: "false",    
-        documentationProvider : "none",    
-        annotationLibrary: "none"]
+        useSpringBoot3         : "true",
+            useTags                : "true",
+            library                : "spring-cloud",
+            skipDefaultInterface   : "true",
+            swaggerDocketConfig    : "false",
+            unhandledException     : "true",
+            booleanGetterPrefix    : "is",
+            hideGenerationTimestamp: "true",
+            interfaceOnly          : "true",
+            dateLibrary            : "java8",
+            useBeanValidation      : "true",
+            performBeanValidation  : "true",
+            openApiNullable        : "false",
+            documentationProvider  : "none",
+            annotationLibrary      : "none"]
+}
 
+tasks.openApiGenerate {
+    doLast {
+        delete(
+                "$rootDir/app/.openapi-generator",
+                "$rootDir/app/pom.xml",
+                "$rootDir/app/README.md",
+        )
+    }
 }
