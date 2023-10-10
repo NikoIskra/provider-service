@@ -1,7 +1,14 @@
 package com.provider.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.UUID;
 
@@ -11,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.provider.exception.BadRequestException;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.persistence.repository.ProviderRepository;
@@ -34,6 +42,11 @@ public class ProviderServiceImplTest {
     return providerRequestModel;
     }
 
+    private static ProviderRequestModel createInvalidProviderRequestModel() {
+        ProviderRequestModel providerRequestModel = new ProviderRequestModel("testname", "testtitle", "12345678");
+        return providerRequestModel;
+    }
+
     @Test
     void testInsertProvider() {
         ProviderRequestModel providerRequestModel = createProviderRequestModel();
@@ -42,6 +55,16 @@ public class ProviderServiceImplTest {
         assertEquals(providerRequestModel.getName(), providerReturnModel.getResult().getName());
         assertEquals(providerRequestModel.getTitle(), providerReturnModel.getResult().getTitle());
         assertEquals(providerRequestModel.getPhoneNumber(), providerReturnModel.getResult().getPhoneNumber());
+        verify(providerRepository).saveAndFlush(any());
     }
-
+    
+    @Test
+    void testInsertProvider_validatorException() {
+        ProviderRequestModel providerRequestModel = createInvalidProviderRequestModel();
+        doThrow(new BadRequestException(null)).when(providerValidator).validateProviderRequest(uuid, providerRequestModel);
+        assertThrows(BadRequestException.class,
+        () -> providerServiceImpl.save(uuid, providerRequestModel)
+        );
+        verifyNoInteractions(providerRepository);
+    }
 }

@@ -41,6 +41,9 @@ dependencies {
     implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
     implementation 'javax.validation:validation-api:2.0.0.Final'
     implementation  'org.flywaydb:flyway-core'
+    // https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path
+implementation 'com.jayway.jsonpath:json-path:2.8.0'
+
 }
 
 test {

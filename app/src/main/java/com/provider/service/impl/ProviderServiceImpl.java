@@ -10,6 +10,7 @@ import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ProviderRepository;
+import com.provider.service.AccountApiClient;
 import com.provider.service.ProviderService;
 import com.provider.service.ProviderValidator;
 
@@ -28,9 +29,7 @@ public class ProviderServiceImpl implements ProviderService {
         Provider provider = new Provider();
         provider.setName(providerRequestModel.getName());
         provider.setTitle(providerRequestModel.getTitle());
-        if (providerRequestModel.getDescription() != null) {
-            provider.setDescription(providerRequestModel.getDescription());
-        }
+        provider.setDescription(providerRequestModel.getDescription());
         provider.setPhoneNumber(providerRequestModel.getPhoneNumber());
         provider.setStatus("view-only");
         return provider;

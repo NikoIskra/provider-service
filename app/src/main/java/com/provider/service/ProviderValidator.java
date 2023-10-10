@@ -18,17 +18,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProviderValidator {
 
-    private final RestTemplate restTemplate;
-
     private final ProviderRepository providerRepository;
 
+    private final AccountApiClient accountApiClient;
+
     public void validateProviderRequest(UUID accountID, ProviderRequestModel providerRequestModel) {
-        String url="http://localhost:3000/api/v1/account/" + accountID.toString() + "/role/PROVIDER";
-        try {
-        AccountRoleIDReturnModel accountRoleIDReturnModel = restTemplate.getForObject(url, AccountRoleIDReturnModel.class);
-        } catch (Exception e) {
-            throw new BadRequestException("No provider role for this account found");
-        }
+        accountApiClient.verifyAccountID(accountID);
         if (providerRepository.existsByName(providerRequestModel.getName())) {
             throw new BadRequestException("Provider with that name already exists");
         }
