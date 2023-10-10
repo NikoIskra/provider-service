@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
 public class SubItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subItemSequenceGenerator")
-    @SequenceGenerator(name = "subItemSequenceGenerator", sequenceName = "sub_item_id_seq")    
+    @SequenceGenerator(name = "subItemSequenceGenerator", sequenceName = "sub_item_id_seq", allocationSize = 1)    
     private Long id;
 
     @Column(nullable = false)

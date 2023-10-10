@@ -17,6 +17,47 @@
           }
         }
       }
+    },
+    "/api/v1/provider": {
+      "post": {
+        "tags": [
+          "provider"
+        ],
+        "description": "Insert provider",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-ACCOUNT-ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Provider to be added",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "contentSchema/providerRequestModel.json"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "responses/201ProviderCreated.json"
+          },
+          "400": {
+            "$ref": "responses/400BadRequest.json"
+          },
+          "409": {
+            "$ref": "responses/409Conflict.json"
+          }
+        }
+      }
     }
   }
 }
