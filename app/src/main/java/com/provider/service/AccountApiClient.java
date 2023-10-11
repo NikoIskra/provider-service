@@ -18,7 +18,7 @@ public class AccountApiClient {
     public void verifyAccountID (UUID accountID) {
         try {
         AccountRoleIDReturnModel accountRoleIDReturnModel = restTemplate.getForObject(
-            "/api/v1/account/{account_id}/role/PROVIDER",
+            "http://localhost:3000/api/v1/account/{account_id}/role/PROVIDER",
              AccountRoleIDReturnModel.class,
              accountID.toString());
         } catch (Exception e) {

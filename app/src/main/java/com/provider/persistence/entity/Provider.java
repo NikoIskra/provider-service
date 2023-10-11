@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,7 +48,7 @@ public class Provider {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    @OneToMany(mappedBy = "provider")
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST)
     private List<Item> items;
 
     public Provider() {

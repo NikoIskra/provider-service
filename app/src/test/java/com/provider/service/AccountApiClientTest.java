@@ -39,7 +39,7 @@ public class AccountApiClientTest {
     @Test
     void testVerifyAccountID() {
         AccountRoleIDReturnModel accountRoleIDReturnModel = createAccountRoleIDReturnModel();
-        when(restTemplate.getForObject("/api/v1/account/{account_id}/role/PROVIDER",
+        when(restTemplate.getForObject("http://localhost:3000/api/v1/account/{account_id}/role/PROVIDER",
         AccountRoleIDReturnModel.class,
         uuid.toString())).thenReturn(accountRoleIDReturnModel);
         assertDoesNotThrow(
@@ -49,7 +49,7 @@ public class AccountApiClientTest {
     
     @Test
     void testVerifyAccountID_exceptionThrown() {
-                when(restTemplate.getForObject("/api/v1/account/{account_id}/role/PROVIDER",
+                when(restTemplate.getForObject("http://localhost:3000/api/v1/account/{account_id}/role/PROVIDER",
         AccountRoleIDReturnModel.class,
         uuid.toString())).thenThrow(RestClientException.class);
         assertThrows(BadRequestException.class,
