@@ -55,6 +55,7 @@ public class ProviderServiceImplTest {
         assertEquals(providerRequestModel.getName(), providerReturnModel.getResult().getName());
         assertEquals(providerRequestModel.getTitle(), providerReturnModel.getResult().getTitle());
         assertEquals(providerRequestModel.getPhoneNumber(), providerReturnModel.getResult().getPhoneNumber());
+        verify(providerValidator).validateProviderRequest(uuid, providerRequestModel);
         verify(providerRepository).saveAndFlush(any());
     }
     
@@ -65,6 +66,7 @@ public class ProviderServiceImplTest {
         assertThrows(BadRequestException.class,
         () -> providerServiceImpl.save(uuid, providerRequestModel)
         );
+        verify(providerValidator).validateProviderRequest(uuid, providerRequestModel);
         verifyNoInteractions(providerRepository);
     }
 }
