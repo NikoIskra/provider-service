@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -74,32 +75,33 @@ public class ProviderControllerTest {
         ProviderRequestModel providerRequestModel= createProviderRequestModel();
         ProviderReturnModel providerReturnModel = createProviderReturnModel();
         when(providerServiceImpl.save(uuid, providerRequestModel)).thenReturn(providerReturnModel);
-        MvcResult result = mvc.perform(MockMvcRequestBuilders
+        mvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/provider")
                 .header("X-ACCOUNT-ID", uuid.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(providerRequestModel))
         )
         .andExpect(status().isCreated())
-        .andReturn();
-        assertNotNull(result.getResponse().getContentAsString());
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(true))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.id").value(providerReturnModel.getResult().getId()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.phoneNumber").value(providerReturnModel.getResult().getPhoneNumber()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.name").value(providerReturnModel.getResult().getName()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.title").value(providerReturnModel.getResult().getTitle()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.status").value(providerReturnModel.getResult().getStatus()));
     }
 
 
     @Test
     void insertProviderBadRequest() throws Exception {
         ProviderRequestModel providerRequestModel= createInvalidProviderRequestModel();
-        MvcResult result = mvc.perform(MockMvcRequestBuilders
+        mvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/provider")
                 .header("X-ACCOUNT-ID", "d3d35b67-b8f9-464b-a0b5-39f526e1f5f2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(providerRequestModel))
         )
-        .andDo(MockMvcResultHandlers.print())
         .andExpect(status().isBadRequest())
-        .andReturn();
-        String content = result.getResponse().getContentAsString();
-        ErrorResponse errorResponse = mapper.readValue(content, ErrorResponse.class);
-        assertEquals(errorResponse.isOk(), false);
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("validation failed"));
     }
 }

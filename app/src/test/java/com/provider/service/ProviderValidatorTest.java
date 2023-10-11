@@ -88,12 +88,11 @@ public class ProviderValidatorTest {
 
     @Test
     void testValidateProviderRequestData_invalidRequestModel() {
-        ProviderRequestModel providerRequestModel = spy(createInvalidProviderRequestModel());
+        ProviderRequestModel providerRequestModel = createInvalidProviderRequestModel();
         assertThrows(BadRequestException.class,
         () -> providerValidator.validateProviderRequest(uuid, providerRequestModel)    
         );
         verify(providerRepository).existsByName(anyString());
-        verify(providerRequestModel).getPhoneNumber();
     }
     
 }
