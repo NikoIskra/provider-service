@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Propagation;
 
 import com.provider.persistence.entity.Provider;
@@ -20,6 +21,7 @@ import com.provider.persistence.entity.Provider;
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @org.springframework.transaction.annotation.Transactional(propagation = Propagation.NOT_SUPPORTED)
+@ActiveProfiles("test")
 public class ProviderRepositoryTest {
 
     @Autowired

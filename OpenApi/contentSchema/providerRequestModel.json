@@ -1,0 +1,28 @@
+{
+    "type" : "object",
+    "required" : [
+        "name",
+        "title",
+        "phoneNumber"
+    ],
+    "properties" : {
+        "name": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 64
+        },
+        "title": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 128
+        },
+        "description" : {
+            "type": "string",
+            "maxLength":512
+        },
+        "phoneNumber": {
+            "type": "string",
+            "pattern": "^\\+?\\d{10,14}$"
+        }
+    }
+}

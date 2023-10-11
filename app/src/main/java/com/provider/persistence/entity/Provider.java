@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "providerSequenceGenerator")
-    @SequenceGenerator(name = "providerSequenceGenerator", sequenceName = "provider_id_seq")
+    @SequenceGenerator(name = "providerSequenceGenerator", sequenceName = "provider_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "owner_id", nullable = false)
