@@ -2,6 +2,7 @@ package com.provider.service;
 
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,14 +14,18 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AccountApiClient {
+
+    @Value("${base.url}")
+    private String baseUrl;
+
     private final RestTemplate restTemplate;
 
     public void verifyAccountID (UUID accountID) {
+        String url = baseUrl + "/api/v1/account/" + accountID.toString() + "/role/PROVIDER";
         try {
         AccountRoleIDReturnModel accountRoleIDReturnModel = restTemplate.getForObject(
-            "http://localhost:3000/api/v1/account/{account_id}/role/PROVIDER",
-             AccountRoleIDReturnModel.class,
-             accountID.toString());
+            url,
+             AccountRoleIDReturnModel.class);
         } catch (Exception e) {
             throw new BadRequestException("No provider role for this account found");
         }
