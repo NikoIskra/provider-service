@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
 import com.provider.exception.BadRequestException;
+import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ItemRepository;
 import com.provider.persistence.repository.ProviderRepository;
@@ -29,16 +30,13 @@ public class ItemValidatorTest {
     ProviderRepository providerRepository;
 
     @Mock
-    RestTemplate restTemplate;
-
-    @Mock
     AccountApiClient accountApiClient;
 
     @InjectMocks
     ItemValidator itemValidator;
 
     private static Optional<Provider> createProviderOptional() {
-        Provider provider = new Provider(uuid, "name", "title", "1234567890", "view-only");
+        Provider provider = new Provider(uuid, "name", "title", "1234567890", StatusEnum.VIEW_ONLY);
         return Optional.of(provider);
     }
 

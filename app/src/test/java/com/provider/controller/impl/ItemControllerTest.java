@@ -17,13 +17,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.provider.exception.BadRequestException;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.StatusEnum;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.SubItemRequestModel;
 import com.provider.model.SubItemReturnModel;
+import com.provider.persistence.repository.ProviderRepository;
 import com.provider.service.impl.ItemServiceImpl;
 
 @WebMvcTest(ItemController.class)
@@ -31,6 +34,9 @@ import com.provider.service.impl.ItemServiceImpl;
 public class ItemControllerTest {
     @Autowired
     MockMvc mvc;
+
+    @MockBean
+    ProviderRepository providerRepository;
 
     @MockBean
     ItemServiceImpl itemServiceImpl;
@@ -56,14 +62,14 @@ public class ItemControllerTest {
         .title("testtitle")
         .description("desc")
         .priceCents(140)
-        .status("view-only");
+        .status(StatusEnum.VIEW_ONLY);
         subItemReturnModels.add(subItemReturnModel);
         ItemReturnModelResult itemReturnModelResult = new ItemReturnModelResult()
         .id(1L)
         .providerId(1000L)
         .title("itemtitle")
         .priceCents(1400)
-        .status("view-only")
+        .status(StatusEnum.VIEW_ONLY)
         .subItems(subItemReturnModels);
         return new ItemReturnModel().ok(true).result(itemReturnModelResult);
     }
@@ -83,5 +89,33 @@ public class ItemControllerTest {
         .andExpect(MockMvcResultMatchers.status().isCreated())
         .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(true))
         .andExpect(MockMvcResultMatchers.jsonPath("$.result.id").value(1));
+    }
+
+    @Test
+    void insertItem_internalServerError() throws Exception {
+        ItemRequestModel itemRequestModel= createItemRequestModel();
+        mvc.perform(MockMvcRequestBuilders
+                .post("/api/v1/provider/1/item")
+                .header("X-ACCOUNT-ID", uuid.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(itemRequestModel))
+        )
+        .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false));
+    }
+
+    @Test
+    void insertItem_badRequest() throws Exception {
+        ItemRequestModel itemRequestModel= createItemRequestModel();
+        when(itemServiceImpl.save(uuid, 1L, itemRequestModel)).thenThrow(new BadRequestException("bad request"));
+        mvc.perform(MockMvcRequestBuilders
+                .post("/api/v1/provider/1/item")
+                .header("X-ACCOUNT-ID", uuid.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(itemRequestModel))
+        )
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("bad request"));
     }
 }

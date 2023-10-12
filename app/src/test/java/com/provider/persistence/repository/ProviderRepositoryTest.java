@@ -16,6 +16,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Propagation;
 
+import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
 
 @DataJpaTest
@@ -30,7 +31,7 @@ public class ProviderRepositoryTest {
     private static final UUID uuid = UUID.fromString("1805442b-3504-4e93-be8b-b87067377a24");
 
     private static Provider createProvider() {
-        Provider provider = new Provider(uuid, "testName", "testTitle", "123456789", "active");
+        Provider provider = new Provider(uuid, "testName", "testTitle", "123456789", StatusEnum.ACTIVE);
         return provider;
     }
 

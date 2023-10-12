@@ -24,7 +24,7 @@
                     "type": "integer"
                 },
                 "status" : {
-                    "type" : "string"
+                    "$ref" : "enums/statusEnum.json"
                 },
                 "subItems": {
                     "type": "array",

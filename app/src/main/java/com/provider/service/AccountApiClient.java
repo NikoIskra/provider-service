@@ -21,11 +21,11 @@ public class AccountApiClient {
     private final RestTemplate restTemplate;
 
     public void verifyAccountID (UUID accountID) {
-        String url = baseUrl + "/api/v1/account/" + accountID.toString() + "/role/PROVIDER";
         try {
         AccountRoleIDReturnModel accountRoleIDReturnModel = restTemplate.getForObject(
-            url,
-             AccountRoleIDReturnModel.class);
+            baseUrl + "/api/v1/account/{account_id}/role/PROVIDER",
+             AccountRoleIDReturnModel.class,
+             accountID.toString());
         } catch (Exception e) {
             throw new BadRequestException("No provider role for this account found");
         }

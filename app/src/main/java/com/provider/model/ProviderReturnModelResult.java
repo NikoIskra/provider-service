@@ -5,6 +5,8 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.provider.model.StatusEnum;
 import java.util.UUID;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -35,7 +37,7 @@ public class ProviderReturnModelResult {
 
   private String phoneNumber;
 
-  private String status;
+  private StatusEnum status;
 
   public ProviderReturnModelResult id(Long id) {
     this.id = id;
@@ -151,7 +153,7 @@ public class ProviderReturnModelResult {
     this.phoneNumber = phoneNumber;
   }
 
-  public ProviderReturnModelResult status(String status) {
+  public ProviderReturnModelResult status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -160,13 +162,13 @@ public class ProviderReturnModelResult {
    * Get status
    * @return status
   */
-  
+  @Valid 
   @JsonProperty("status")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 

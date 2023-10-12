@@ -5,6 +5,8 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.provider.model.StatusEnum;
 import com.provider.model.SubItemReturnModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,7 @@ public class ItemReturnModelResult {
 
   private Integer priceCents;
 
-  private String status;
+  private StatusEnum status;
 
   @Valid
   private List<@Valid SubItemReturnModel> subItems;
@@ -135,7 +137,7 @@ public class ItemReturnModelResult {
     this.priceCents = priceCents;
   }
 
-  public ItemReturnModelResult status(String status) {
+  public ItemReturnModelResult status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -144,13 +146,13 @@ public class ItemReturnModelResult {
    * Get status
    * @return status
   */
-  
+  @Valid 
   @JsonProperty("status")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
