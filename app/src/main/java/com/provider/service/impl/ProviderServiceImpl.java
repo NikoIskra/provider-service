@@ -4,14 +4,11 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.provider.exception.NotFoundException;
+import com.provider.converter.EntityConverter;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
-import com.provider.model.ProviderReturnModelResult;
-import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ProviderRepository;
-import com.provider.service.AccountApiClient;
 import com.provider.service.ProviderService;
 import com.provider.service.ProviderValidator;
 
@@ -26,36 +23,16 @@ public class ProviderServiceImpl implements ProviderService {
     
     private final ProviderValidator providerValidator;
 
-    private Provider mapRequestModelToProvider(ProviderRequestModel providerRequestModel) {
-        Provider provider = new Provider();
-        provider.setName(providerRequestModel.getName());
-        provider.setTitle(providerRequestModel.getTitle());
-        provider.setDescription(providerRequestModel.getDescription());
-        provider.setPhoneNumber(providerRequestModel.getPhoneNumber());
-        provider.setStatus(StatusEnum.VIEW_ONLY);
-        return provider;
-    }
-    
-    private ProviderReturnModel mapProviderToReturnModel(Provider provider) {
-        ProviderReturnModelResult providerReturnModelResult = new ProviderReturnModelResult()
-        .id(provider.getId())
-        .ownerId(provider.getOwnerId())
-        .name(provider.getName())
-        .title(provider.getTitle())
-        .phoneNumber(provider.getPhoneNumber())
-        .description(provider.getDescription())
-        .status(provider.getStatus());
-        return new ProviderReturnModel().ok(true).result(providerReturnModelResult);
-    }
-    
+    private final EntityConverter entityConverter;
+
     @Override
     @Transactional
     public ProviderReturnModel save(UUID accountID, ProviderRequestModel providerRequestModel) {
         providerValidator.validateProviderRequest(accountID, providerRequestModel);
-        Provider provider = mapRequestModelToProvider(providerRequestModel);
+        Provider provider = entityConverter.convertProviderRequestModelToProvider(providerRequestModel);
         provider.setOwnerId(accountID);
         providerRepository.saveAndFlush(provider);
-        return mapProviderToReturnModel(provider);
+        return entityConverter.convertProviderToReturnModel(provider);
     }
     
 }
