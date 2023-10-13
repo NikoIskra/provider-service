@@ -23,7 +23,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.provider.converter.EntityConverter;
 import com.provider.exception.BadRequestException;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
@@ -36,6 +35,7 @@ import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
 import com.provider.persistence.repository.ItemRepository;
 import com.provider.persistence.repository.ProviderRepository;
+import com.provider.service.EntityConverterService;
 import com.provider.service.ItemValidator;
 
 import jakarta.persistence.EntityManager;
@@ -52,7 +52,7 @@ public class ItemServiceImplTest {
     ProviderRepository providerRepository;
 
     @Mock
-    EntityConverter entityConverter;
+    EntityConverterService entityConverter;
 
     @InjectMocks
     ItemServiceImpl itemServiceImpl;

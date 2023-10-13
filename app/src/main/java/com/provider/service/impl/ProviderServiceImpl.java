@@ -4,11 +4,11 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.provider.converter.EntityConverter;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ProviderRepository;
+import com.provider.service.EntityConverterService;
 import com.provider.service.ProviderService;
 import com.provider.service.ProviderValidator;
 
@@ -23,7 +23,7 @@ public class ProviderServiceImpl implements ProviderService {
     
     private final ProviderValidator providerValidator;
 
-    private final EntityConverter entityConverter;
+    private final EntityConverterService entityConverter;
 
     @Override
     @Transactional

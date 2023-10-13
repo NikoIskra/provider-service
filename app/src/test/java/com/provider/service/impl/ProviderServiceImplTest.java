@@ -19,7 +19,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.provider.converter.EntityConverter;
 import com.provider.exception.BadRequestException;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
@@ -27,6 +26,7 @@ import com.provider.model.ProviderReturnModelResult;
 import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ProviderRepository;
+import com.provider.service.EntityConverterService;
 import com.provider.service.ProviderValidator;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +38,7 @@ public class ProviderServiceImplTest {
     ProviderValidator providerValidator;
 
     @Mock
-    EntityConverter entityConverter;
+    EntityConverterService entityConverter;
 
     @InjectMocks
     ProviderServiceImpl providerServiceImpl;

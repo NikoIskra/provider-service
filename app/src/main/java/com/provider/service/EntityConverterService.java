@@ -1,8 +1,9 @@
-package com.provider.converter;
+package com.provider.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
@@ -17,8 +18,8 @@ import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
 
-@Component
-public class EntityConverter {
+@Service
+public class EntityConverterService {
 
     @Autowired
     private ModelMapper modelMapper;

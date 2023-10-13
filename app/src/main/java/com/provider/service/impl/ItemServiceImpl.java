@@ -7,7 +7,6 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.provider.converter.EntityConverter;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.SubItemRequestModel;
@@ -15,6 +14,7 @@ import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.SubItem;
 import com.provider.persistence.repository.ItemRepository;
 import com.provider.persistence.repository.ProviderRepository;
+import com.provider.service.EntityConverterService;
 import com.provider.service.ItemService;
 import com.provider.service.ItemValidator;
 
@@ -31,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final ProviderRepository providerRepository;
 
-    private final EntityConverter entityConverter;
+    private final EntityConverterService entityConverter;
 
     @Override
     @Transactional
