@@ -45,6 +45,8 @@ dependencies {
 implementation 'com.jayway.jsonpath:json-path:2.8.0'
 // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 implementation 'org.apache.commons:commons-lang3:3.13.0'
+// https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+implementation 'org.modelmapper:modelmapper:3.1.1'
 
 
 }

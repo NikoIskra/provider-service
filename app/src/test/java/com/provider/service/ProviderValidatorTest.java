@@ -20,8 +20,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
 import com.provider.exception.BadRequestException;
-import com.provider.model.AccountRoleIDReturnModel;
-import com.provider.model.AccountRoleIDReturnModelResult;
 import com.provider.model.ProviderRequestModel;
 import com.provider.persistence.repository.ProviderRepository;
 
@@ -49,13 +47,6 @@ public class ProviderValidatorTest {
     private static ProviderRequestModel createInvalidProviderRequestModel() {
         ProviderRequestModel providerRequestModel = new ProviderRequestModel("testname", "testtitle", "12345678");
         return providerRequestModel;
-    }
-
-    private static AccountRoleIDReturnModel createAccountRoleIDReturnModel() {
-        AccountRoleIDReturnModelResult accountRoleIDReturnModelResult = new AccountRoleIDReturnModelResult()
-        .roleId(uuid);
-        AccountRoleIDReturnModel accountRoleIDReturnModel = new AccountRoleIDReturnModel().ok(true).result(accountRoleIDReturnModelResult);
-        return accountRoleIDReturnModel;
     }
 
     @Test
