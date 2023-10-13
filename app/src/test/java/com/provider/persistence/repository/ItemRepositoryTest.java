@@ -15,6 +15,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Propagation;
 
+import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Item;
 
 @DataJpaTest
@@ -27,7 +28,7 @@ public class ItemRepositoryTest {
     ItemRepository itemRepository;
 
     private static Item createItem() {
-        Item item = new Item("testTitle", 12, "active");
+        Item item = new Item("testTitle", 12, StatusEnum.ACTIVE);
         return item;
     }
 

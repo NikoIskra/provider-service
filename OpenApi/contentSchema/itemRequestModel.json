@@ -1,0 +1,27 @@
+{
+    "type" : "object",
+    "required" : [
+        "title",
+        "priceCents"
+    ],
+    "properties" : {
+        "title": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 128
+        },
+        "description" : {
+            "type": "string",
+            "maxLength":512
+        },
+        "priceCents": {
+            "type": "integer"
+        },
+        "subItems": {
+            "type": "array",
+            "items": {
+                "$ref": "subItemRequestModel.json"
+            }
+        }
+    }
+}

@@ -1,5 +1,6 @@
 package com.provider.exception.handler;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -55,7 +56,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleInternalServerError(Exception ex) {
         ErrorResponse errorResponse = new ErrorResponse()
         .ok(false)
-        .errorMessage(ex.getMessage());
+        .errorMessage(ExceptionUtils.getRootCause(ex).toString());
         return new ResponseEntity<ErrorResponse> (errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

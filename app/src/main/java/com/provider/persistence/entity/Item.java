@@ -5,7 +5,12 @@ import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.provider.converter.StatusEnumConverter;
+import com.provider.model.StatusEnum;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,7 +38,8 @@ public class Item {
     private Integer priceCents;
 
     @Column(nullable = false)
-    private String status;
+    @Convert(converter = StatusEnumConverter.class)
+    private StatusEnum status;
 
     @Column(name = "created_at", insertable = false)
     private Timestamp createdAt;
@@ -46,20 +52,20 @@ public class Item {
     @JoinColumn(name = "provider_id")
     private Provider provider;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<SubItem> subItems;
 
     public Item() {
     }
 
-    public Item(String title, Integer priceCents, String status) {
+    public Item(String title, Integer priceCents, StatusEnum status) {
         this.title = title;
         this.priceCents = priceCents;
         this.status = status;
     }
 
 
-    public Item(String title, Integer priceCents, String status, Provider provider, List<SubItem> subItems) {
+    public Item(String title, Integer priceCents, StatusEnum status, Provider provider, List<SubItem> subItems) {
         this.title = title;
         this.priceCents = priceCents;
         this.status = status;
@@ -99,11 +105,11 @@ public class Item {
         this.priceCents = priceCents;
     }
 
-    public String getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 

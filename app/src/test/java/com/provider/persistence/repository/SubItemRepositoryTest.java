@@ -15,6 +15,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Propagation;
 
+import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.SubItem;
 
@@ -27,7 +28,7 @@ public class SubItemRepositoryTest {
     SubItemRepository subItemRepository;
 
     private static SubItem createSubItem() {
-        SubItem subItem = new SubItem("testTitle", 12, "active");
+        SubItem subItem = new SubItem("testTitle", 12, StatusEnum.ACTIVE);
         return subItem;
     }
 

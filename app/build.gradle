@@ -43,6 +43,9 @@ dependencies {
     implementation  'org.flywaydb:flyway-core'
     // https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path
 implementation 'com.jayway.jsonpath:json-path:2.8.0'
+// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+implementation 'org.apache.commons:commons-lang3:3.13.0'
+
 
 }
 

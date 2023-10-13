@@ -8,6 +8,7 @@ import com.provider.exception.NotFoundException;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ProviderRepository;
 import com.provider.service.AccountApiClient;
@@ -31,7 +32,7 @@ public class ProviderServiceImpl implements ProviderService {
         provider.setTitle(providerRequestModel.getTitle());
         provider.setDescription(providerRequestModel.getDescription());
         provider.setPhoneNumber(providerRequestModel.getPhoneNumber());
-        provider.setStatus("view-only");
+        provider.setStatus(StatusEnum.VIEW_ONLY);
         return provider;
     }
     

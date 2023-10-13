@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.provider.model.StatusEnum;
-import java.util.UUID;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
@@ -18,28 +17,26 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * ProviderReturnModelResult
+ * SubItemReturnModel
  */
 
-@JsonTypeName("providerReturnModel_result")
+@JsonTypeName("subItemReturnModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class ProviderReturnModelResult {
+public class SubItemReturnModel {
 
   private Long id;
 
-  private UUID ownerId;
-
-  private String name;
+  private Long itemId;
 
   private String title;
 
   private String description;
 
-  private String phoneNumber;
+  private Integer priceCents;
 
   private StatusEnum status;
 
-  public ProviderReturnModelResult id(Long id) {
+  public SubItemReturnModel id(Long id) {
     this.id = id;
     return this;
   }
@@ -58,45 +55,26 @@ public class ProviderReturnModelResult {
     this.id = id;
   }
 
-  public ProviderReturnModelResult ownerId(UUID ownerId) {
-    this.ownerId = ownerId;
+  public SubItemReturnModel itemId(Long itemId) {
+    this.itemId = itemId;
     return this;
   }
 
   /**
-   * Get ownerId
-   * @return ownerId
-  */
-  @Valid 
-  @JsonProperty("ownerId")
-  public UUID getOwnerId() {
-    return ownerId;
-  }
-
-  public void setOwnerId(UUID ownerId) {
-    this.ownerId = ownerId;
-  }
-
-  public ProviderReturnModelResult name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
+   * Get itemId
+   * @return itemId
   */
   
-  @JsonProperty("name")
-  public String getName() {
-    return name;
+  @JsonProperty("itemId")
+  public Long getItemId() {
+    return itemId;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setItemId(Long itemId) {
+    this.itemId = itemId;
   }
 
-  public ProviderReturnModelResult title(String title) {
+  public SubItemReturnModel title(String title) {
     this.title = title;
     return this;
   }
@@ -105,7 +83,7 @@ public class ProviderReturnModelResult {
    * Get title
    * @return title
   */
-  
+  @Size(min = 5, max = 128) 
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -115,7 +93,7 @@ public class ProviderReturnModelResult {
     this.title = title;
   }
 
-  public ProviderReturnModelResult description(String description) {
+  public SubItemReturnModel description(String description) {
     this.description = description;
     return this;
   }
@@ -124,7 +102,7 @@ public class ProviderReturnModelResult {
    * Get description
    * @return description
   */
-  
+  @Size(max = 512) 
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -134,26 +112,26 @@ public class ProviderReturnModelResult {
     this.description = description;
   }
 
-  public ProviderReturnModelResult phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  public SubItemReturnModel priceCents(Integer priceCents) {
+    this.priceCents = priceCents;
     return this;
   }
 
   /**
-   * Get phoneNumber
-   * @return phoneNumber
+   * Get priceCents
+   * @return priceCents
   */
   
-  @JsonProperty("phoneNumber")
-  public String getPhoneNumber() {
-    return phoneNumber;
+  @JsonProperty("priceCents")
+  public Integer getPriceCents() {
+    return priceCents;
   }
 
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  public void setPriceCents(Integer priceCents) {
+    this.priceCents = priceCents;
   }
 
-  public ProviderReturnModelResult status(StatusEnum status) {
+  public SubItemReturnModel status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -180,31 +158,29 @@ public class ProviderReturnModelResult {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProviderReturnModelResult providerReturnModelResult = (ProviderReturnModelResult) o;
-    return Objects.equals(this.id, providerReturnModelResult.id) &&
-        Objects.equals(this.ownerId, providerReturnModelResult.ownerId) &&
-        Objects.equals(this.name, providerReturnModelResult.name) &&
-        Objects.equals(this.title, providerReturnModelResult.title) &&
-        Objects.equals(this.description, providerReturnModelResult.description) &&
-        Objects.equals(this.phoneNumber, providerReturnModelResult.phoneNumber) &&
-        Objects.equals(this.status, providerReturnModelResult.status);
+    SubItemReturnModel subItemReturnModel = (SubItemReturnModel) o;
+    return Objects.equals(this.id, subItemReturnModel.id) &&
+        Objects.equals(this.itemId, subItemReturnModel.itemId) &&
+        Objects.equals(this.title, subItemReturnModel.title) &&
+        Objects.equals(this.description, subItemReturnModel.description) &&
+        Objects.equals(this.priceCents, subItemReturnModel.priceCents) &&
+        Objects.equals(this.status, subItemReturnModel.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, ownerId, name, title, description, phoneNumber, status);
+    return Objects.hash(id, itemId, title, description, priceCents, status);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProviderReturnModelResult {\n");
+    sb.append("class SubItemReturnModel {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    ownerId: ").append(toIndentedString(ownerId)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    itemId: ").append(toIndentedString(itemId)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    priceCents: ").append(toIndentedString(priceCents)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -29,6 +29,7 @@ import com.provider.model.ErrorResponse;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.StatusEnum;
 import com.provider.persistence.repository.ProviderRepository;
 import com.provider.service.ProviderValidator;
 import com.provider.service.impl.ProviderServiceImpl;
@@ -62,7 +63,7 @@ public class ProviderControllerTest {
         .ownerId(uuid)
         .name("testname")
         .title("testtitle")
-        .status("view-only");
+        .status(StatusEnum.VIEW_ONLY);
         ProviderReturnModel providerReturnModel = new ProviderReturnModel().ok(true).result(providerReturnModelResult);
         return providerReturnModel;
     }
@@ -87,7 +88,7 @@ public class ProviderControllerTest {
         .andExpect(MockMvcResultMatchers.jsonPath("$.result.phoneNumber").value(providerReturnModel.getResult().getPhoneNumber()))
         .andExpect(MockMvcResultMatchers.jsonPath("$.result.name").value(providerReturnModel.getResult().getName()))
         .andExpect(MockMvcResultMatchers.jsonPath("$.result.title").value(providerReturnModel.getResult().getTitle()))
-        .andExpect(MockMvcResultMatchers.jsonPath("$.result.status").value(providerReturnModel.getResult().getStatus()));
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.status").value(providerReturnModel.getResult().getStatus().toString()));
     }
 
 

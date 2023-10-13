@@ -10,12 +10,9 @@
                     "type" : "integer",
                     "format" : "int64"
                 },
-                "ownerId": {
-                    "type": "string",
-                    "format": "uuid"
-                },
-                "name": {
-                    "type": "string"
+                "providerId": {
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "title": {
                     "type": "string"
@@ -23,11 +20,17 @@
                 "description": {
                     "type": "string"
                 },
-                "phoneNumber": {
-                    "type": "string"
+                "priceCents": {
+                    "type": "integer"
                 },
                 "status" : {
-                    "$ref": "enums/statusEnum.json"
+                    "$ref" : "enums/statusEnum.json"
+                },
+                "subItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "subItemReturnModel.json"
+                    }
                 }
             }
         }

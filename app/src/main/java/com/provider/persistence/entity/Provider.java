@@ -6,7 +6,12 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.provider.converter.StatusEnumConverter;
+import com.provider.model.StatusEnum;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,7 +43,8 @@ public class Provider {
     private String phoneNumber;
 
     @Column(nullable = false)
-    private String status;
+    @Convert(converter = StatusEnumConverter.class)
+    private StatusEnum status;
 
     @Column(name = "created_at", insertable = false)
     private Timestamp createdAt;
@@ -47,7 +53,7 @@ public class Provider {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    @OneToMany(mappedBy = "provider")
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST)
     private List<Item> items;
 
     public Provider() {
@@ -55,7 +61,7 @@ public class Provider {
 
     
 
-    public Provider(UUID ownerId, String name, String title, String phoneNumber, String status, List<Item> items) {
+    public Provider(UUID ownerId, String name, String title, String phoneNumber, StatusEnum status, List<Item> items) {
         this.ownerId = ownerId;
         this.name = name;
         this.title = title;
@@ -66,7 +72,7 @@ public class Provider {
 
 
 
-    public Provider(UUID ownerId, String name, String title, String phoneNumber, String status) {
+    public Provider(UUID ownerId, String name, String title, String phoneNumber, StatusEnum status) {
         this.ownerId = ownerId;
         this.name = name;
         this.title = title;
@@ -124,11 +130,11 @@ public class Provider {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 
