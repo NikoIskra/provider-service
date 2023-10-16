@@ -1,11 +1,13 @@
 package com.provider.config;
 
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @org.springframework.context.annotation.Configuration
 public class Configuration {
+
     
     @Bean
     public RestTemplate restTemplate() {
@@ -14,6 +16,9 @@ public class Configuration {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+        return modelMapper;
     }
 }

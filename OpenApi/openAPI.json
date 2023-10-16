@@ -106,6 +106,54 @@
           }
         }
       }
+    },
+    "/api/v1/provider/{provider-id}" : {
+      "patch" : {
+        "tags": [
+          "provider"
+        ],
+        "description": "Update provider",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-ACCOUNT-ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "provider-id",
+            "in": "path",
+            "description": "Id of provider to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Provider to update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "contentSchema/providerUpdateRequestModel.json"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "responses/201ProviderCreated.json"
+          },
+          "400": {
+            "$ref": "responses/400BadRequest.json"
+          }
+        }
+      }
     }
   }
 }

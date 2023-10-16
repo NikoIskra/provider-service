@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.aspectj.apache.bcel.classfile.Module.Provide;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,6 +24,7 @@ import com.provider.exception.BadRequestException;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ProviderRepository;
@@ -71,6 +73,12 @@ public class ProviderServiceImplTest {
         return new ProviderReturnModel().ok(true).result(providerReturnModelResult);
     }
 
+        private static ProviderUpdateRequestModel createProviderUpdateRequestModel() {
+        return new ProviderUpdateRequestModel()
+        .description("testdesc");
+    }
+
+
     @Test
     void testInsertProvider() {
         ProviderRequestModel providerRequestModel = createProviderRequestModel();
@@ -99,5 +107,17 @@ public class ProviderServiceImplTest {
         verify(providerValidator).validateProviderRequest(uuid, providerRequestModel);
         verifyNoInteractions(providerRepository);
         verifyNoInteractions(entityConverter);
+    }
+    
+    @Test
+    void testPatchProvider() {
+        Provider provider = createProvider();
+        ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
+        doNothing().when(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
+        when(providerRepository.getById(any())).thenReturn(provider);
+        provider.setDescription(providerUpdateRequestModel.getDescription());
+        ProviderReturnModel providerReturnModel = providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel);
+        verify(entityConverter).convertPatchRequestModelToProvider(providerUpdateRequestModel, provider);
+        verify(providerRepository).save(provider);
     }
 }

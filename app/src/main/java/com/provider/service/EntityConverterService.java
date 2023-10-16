@@ -1,5 +1,6 @@
 package com.provider.service;
 
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import com.provider.model.ItemReturnModelResult;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.model.SubItemRequestModel;
 import com.provider.model.SubItemReturnModel;
@@ -54,6 +56,10 @@ public class EntityConverterService {
     public ItemReturnModel convertItemToReturnModel (Item item) {
         ItemReturnModelResult itemReturnModelResult = modelMapper.map(item, ItemReturnModelResult.class);
         return new ItemReturnModel().ok(true).result(itemReturnModelResult);
+    }
+
+    public void convertPatchRequestModelToProvider (ProviderUpdateRequestModel providerUpdateRequestModel, Provider provider) {
+        modelMapper.map(providerUpdateRequestModel, provider);
     }
 
 }

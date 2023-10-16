@@ -13,6 +13,7 @@ import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
+import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.service.ProviderService;
 
 import jakarta.validation.Valid;
@@ -32,5 +33,12 @@ public class ProviderController implements ProviderApi {
         String headerString = "/api/v1/provider/" + providerReturnModel.getResult().getId().toString();
         returnHeaders.set("Location", headerString);
         return ResponseEntity.status(HttpStatus.CREATED).headers(returnHeaders).body(providerReturnModel);
+    }
+
+    @Override
+    public ResponseEntity<ProviderReturnModel> apiV1ProviderProviderIdPatch(@NotNull UUID X_ACCOUNT_ID, Long providerId,
+            @Valid ProviderUpdateRequestModel providerUpdateRequestModel) throws Exception {
+        ProviderReturnModel providerReturnModel = providerService.patch(X_ACCOUNT_ID, providerId, providerUpdateRequestModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(providerReturnModel);
     }
 }

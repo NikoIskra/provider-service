@@ -1,0 +1,21 @@
+{
+    "type" : "object",
+    "properties" : {
+        "title": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 128
+        },
+        "description" : {
+            "type": "string",
+            "maxLength":512
+        },
+        "status" : {
+            "$ref" : "enums/statusEnum.json"
+        },
+        "phoneNumber": {
+            "type": "string",
+            "pattern": "^\\+?\\d{10,14}$"
+        }
+    }
+}
