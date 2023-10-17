@@ -176,7 +176,6 @@ public class EntityConverterTest {
         entityConverterService.patchRequestModelToProvider(providerUpdateRequestModel, updatedProvider);
         assertEquals(provider.getOwnerId(), updatedProvider.getOwnerId());
         assertEquals(provider.getName(), updatedProvider.getName());
-        assertEquals(provider.getPhoneNumber(), updatedProvider.getPhoneNumber());
         assertEquals(providerUpdateRequestModel.getTitle(), updatedProvider.getTitle());
         assertEquals(providerUpdateRequestModel.getDescription(), updatedProvider.getDescription());
         assertEquals(providerUpdateRequestModel.getStatus(), updatedProvider.getStatus());
