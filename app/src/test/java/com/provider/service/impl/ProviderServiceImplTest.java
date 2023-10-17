@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.aspectj.apache.bcel.classfile.Module.Provide;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,6 +24,7 @@ import com.provider.exception.BadRequestException;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ProviderRepository;
@@ -71,6 +73,12 @@ public class ProviderServiceImplTest {
         return new ProviderReturnModel().ok(true).result(providerReturnModelResult);
     }
 
+        private static ProviderUpdateRequestModel createProviderUpdateRequestModel() {
+        return new ProviderUpdateRequestModel()
+        .description("testdesc");
+    }
+
+
     @Test
     void testInsertProvider() {
         ProviderRequestModel providerRequestModel = createProviderRequestModel();
@@ -97,7 +105,28 @@ public class ProviderServiceImplTest {
         assertThrows(BadRequestException.class,
                 () -> providerServiceImpl.save(uuid, providerRequestModel));
         verify(providerValidator).validateProviderRequest(uuid, providerRequestModel);
-        verifyNoInteractions(providerRepository);
-        verifyNoInteractions(entityConverter);
+        verifyNoInteractions(providerRepository, entityConverter);
+    }
+    
+    @Test
+    void testPatchProvider() {
+        Provider provider = createProvider();
+        ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
+        doNothing().when(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
+        when(providerRepository.getById(any())).thenReturn(provider);
+        ProviderReturnModel providerReturnModel = providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel);
+        verify(entityConverter).patchRequestModelToProvider(providerUpdateRequestModel, provider);
+        verify(providerRepository).save(provider);
+    }
+
+    @Test
+    void testPatchProvider_validatorException() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
+        doThrow(new BadRequestException(null)).when(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
+        assertThrows(BadRequestException.class,
+        () -> providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel)
+        );
+        verify(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
+        verifyNoInteractions(providerRepository, entityConverter);
     }
 }

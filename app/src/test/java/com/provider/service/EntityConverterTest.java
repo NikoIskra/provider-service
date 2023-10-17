@@ -1,7 +1,9 @@
 package com.provider.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -15,13 +17,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.ui.ModelMap;
 
+import com.provider.config.Configuration;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.model.SubItemRequestModel;
 import com.provider.model.SubItemReturnModel;
@@ -29,13 +37,9 @@ import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
 
-@ExtendWith(MockitoExtension.class)
 public class EntityConverterTest {
-    @Mock
-    ModelMapper modelMapper;
 
-    @InjectMocks
-    EntityConverterService entityConverterService;
+    private final EntityConverterService entityConverterService = new EntityConverterService(new Configuration().modelMapper());
 
     private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
@@ -95,15 +99,21 @@ public class EntityConverterTest {
         return itemRequestModel;
     }
 
+    private static ProviderUpdateRequestModel createProviderUpdateRequestModel() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = new ProviderUpdateRequestModel()
+        .description("updatedesc")
+        .status(StatusEnum.ACTIVE)
+        .title("updatedTitle")
+        .phoneNumber("121212121212");
+        return providerUpdateRequestModel;
+    }
+
     @Test
     void testConvertProviderToReturnModel() {
         Provider provider = createProvider();
-        ProviderReturnModelResult providerReturnModelResult = createProviderReturnModelResult();
-        when(modelMapper.map(provider, ProviderReturnModelResult.class)).thenReturn(providerReturnModelResult);
         ProviderReturnModel returnModel = entityConverterService.convertProviderToReturnModel(provider);
-        verify(modelMapper).map(any(), any());
         assertEquals(returnModel.isOk(), true);
-        assertEquals(returnModel.getResult().getId(), 1L);
+        assertEquals(returnModel.getResult().getOwnerId(), provider.getOwnerId());
         assertEquals(returnModel.getResult().getName(), provider.getName());
         assertEquals(returnModel.getResult().getTitle(), provider.getTitle());
         assertEquals(returnModel.getResult().getPhoneNumber(), provider.getPhoneNumber());
@@ -113,33 +123,26 @@ public class EntityConverterTest {
     @Test
     void testConvertProviderRequestModelToProvider() {
         ProviderRequestModel providerRequestModel = createProviderRequestModel();
-        Provider provider = createProvider();
-        when(modelMapper.map(providerRequestModel, Provider.class)).thenReturn(provider);
-        Provider provider2 = entityConverterService.convertProviderRequestModelToProvider(providerRequestModel);
-        verify(modelMapper).map(any(), any());
-        assertEquals(provider2.getStatus(), StatusEnum.VIEW_ONLY);
-        assertEquals(provider2.getName(), providerRequestModel.getName());
-        assertEquals(provider2.getTitle(), providerRequestModel.getTitle());
-        assertEquals(provider2.getPhoneNumber(), providerRequestModel.getPhoneNumber());
+        Provider provider = entityConverterService.convertProviderRequestModelToProvider(providerRequestModel);
+        assertEquals(provider.getStatus(), StatusEnum.VIEW_ONLY);
+        assertEquals(provider.getName(), providerRequestModel.getName());
+        assertEquals(provider.getTitle(), providerRequestModel.getTitle());
+        assertEquals(provider.getPhoneNumber(), providerRequestModel.getPhoneNumber());
     }
 
     @Test
     void testConvertSubItemRequestModelToSubItem() {
         SubItemRequestModel subItemRequestModel = createSubItemRequestModel();
-        SubItem subItem = createSubItem();
-        when(modelMapper.map(subItemRequestModel, SubItem.class)).thenReturn(subItem);
-        SubItem subItem2 = entityConverterService.convertSubItemRequestModelToSubItem(subItemRequestModel);
-        assertEquals(subItemRequestModel.getTitle(), subItem2.getTitle());
-        assertEquals(subItemRequestModel.getDescription(), subItem2.getDescription());
-        assertEquals(subItemRequestModel.getPriceCents(), subItem2.getPriceCents());
-        assertEquals(subItem2.getStatus(), StatusEnum.VIEW_ONLY);
+        SubItem subItem = entityConverterService.convertSubItemRequestModelToSubItem(subItemRequestModel);
+        assertEquals(subItemRequestModel.getTitle(), subItem.getTitle());
+        assertEquals(subItemRequestModel.getDescription(), subItem.getDescription());
+        assertEquals(subItemRequestModel.getPriceCents(), subItem.getPriceCents());
+        assertEquals(subItem.getStatus(), StatusEnum.VIEW_ONLY);
     }
 
     @Test
     void testConvertSubItemToReturnModel() {
-        SubItemReturnModel subItemReturnModel = createSubItemReturnModel();
         SubItem subItem = createSubItem();
-        when(modelMapper.map(subItem, SubItemReturnModel.class)).thenReturn(subItemReturnModel);
         SubItemReturnModel returnModel = entityConverterService.convertSubItemToReturnModel(subItem);
         assertEquals(returnModel.getTitle(), subItem.getTitle());
         assertEquals(returnModel.getPriceCents(), subItem.getPriceCents());
@@ -149,8 +152,6 @@ public class EntityConverterTest {
     @Test
     void testConvertItemRequestModelToItem() {
         ItemRequestModel itemRequestModel = createItemRequestModel();
-        Item item = createItem();
-        when(modelMapper.map(itemRequestModel, Item.class)).thenReturn(item);
         Item returnItem = entityConverterService.convertItemRequestModelToItem(itemRequestModel);
         assertEquals(itemRequestModel.getTitle(), returnItem.getTitle());
         assertEquals(itemRequestModel.getPriceCents(), returnItem.getPriceCents());
@@ -160,8 +161,6 @@ public class EntityConverterTest {
     @Test
     void testConvertItemToReturnModel() {
         Item item = createItem();
-        ItemReturnModelResult itemReturnModelResult = createItemReturnModelResult();
-        when(modelMapper.map(item, ItemReturnModelResult.class)).thenReturn(itemReturnModelResult);
         ItemReturnModel itemReturnModel = entityConverterService.convertItemToReturnModel(item);
         assertEquals(itemReturnModel.isOk(), true);
         assertEquals(itemReturnModel.getResult().getTitle(), item.getTitle());
@@ -169,4 +168,17 @@ public class EntityConverterTest {
         assertEquals(itemReturnModel.getResult().getStatus(), item.getStatus());
     }
 
+    @Test
+    void testPatchRequestModelToProvider() {
+        Provider provider = createProvider();
+        Provider updatedProvider = createProvider();
+        ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
+        entityConverterService.patchRequestModelToProvider(providerUpdateRequestModel, updatedProvider);
+        assertEquals(provider.getOwnerId(), updatedProvider.getOwnerId());
+        assertEquals(provider.getName(), updatedProvider.getName());
+        assertEquals(providerUpdateRequestModel.getTitle(), updatedProvider.getTitle());
+        assertEquals(providerUpdateRequestModel.getDescription(), updatedProvider.getDescription());
+        assertEquals(providerUpdateRequestModel.getStatus(), updatedProvider.getStatus());
+        assertEquals(providerUpdateRequestModel.getPhoneNumber(), updatedProvider.getPhoneNumber());
+    }
 }

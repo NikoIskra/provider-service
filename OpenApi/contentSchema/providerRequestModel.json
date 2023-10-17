@@ -12,17 +12,13 @@
             "maxLength": 64
         },
         "title": {
-            "type": "string",
-            "minLength": 5,
-            "maxLength": 128
+            "$ref" : "props/title.json"
         },
         "description" : {
-            "type": "string",
-            "maxLength":512
+            "$ref" : "props/description.json"
         },
         "phoneNumber": {
-            "type": "string",
-            "pattern": "^\\+?\\d{10,14}$"
+            "$ref" : "props/phoneNumber.json"
         }
     }
 }

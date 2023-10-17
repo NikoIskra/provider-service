@@ -33,7 +33,7 @@ public interface ItemApi {
      * Add item
      *
      * @param X_ACCOUNT_ID  (required)
-     * @param providerId Id of provider to add item to (required)
+     * @param providerId  (required)
      * @param itemRequestModel Item to be added (required)
      * @return Created (status code 201)
      *         or Bad request! (status code 400)

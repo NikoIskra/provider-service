@@ -8,6 +8,7 @@ package com.provider.controller;
 import com.provider.model.ErrorResponse;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
+import com.provider.model.ProviderUpdateRequestModel;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -47,6 +48,29 @@ public interface ProviderApi {
     ResponseEntity<ProviderReturnModel> apiV1ProviderPost(
         @NotNull  @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
          @Valid @RequestBody ProviderRequestModel providerRequestModel
+    ) throws Exception;
+
+
+    /**
+     * PATCH /api/v1/provider/{provider-id}
+     * Update provider
+     *
+     * @param X_ACCOUNT_ID  (required)
+     * @param providerId  (required)
+     * @param providerUpdateRequestModel Provider to update (required)
+     * @return updated (status code 201)
+     *         or Bad request! (status code 400)
+     */
+    @RequestMapping(
+        method = RequestMethod.PATCH,
+        value = "/api/v1/provider/{provider-id}",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    ResponseEntity<ProviderReturnModel> apiV1ProviderProviderIdPatch(
+        @NotNull  @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
+         @PathVariable("provider-id") Long providerId,
+         @Valid @RequestBody ProviderUpdateRequestModel providerUpdateRequestModel
     ) throws Exception;
 
 }
