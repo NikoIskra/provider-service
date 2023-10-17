@@ -39,6 +39,6 @@ public class ProviderController implements ProviderApi {
     public ResponseEntity<ProviderReturnModel> apiV1ProviderProviderIdPatch(@NotNull UUID X_ACCOUNT_ID, Long providerId,
             @Valid ProviderUpdateRequestModel providerUpdateRequestModel) throws Exception {
         ProviderReturnModel providerReturnModel = providerService.patch(X_ACCOUNT_ID, providerId, providerUpdateRequestModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(providerReturnModel);
+        return ResponseEntity.status(HttpStatus.OK).body(providerReturnModel);
     }
 }

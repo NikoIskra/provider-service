@@ -20,7 +20,10 @@ import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class EntityConverterService {
 
     @Autowired
@@ -58,8 +61,11 @@ public class EntityConverterService {
         return new ItemReturnModel().ok(true).result(itemReturnModelResult);
     }
 
-    public void convertPatchRequestModelToProvider (ProviderUpdateRequestModel providerUpdateRequestModel, Provider provider) {
+    public void patchRequestModelToProvider (ProviderUpdateRequestModel providerUpdateRequestModel, Provider provider) {
         modelMapper.map(providerUpdateRequestModel, provider);
+    }
+
+    public EntityConverterService(ModelMapper modelMapper2) {
     }
 
 }

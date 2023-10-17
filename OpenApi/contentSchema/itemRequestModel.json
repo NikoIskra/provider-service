@@ -6,13 +6,10 @@
     ],
     "properties" : {
         "title": {
-            "type": "string",
-            "minLength": 5,
-            "maxLength": 128
+            "$ref" : "props/title.json"
         },
         "description" : {
-            "type": "string",
-            "maxLength":512
+            "$ref" : "props/description.json"
         },
         "priceCents": {
             "type": "integer"

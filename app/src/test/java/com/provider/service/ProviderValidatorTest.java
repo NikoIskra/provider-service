@@ -21,6 +21,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.provider.exception.BadRequestException;
 import com.provider.model.ProviderRequestModel;
+import com.provider.model.ProviderUpdateRequestModel;
+import com.provider.model.StatusEnum;
 import com.provider.persistence.repository.ProviderRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,6 +49,18 @@ public class ProviderValidatorTest {
     private static ProviderRequestModel createInvalidProviderRequestModel() {
         ProviderRequestModel providerRequestModel = new ProviderRequestModel("testname", "testtitle", "12345678");
         return providerRequestModel;
+    }
+
+    private static ProviderUpdateRequestModel createProviderUpdateRequestModel() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = new ProviderUpdateRequestModel()
+        .description("updatedesc")
+        .status(StatusEnum.ACTIVE)
+        .title("updatedTitle");
+        return providerUpdateRequestModel;
+    }
+
+    private static ProviderUpdateRequestModel createEmptyProviderUpdateRequestModel() {
+        return new ProviderUpdateRequestModel();
     }
 
     @Test
@@ -90,6 +104,50 @@ public class ProviderValidatorTest {
         );
         verify(accountApiClient).verifyAccountID(uuid);
         verify(providerRepository).existsByName(anyString());
+    }
+
+    @Test
+    void testValidateProviderPatchRequest() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
+        when(providerRepository.existsByIdAndOwnerId(1L, uuid)).thenReturn(true);
+        assertDoesNotThrow(
+            () -> providerValidator.validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel)
+        );
+        verify(accountApiClient).verifyAccountID(uuid);
+        verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
+    }
+    
+    @Test
+    void testValidateProviderPatchRequest_noAccount() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
+        doThrow(new BadRequestException(null)).when(accountApiClient).verifyAccountID(uuid);
+        assertThrows(BadRequestException.class,
+            () -> providerValidator.validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel)
+        );
+        verify(accountApiClient).verifyAccountID(uuid);
+        verifyNoInteractions(providerRepository);
+    }
+
+    @Test
+    void testValidateProviderPatchRequest_noRecord() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
+        when(providerRepository.existsByIdAndOwnerId(1L, uuid)).thenReturn(false);
+        assertThrows(BadRequestException.class,
+            () -> providerValidator.validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel)
+        );
+        verify(accountApiClient).verifyAccountID(uuid);
+        verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
+    }
+
+    @Test
+    void testValidateProviderPatchRequest_emptyBody() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = createEmptyProviderUpdateRequestModel();
+        when(providerRepository.existsByIdAndOwnerId(1L, uuid)).thenReturn(true);
+        assertThrows(BadRequestException.class,
+            () -> providerValidator.validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel)
+        );
+        verify(accountApiClient).verifyAccountID(uuid);
+        verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
     }
     
 }

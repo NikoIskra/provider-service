@@ -43,7 +43,7 @@ public class ProviderServiceImpl implements ProviderService {
     public ProviderReturnModel patch(UUID accountID, Long providerID, ProviderUpdateRequestModel providerUpdateRequestModel) {
         providerValidator.validateProviderPatchRequest(accountID, providerID, providerUpdateRequestModel);
         Provider provider = providerRepository.getById(providerID);
-        entityConverter.convertPatchRequestModelToProvider(providerUpdateRequestModel, provider);
+        entityConverter.patchRequestModelToProvider(providerUpdateRequestModel, provider);
         providerRepository.save(provider);
         return entityConverter.convertProviderToReturnModel(provider);
     }

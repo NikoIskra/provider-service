@@ -2,6 +2,8 @@ package com.provider.service;
 
 import java.util.UUID;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,9 @@ public class ProviderValidator {
         accountApiClient.verifyAccountID(accountID);
         if (!providerRepository.existsByIdAndOwnerId(providerID, accountID)) {
             throw new BadRequestException("No record with provider and owner id found");
+        }
+        if (ObjectUtils.allNull(providerUpdateRequestModel.getDescription(), providerUpdateRequestModel.getPhoneNumber(), providerUpdateRequestModel.getTitle(), providerUpdateRequestModel.getStatus())) {
+            throw new BadRequestException("Request body cannot be empty!");
         }
     }
 }

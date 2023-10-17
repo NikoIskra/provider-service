@@ -117,7 +117,19 @@ public class ProviderServiceImplTest {
         when(providerRepository.getById(any())).thenReturn(provider);
         provider.setDescription(providerUpdateRequestModel.getDescription());
         ProviderReturnModel providerReturnModel = providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel);
-        verify(entityConverter).convertPatchRequestModelToProvider(providerUpdateRequestModel, provider);
+        verify(entityConverter).patchRequestModelToProvider(providerUpdateRequestModel, provider);
         verify(providerRepository).save(provider);
+    }
+
+    @Test
+    void testPatchProvider_validatorException() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
+        doThrow(new BadRequestException(null)).when(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
+        assertThrows(BadRequestException.class,
+        () -> providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel)
+        );
+        verify(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
+        verifyNoInteractions(providerRepository);
+        verifyNoInteractions(entityConverter);
     }
 }

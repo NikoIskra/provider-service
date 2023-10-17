@@ -1,0 +1,9 @@
+{
+    "in": "header",
+    "name": "X-ACCOUNT-ID",
+    "required": true,
+    "schema": {
+      "type": "string",
+      "format": "uuid"
+    }
+}

@@ -29,6 +29,7 @@ import com.provider.model.ErrorResponse;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.persistence.repository.ProviderRepository;
 import com.provider.service.ProviderValidator;
@@ -67,6 +68,37 @@ public class ProviderControllerTest {
         ProviderReturnModel providerReturnModel = new ProviderReturnModel().ok(true).result(providerReturnModelResult);
         return providerReturnModel;
     }
+
+        
+    private static ProviderUpdateRequestModel createProviderUpdateRequestModel() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = new ProviderUpdateRequestModel()
+        .description("updatedesc")
+        .status(StatusEnum.ACTIVE)
+        .title("updatedTitle");
+        return providerUpdateRequestModel;
+    }
+    
+    private static ProviderUpdateRequestModel createInvalidProviderUpdateRequestModel() {
+        ProviderUpdateRequestModel providerUpdateRequestModel = new ProviderUpdateRequestModel()
+        .description("updatedesc")
+        .status(StatusEnum.ACTIVE)
+        .phoneNumber("1234")
+        .title("updatedTitle");
+        return providerUpdateRequestModel;
+    }
+
+        private static ProviderReturnModel createPatchedProviderReturnModel() {
+        ProviderReturnModelResult providerReturnModelResult = new ProviderReturnModelResult()
+        .id(1L)
+        .phoneNumber("1324567890")
+        .ownerId(uuid)
+        .description("updatedesc")
+        .name("testname")
+        .title("updatedTitle")
+        .status(StatusEnum.ACTIVE);
+        ProviderReturnModel providerReturnModel = new ProviderReturnModel().ok(true).result(providerReturnModelResult);
+        return providerReturnModel;
+    }
     
     ObjectMapper mapper = new ObjectMapper();
 
@@ -100,6 +132,40 @@ public class ProviderControllerTest {
                 .header("X-ACCOUNT-ID", "d3d35b67-b8f9-464b-a0b5-39f526e1f5f2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(providerRequestModel))
+        )
+        .andExpect(status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("validation failed"));
+    }
+
+    @Test
+    void patchProvider() throws Exception {
+        ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
+        ProviderReturnModel providerReturnModel = createPatchedProviderReturnModel();
+        when(providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel)).thenReturn(providerReturnModel);
+        mvc.perform(MockMvcRequestBuilders
+                .patch("/api/v1/provider/1")
+                .header("X-ACCOUNT-ID", uuid.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(providerUpdateRequestModel))
+        )
+        .andExpect(status().isOk())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(true))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.id").value(providerReturnModel.getResult().getId()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.phoneNumber").value(providerReturnModel.getResult().getPhoneNumber()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.name").value(providerReturnModel.getResult().getName()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.title").value(providerReturnModel.getResult().getTitle()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.status").value(providerReturnModel.getResult().getStatus().toString()));
+    }
+
+    @Test
+    void patchProvider_BadRequest() throws Exception {
+        ProviderUpdateRequestModel providerUpdateRequestModel = createInvalidProviderUpdateRequestModel();
+        mvc.perform(MockMvcRequestBuilders
+                .patch("/api/v1/provider/12")
+                .header("X-ACCOUNT-ID", "d3d35b67-b8f9-464b-a0b5-39f526e1f5f2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(providerUpdateRequestModel))
         )
         .andExpect(status().isBadRequest())
         .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false))
