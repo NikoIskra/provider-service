@@ -115,7 +115,7 @@
         },
         "responses": {
           "201": {
-            "$ref": "responses/201ProviderUpdated.json"
+            "$ref": "responses/200ProviderUpdated.json"
           },
           "400": {
             "$ref": "responses/400BadRequest.json"

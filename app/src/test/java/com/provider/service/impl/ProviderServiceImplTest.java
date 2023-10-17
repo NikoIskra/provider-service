@@ -105,8 +105,7 @@ public class ProviderServiceImplTest {
         assertThrows(BadRequestException.class,
                 () -> providerServiceImpl.save(uuid, providerRequestModel));
         verify(providerValidator).validateProviderRequest(uuid, providerRequestModel);
-        verifyNoInteractions(providerRepository);
-        verifyNoInteractions(entityConverter);
+        verifyNoInteractions(providerRepository, entityConverter);
     }
     
     @Test
@@ -115,7 +114,6 @@ public class ProviderServiceImplTest {
         ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
         doNothing().when(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
         when(providerRepository.getById(any())).thenReturn(provider);
-        provider.setDescription(providerUpdateRequestModel.getDescription());
         ProviderReturnModel providerReturnModel = providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel);
         verify(entityConverter).patchRequestModelToProvider(providerUpdateRequestModel, provider);
         verify(providerRepository).save(provider);
@@ -129,7 +127,6 @@ public class ProviderServiceImplTest {
         () -> providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel)
         );
         verify(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
-        verifyNoInteractions(providerRepository);
-        verifyNoInteractions(entityConverter);
+        verifyNoInteractions(providerRepository, entityConverter);
     }
 }

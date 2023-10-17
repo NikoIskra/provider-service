@@ -36,10 +36,7 @@ public class ProviderValidator {
     }
 
     public void validateProviderPatchRequest(UUID accountID, Long providerID, ProviderUpdateRequestModel providerUpdateRequestModel) {
-        accountApiClient.verifyAccountID(accountID);
-        if (!providerRepository.existsByIdAndOwnerId(providerID, accountID)) {
-            throw new BadRequestException("No record with provider and owner id found");
-        }
+
         if (ObjectUtils.allNull(providerUpdateRequestModel.getDescription(), providerUpdateRequestModel.getPhoneNumber(), providerUpdateRequestModel.getTitle(), providerUpdateRequestModel.getStatus())) {
             throw new BadRequestException("Request body cannot be empty!");
         }

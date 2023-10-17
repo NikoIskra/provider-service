@@ -22,13 +22,13 @@ import com.provider.persistence.entity.SubItem;
 
 import lombok.RequiredArgsConstructor;
 
+
 @Service
 @RequiredArgsConstructor
 public class EntityConverterService {
 
-    @Autowired
-    private ModelMapper modelMapper;
-    
+    private final ModelMapper modelMapper;
+
     public ProviderReturnModel convertProviderToReturnModel (Provider provider) {
         ProviderReturnModelResult providerReturnModelResult = modelMapper.map(provider, ProviderReturnModelResult.class);
         return new ProviderReturnModel().ok(true).result(providerReturnModelResult);
@@ -63,9 +63,6 @@ public class EntityConverterService {
 
     public void patchRequestModelToProvider (ProviderUpdateRequestModel providerUpdateRequestModel, Provider provider) {
         modelMapper.map(providerUpdateRequestModel, provider);
-    }
-
-    public EntityConverterService(ModelMapper modelMapper2) {
     }
 
 }

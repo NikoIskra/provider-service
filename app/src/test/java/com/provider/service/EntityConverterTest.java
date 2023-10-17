@@ -37,12 +37,9 @@ import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
 
-@SpringBootTest
-@ActiveProfiles("test")
 public class EntityConverterTest {
 
-    @Autowired
-    EntityConverterService entityConverterService = new EntityConverterService(new Configuration().modelMapper());
+    private final EntityConverterService entityConverterService = new EntityConverterService(new Configuration().modelMapper());
 
     private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
@@ -179,8 +176,8 @@ public class EntityConverterTest {
         assertEquals(provider.getOwnerId(), updatedProvider.getOwnerId());
         assertEquals(provider.getName(), updatedProvider.getName());
         assertEquals(provider.getPhoneNumber(), updatedProvider.getPhoneNumber());
-        assertNotEquals(provider.getTitle(), updatedProvider.getTitle());
-        assertNotEquals(provider.getDescription(), updatedProvider.getDescription());
-        assertNotEquals(provider.getStatus(), updatedProvider.getStatus());
+        assertEquals(providerUpdateRequestModel.getTitle(), updatedProvider.getTitle());
+        assertEquals(providerUpdateRequestModel.getDescription(), updatedProvider.getDescription());
+        assertEquals(providerUpdateRequestModel.getStatus(), updatedProvider.getStatus());
     }
 }
