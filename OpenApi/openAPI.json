@@ -114,7 +114,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "$ref": "responses/200ProviderUpdated.json"
           },
           "400": {

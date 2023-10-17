@@ -103,7 +103,8 @@ public class EntityConverterTest {
         ProviderUpdateRequestModel providerUpdateRequestModel = new ProviderUpdateRequestModel()
         .description("updatedesc")
         .status(StatusEnum.ACTIVE)
-        .title("updatedTitle");
+        .title("updatedTitle")
+        .phoneNumber("121212121212");
         return providerUpdateRequestModel;
     }
 
@@ -179,5 +180,6 @@ public class EntityConverterTest {
         assertEquals(providerUpdateRequestModel.getTitle(), updatedProvider.getTitle());
         assertEquals(providerUpdateRequestModel.getDescription(), updatedProvider.getDescription());
         assertEquals(providerUpdateRequestModel.getStatus(), updatedProvider.getStatus());
+        assertEquals(providerUpdateRequestModel.getPhoneNumber(), updatedProvider.getPhoneNumber());
     }
 }

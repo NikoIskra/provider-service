@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -49,6 +50,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse()
         .ok(false)
         .errorMessage("validation failed");
+        return new ResponseEntity<> (errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+            HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse()
+        .ok(false)
+        .errorMessage(ex.getMessage());
         return new ResponseEntity<> (errorResponse, HttpStatus.BAD_REQUEST);
     }
 
