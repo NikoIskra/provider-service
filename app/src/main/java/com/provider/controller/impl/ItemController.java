@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.provider.controller.ItemApi;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
+import com.provider.model.ItemUpdateRequestModel;
+import com.provider.model.ItemUpdateReturnModel;
 import com.provider.service.ItemService;
 
 import jakarta.validation.Valid;
@@ -31,5 +33,12 @@ public class ItemController implements ItemApi {
         returnHeaders.set("Location", headerString);
         return ResponseEntity.status(HttpStatus.CREATED).headers(returnHeaders).body(itemReturnModel);
     }
+
+    @Override
+    public ResponseEntity<ItemUpdateReturnModel> apiV1ProviderProviderIdItemItemIdPut(@NotNull UUID X_ACCOUNT_ID,
+            Long providerId, Long itemId, @Valid ItemUpdateRequestModel itemUpdateRequestModel) throws Exception {
+                ItemUpdateReturnModel itemUpdateReturnModel = itemService.put(X_ACCOUNT_ID, providerId, itemId, itemUpdateRequestModel);
+                return ResponseEntity.status(HttpStatus.OK).body(itemUpdateReturnModel);
+            }
     
 }

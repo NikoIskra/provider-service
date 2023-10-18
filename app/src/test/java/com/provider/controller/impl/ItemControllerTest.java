@@ -21,6 +21,9 @@ import com.provider.exception.BadRequestException;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemUpdateRequestModel;
+import com.provider.model.ItemUpdateReturnModel;
+import com.provider.model.ItemUpdateReturnModelResult;
 import com.provider.model.StatusEnum;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
@@ -74,6 +77,23 @@ public class ItemControllerTest {
         return new ItemReturnModel().ok(true).result(itemReturnModelResult);
     }
 
+    private static ItemUpdateRequestModel createItemUpdateRequestModel() {
+        ItemUpdateRequestModel itemUpdateRequestModel = new ItemUpdateRequestModel("updatedtitle", 100);
+        itemUpdateRequestModel.setDescription("updatedDesc");
+        itemUpdateRequestModel.setStatus(StatusEnum.ACTIVE);
+        return itemUpdateRequestModel;
+    }
+
+    private static ItemUpdateReturnModel createItemUpdateReturnModel() {
+        ItemUpdateReturnModelResult itemUpdateReturnModelResult = new ItemUpdateReturnModelResult()
+        .description("updatedDesc")
+        .title("updatedtitle")
+        .priceCents(100)
+        .status(StatusEnum.ACTIVE)
+        .id(2L);
+        return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
+    }
+
 
     @Test
     void insertItem() throws Exception {
@@ -117,5 +137,36 @@ public class ItemControllerTest {
         .andExpect(MockMvcResultMatchers.status().isBadRequest())
         .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false))
         .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("bad request"));
+    }
+
+    @Test
+    void updateItem() throws Exception {
+        ItemUpdateRequestModel itemUpdateRequestModel = createItemUpdateRequestModel();
+        ItemUpdateReturnModel itemUpdateReturnModel = createItemUpdateReturnModel();
+        when(itemServiceImpl.put(uuid, 1L, 1L, itemUpdateRequestModel)).thenReturn(itemUpdateReturnModel);
+                mvc.perform(MockMvcRequestBuilders
+                .put("/api/v1/provider/1/item/1")
+                .header("X-ACCOUNT-ID", uuid.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(itemUpdateRequestModel))
+        )
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(true))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.id").value(2));
+    }
+
+    @Test
+    void updateItem_badRequest() throws Exception {
+        ItemUpdateRequestModel itemUpdateRequestModel = null;
+        ItemUpdateReturnModel itemUpdateReturnModel = createItemUpdateReturnModel();
+        when(itemServiceImpl.put(uuid, 1L, 1L, itemUpdateRequestModel)).thenReturn(itemUpdateReturnModel);
+                mvc.perform(MockMvcRequestBuilders
+                .put("/api/v1/provider/1/item/1")
+                .header("X-ACCOUNT-ID", uuid.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(itemUpdateRequestModel))
+        )
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false));
     }
 }

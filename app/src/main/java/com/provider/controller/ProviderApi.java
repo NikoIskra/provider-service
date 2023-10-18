@@ -58,7 +58,7 @@ public interface ProviderApi {
      * @param X_ACCOUNT_ID  (required)
      * @param providerId  (required)
      * @param providerUpdateRequestModel Provider to update (required)
-     * @return updated (status code 201)
+     * @return updated (status code 200)
      *         or Bad request! (status code 400)
      */
     @RequestMapping(

@@ -26,6 +26,7 @@ import com.provider.config.Configuration;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
@@ -180,5 +181,16 @@ public class EntityConverterTest {
         assertEquals(providerUpdateRequestModel.getDescription(), updatedProvider.getDescription());
         assertEquals(providerUpdateRequestModel.getStatus(), updatedProvider.getStatus());
         assertEquals(providerUpdateRequestModel.getPhoneNumber(), updatedProvider.getPhoneNumber());
+    }
+
+    @Test
+    void testConvertItemToUpdateReturnModel() {
+        Item item = createItem();
+        ItemUpdateReturnModel itemUpdateReturnModel = entityConverterService.convertItemToUpdateReturnModel(item);
+        assertEquals(itemUpdateReturnModel.isOk(), true);
+        assertEquals(itemUpdateReturnModel.getResult().getTitle(), item.getTitle());
+        assertEquals(itemUpdateReturnModel.getResult().getPriceCents(), item.getPriceCents());
+        assertEquals(itemUpdateReturnModel.getResult().getStatus(), item.getStatus());
+        assertEquals(itemUpdateReturnModel.getResult().getDescription(), item.getDescription());
     }
 }

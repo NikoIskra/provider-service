@@ -8,6 +8,8 @@ package com.provider.controller;
 import com.provider.model.ErrorResponse;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
+import com.provider.model.ItemUpdateRequestModel;
+import com.provider.model.ItemUpdateReturnModel;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +29,31 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 public interface ItemApi {
+
+    /**
+     * PUT /api/v1/provider/{provider-id}/item/{item-id}
+     * Update item
+     *
+     * @param X_ACCOUNT_ID  (required)
+     * @param providerId  (required)
+     * @param itemId  (required)
+     * @param itemUpdateRequestModel Item to be updated (required)
+     * @return updated (status code 200)
+     *         or Bad request! (status code 400)
+     */
+    @RequestMapping(
+        method = RequestMethod.PUT,
+        value = "/api/v1/provider/{provider-id}/item/{item-id}",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    ResponseEntity<ItemUpdateReturnModel> apiV1ProviderProviderIdItemItemIdPut(
+        @NotNull  @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
+         @PathVariable("provider-id") Long providerId,
+         @PathVariable("item-id") Long itemId,
+         @Valid @RequestBody ItemUpdateRequestModel itemUpdateRequestModel
+    ) throws Exception;
+
 
     /**
      * POST /api/v1/provider/{provider-id}/item

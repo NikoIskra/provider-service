@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemUpdateReturnModel;
+import com.provider.model.ItemUpdateReturnModelResult;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
@@ -63,6 +65,11 @@ public class EntityConverterService {
 
     public void patchRequestModelToProvider (ProviderUpdateRequestModel providerUpdateRequestModel, Provider provider) {
         modelMapper.map(providerUpdateRequestModel, provider);
+    }
+
+    public ItemUpdateReturnModel convertItemToUpdateReturnModel (Item item) {
+        ItemUpdateReturnModelResult itemUpdateReturnModelResult = modelMapper.map(item, ItemUpdateReturnModelResult.class);
+        return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
     }
 
 }
