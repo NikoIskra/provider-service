@@ -64,12 +64,7 @@ public class ItemServiceImpl implements ItemService {
         item.setTitle(itemUpdateRequestModel.getTitle());
         item.setPriceCents(itemUpdateRequestModel.getPriceCents());
         item.setStatus(itemUpdateRequestModel.getStatus());
-        if (StringUtils.isNotEmpty(itemUpdateRequestModel.getDescription())) {
-            item.setDescription(itemUpdateRequestModel.getDescription());
-        }
-        else {
-            item.setDescription(null);
-        }
+        item.setDescription(itemUpdateRequestModel.getDescription());
         itemRepository.save(item);
         return entityConverter.convertItemToUpdateReturnModel(item);
     }
