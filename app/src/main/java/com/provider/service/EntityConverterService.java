@@ -3,12 +3,15 @@ package com.provider.service;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.provider.config.Configuration;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
 import com.provider.model.ProviderRequestModel;
@@ -30,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class EntityConverterService {
 
     private final ModelMapper modelMapper;
+
 
     public ProviderReturnModel convertProviderToReturnModel (Provider provider) {
         ProviderReturnModelResult providerReturnModelResult = modelMapper.map(provider, ProviderReturnModelResult.class);
@@ -65,6 +69,10 @@ public class EntityConverterService {
 
     public void patchRequestModelToProvider (ProviderUpdateRequestModel providerUpdateRequestModel, Provider provider) {
         modelMapper.map(providerUpdateRequestModel, provider);
+    }
+
+    public void patchItemUpdateModelToItem (ItemUpdateRequestModel itemUpdateRequestModel, Item item) {
+        modelMapper.map(itemUpdateRequestModel, item);
     }
 
     public ItemUpdateReturnModel convertItemToUpdateReturnModel (Item item) {

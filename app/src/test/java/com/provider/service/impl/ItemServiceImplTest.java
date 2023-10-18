@@ -116,9 +116,8 @@ public class ItemServiceImplTest {
     }
 
     private static ItemUpdateRequestModel createItemUpdateRequestModel() {
-        ItemUpdateRequestModel itemUpdateRequestModel = new ItemUpdateRequestModel("updatedtitle", 100);
+        ItemUpdateRequestModel itemUpdateRequestModel = new ItemUpdateRequestModel("updatedtitle", 100, StatusEnum.ACTIVE);
         itemUpdateRequestModel.setDescription("updatedDesc");
-        itemUpdateRequestModel.setStatus(StatusEnum.ACTIVE);
         return itemUpdateRequestModel;
     }
 

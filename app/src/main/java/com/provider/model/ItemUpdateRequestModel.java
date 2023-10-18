@@ -34,7 +34,7 @@ public class ItemUpdateRequestModel {
 
   /**
    * Default constructor
-   * @deprecated Use {@link ItemUpdateRequestModel#ItemUpdateRequestModel(String, Integer)}
+   * @deprecated Use {@link ItemUpdateRequestModel#ItemUpdateRequestModel(String, Integer, StatusEnum)}
    */
   @Deprecated
   public ItemUpdateRequestModel() {
@@ -44,9 +44,10 @@ public class ItemUpdateRequestModel {
   /**
    * Constructor with only required parameters
    */
-  public ItemUpdateRequestModel(String title, Integer priceCents) {
+  public ItemUpdateRequestModel(String title, Integer priceCents, StatusEnum status) {
     this.title = title;
     this.priceCents = priceCents;
+    this.status = status;
   }
 
   public ItemUpdateRequestModel title(String title) {
@@ -115,7 +116,7 @@ public class ItemUpdateRequestModel {
    * Get status
    * @return status
   */
-  @Valid 
+  @NotNull @Valid 
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;

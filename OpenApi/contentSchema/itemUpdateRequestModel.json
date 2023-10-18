@@ -2,7 +2,8 @@
     "type" : "object",
     "required" : [
         "title",
-        "priceCents"
+        "priceCents",
+        "status"
     ],
     "properties" : {
         "title": {
