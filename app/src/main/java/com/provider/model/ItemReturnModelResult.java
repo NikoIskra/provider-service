@@ -1,28 +1,17 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import com.provider.model.SubItemReturnModel;
-import java.util.ArrayList;
-import java.util.List;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * ItemReturnModelResult
- */
-
+/** ItemReturnModelResult */
 @JsonTypeName("itemReturnModel_result")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemReturnModelResult {
@@ -39,8 +28,7 @@ public class ItemReturnModelResult {
 
   private StatusEnum status;
 
-  @Valid
-  private List<@Valid SubItemReturnModel> subItems;
+  @Valid private List<@Valid SubItemReturnModel> subItems;
 
   public ItemReturnModelResult id(Long id) {
     this.id = id;
@@ -49,9 +37,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -68,9 +56,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get providerId
+   *
    * @return providerId
-  */
-  
+   */
   @JsonProperty("providerId")
   public Long getProviderId() {
     return providerId;
@@ -87,9 +75,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  
+   */
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -106,9 +94,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  
+   */
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -125,9 +113,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get priceCents
+   *
    * @return priceCents
-  */
-  
+   */
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -144,9 +132,10 @@ public class ItemReturnModelResult {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -171,9 +160,10 @@ public class ItemReturnModelResult {
 
   /**
    * Get subItems
+   *
    * @return subItems
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("subItems")
   public List<@Valid SubItemReturnModel> getSubItems() {
     return subItems;
@@ -192,13 +182,13 @@ public class ItemReturnModelResult {
       return false;
     }
     ItemReturnModelResult itemReturnModelResult = (ItemReturnModelResult) o;
-    return Objects.equals(this.id, itemReturnModelResult.id) &&
-        Objects.equals(this.providerId, itemReturnModelResult.providerId) &&
-        Objects.equals(this.title, itemReturnModelResult.title) &&
-        Objects.equals(this.description, itemReturnModelResult.description) &&
-        Objects.equals(this.priceCents, itemReturnModelResult.priceCents) &&
-        Objects.equals(this.status, itemReturnModelResult.status) &&
-        Objects.equals(this.subItems, itemReturnModelResult.subItems);
+    return Objects.equals(this.id, itemReturnModelResult.id)
+        && Objects.equals(this.providerId, itemReturnModelResult.providerId)
+        && Objects.equals(this.title, itemReturnModelResult.title)
+        && Objects.equals(this.description, itemReturnModelResult.description)
+        && Objects.equals(this.priceCents, itemReturnModelResult.priceCents)
+        && Objects.equals(this.status, itemReturnModelResult.status)
+        && Objects.equals(this.subItems, itemReturnModelResult.subItems);
   }
 
   @Override
@@ -222,8 +212,7 @@ public class ItemReturnModelResult {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -232,4 +221,3 @@ public class ItemReturnModelResult {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

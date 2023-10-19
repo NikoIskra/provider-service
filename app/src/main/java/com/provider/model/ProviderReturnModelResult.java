@@ -1,26 +1,16 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import java.util.UUID;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
+import java.util.UUID;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * ProviderReturnModelResult
- */
-
+/** ProviderReturnModelResult */
 @JsonTypeName("providerReturnModel_result")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ProviderReturnModelResult {
@@ -46,9 +36,9 @@ public class ProviderReturnModelResult {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -65,9 +55,10 @@ public class ProviderReturnModelResult {
 
   /**
    * Get ownerId
+   *
    * @return ownerId
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("ownerId")
   public UUID getOwnerId() {
     return ownerId;
@@ -84,9 +75,9 @@ public class ProviderReturnModelResult {
 
   /**
    * Get name
+   *
    * @return name
-  */
-  
+   */
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -103,9 +94,9 @@ public class ProviderReturnModelResult {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  
+   */
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -122,9 +113,9 @@ public class ProviderReturnModelResult {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  
+   */
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -141,9 +132,9 @@ public class ProviderReturnModelResult {
 
   /**
    * Get phoneNumber
+   *
    * @return phoneNumber
-  */
-  
+   */
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
     return phoneNumber;
@@ -160,9 +151,10 @@ public class ProviderReturnModelResult {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -181,13 +173,13 @@ public class ProviderReturnModelResult {
       return false;
     }
     ProviderReturnModelResult providerReturnModelResult = (ProviderReturnModelResult) o;
-    return Objects.equals(this.id, providerReturnModelResult.id) &&
-        Objects.equals(this.ownerId, providerReturnModelResult.ownerId) &&
-        Objects.equals(this.name, providerReturnModelResult.name) &&
-        Objects.equals(this.title, providerReturnModelResult.title) &&
-        Objects.equals(this.description, providerReturnModelResult.description) &&
-        Objects.equals(this.phoneNumber, providerReturnModelResult.phoneNumber) &&
-        Objects.equals(this.status, providerReturnModelResult.status);
+    return Objects.equals(this.id, providerReturnModelResult.id)
+        && Objects.equals(this.ownerId, providerReturnModelResult.ownerId)
+        && Objects.equals(this.name, providerReturnModelResult.name)
+        && Objects.equals(this.title, providerReturnModelResult.title)
+        && Objects.equals(this.description, providerReturnModelResult.description)
+        && Objects.equals(this.phoneNumber, providerReturnModelResult.phoneNumber)
+        && Objects.equals(this.status, providerReturnModelResult.status);
   }
 
   @Override
@@ -211,8 +203,7 @@ public class ProviderReturnModelResult {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -221,4 +212,3 @@ public class ProviderReturnModelResult {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

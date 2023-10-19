@@ -1,24 +1,15 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.provider.model.ItemReturnModelResult;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * ItemReturnModel
- */
-
+/** ItemReturnModel */
 @JsonTypeName("itemReturnModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemReturnModel {
@@ -34,9 +25,9 @@ public class ItemReturnModel {
 
   /**
    * Get ok
+   *
    * @return ok
-  */
-  
+   */
   @JsonProperty("ok")
   public Boolean isOk() {
     return ok;
@@ -53,9 +44,10 @@ public class ItemReturnModel {
 
   /**
    * Get result
+   *
    * @return result
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("result")
   public ItemReturnModelResult getResult() {
     return result;
@@ -74,8 +66,8 @@ public class ItemReturnModel {
       return false;
     }
     ItemReturnModel itemReturnModel = (ItemReturnModel) o;
-    return Objects.equals(this.ok, itemReturnModel.ok) &&
-        Objects.equals(this.result, itemReturnModel.result);
+    return Objects.equals(this.ok, itemReturnModel.ok)
+        && Objects.equals(this.result, itemReturnModel.result);
   }
 
   @Override
@@ -94,8 +86,7 @@ public class ItemReturnModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -104,4 +95,3 @@ public class ItemReturnModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

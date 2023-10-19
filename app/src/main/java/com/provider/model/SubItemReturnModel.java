@@ -1,25 +1,15 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * SubItemReturnModel
- */
-
+/** SubItemReturnModel */
 @JsonTypeName("subItemReturnModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class SubItemReturnModel {
@@ -43,9 +33,9 @@ public class SubItemReturnModel {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -62,9 +52,9 @@ public class SubItemReturnModel {
 
   /**
    * Get itemId
+   *
    * @return itemId
-  */
-  
+   */
   @JsonProperty("itemId")
   public Long getItemId() {
     return itemId;
@@ -81,9 +71,10 @@ public class SubItemReturnModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @Size(min = 5, max = 128) 
+   */
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -100,9 +91,10 @@ public class SubItemReturnModel {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  @Size(max = 512) 
+   */
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -119,9 +111,9 @@ public class SubItemReturnModel {
 
   /**
    * Get priceCents
+   *
    * @return priceCents
-  */
-  
+   */
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -138,9 +130,10 @@ public class SubItemReturnModel {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -159,12 +152,12 @@ public class SubItemReturnModel {
       return false;
     }
     SubItemReturnModel subItemReturnModel = (SubItemReturnModel) o;
-    return Objects.equals(this.id, subItemReturnModel.id) &&
-        Objects.equals(this.itemId, subItemReturnModel.itemId) &&
-        Objects.equals(this.title, subItemReturnModel.title) &&
-        Objects.equals(this.description, subItemReturnModel.description) &&
-        Objects.equals(this.priceCents, subItemReturnModel.priceCents) &&
-        Objects.equals(this.status, subItemReturnModel.status);
+    return Objects.equals(this.id, subItemReturnModel.id)
+        && Objects.equals(this.itemId, subItemReturnModel.itemId)
+        && Objects.equals(this.title, subItemReturnModel.title)
+        && Objects.equals(this.description, subItemReturnModel.description)
+        && Objects.equals(this.priceCents, subItemReturnModel.priceCents)
+        && Objects.equals(this.status, subItemReturnModel.status);
   }
 
   @Override
@@ -187,8 +180,7 @@ public class SubItemReturnModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -197,4 +189,3 @@ public class SubItemReturnModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

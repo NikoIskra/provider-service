@@ -1,12 +1,7 @@
 package com.provider.persistence.entity;
 
-import java.sql.Timestamp;
-
-import org.hibernate.annotations.UpdateTimestamp;
-
 import com.provider.converter.StatusEnumConverter;
 import com.provider.model.StatusEnum;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -17,116 +12,119 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.sql.Timestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "sub_item")
 public class SubItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subItemSequenceGenerator")
-    @SequenceGenerator(name = "subItemSequenceGenerator", sequenceName = "sub_item_id_seq", allocationSize = 1)    
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subItemSequenceGenerator")
+  @SequenceGenerator(
+      name = "subItemSequenceGenerator",
+      sequenceName = "sub_item_id_seq",
+      allocationSize = 1)
+  private Long id;
 
-    @Column(nullable = false)
-    private String title;
+  @Column(nullable = false)
+  private String title;
 
+  private String description;
 
-    private String description;
+  @Column(name = "price_cents", nullable = false)
+  private Integer priceCents;
 
-    @Column(name = "price_cents",nullable = false)
-    private Integer priceCents;
+  @Column(nullable = false)
+  @Convert(converter = StatusEnumConverter.class)
+  private StatusEnum status;
 
-    @Column(nullable = false)
-    @Convert(converter = StatusEnumConverter.class)
-    private StatusEnum status;
+  @Column(name = "created_at", insertable = false)
+  private Timestamp createdAt;
 
-    @Column(name = "created_at", insertable = false)
-    private Timestamp createdAt;
+  @Column(name = "updated_at")
+  @UpdateTimestamp
+  private Timestamp updatedAt;
 
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Timestamp updatedAt;
+  @ManyToOne
+  @JoinColumn(name = "item_id")
+  private Item item;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id")
-    private Item item;
+  public SubItem() {}
 
-    public SubItem() {
-    }
+  public SubItem(String title, Integer priceCents, StatusEnum status) {
+    this.title = title;
+    this.priceCents = priceCents;
+    this.status = status;
+  }
 
-    public SubItem(String title, Integer priceCents, StatusEnum status) {
-        this.title = title;
-        this.priceCents = priceCents;
-        this.status = status;
-    }
+  public SubItem(String title, Integer priceCents, StatusEnum status, Item item) {
+    this.title = title;
+    this.priceCents = priceCents;
+    this.status = status;
+    this.item = item;
+  }
 
-    public SubItem(String title, Integer priceCents, StatusEnum status, Item item) {
-        this.title = title;
-        this.priceCents = priceCents;
-        this.status = status;
-        this.item = item;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public Integer getPriceCents() {
+    return priceCents;
+  }
 
-    public Integer getPriceCents() {
-        return priceCents;
-    }
+  public void setPriceCents(Integer priceCents) {
+    this.priceCents = priceCents;
+  }
 
-    public void setPriceCents(Integer priceCents) {
-        this.priceCents = priceCents;
-    }
+  public StatusEnum getStatus() {
+    return status;
+  }
 
-    public StatusEnum getStatus() {
-        return status;
-    }
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
 
-    public void setStatus(StatusEnum status) {
-        this.status = status;
-    }
+  public Timestamp getCreatedAt() {
+    return createdAt;
+  }
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
+  public void setCreatedAt(Timestamp createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
+  public Timestamp getUpdatedAt() {
+    return updatedAt;
+  }
 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
+  public void setUpdatedAt(Timestamp updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+  public Item getItem() {
+    return item;
+  }
 
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
+  public void setItem(Item item) {
+    this.item = item;
+  }
 }
