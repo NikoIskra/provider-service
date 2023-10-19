@@ -1,20 +1,14 @@
 package com.provider.model;
 
-import java.util.*;
-import java.util.Objects;
-
-import org.hibernate.validator.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import jakarta.annotation.Generated;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
+import org.hibernate.validator.constraints.*;
 
-/**
- * ErrorResponse
- */
-
+/** ErrorResponse */
 @JsonTypeName("errorResponse")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ErrorResponse {
@@ -30,9 +24,9 @@ public class ErrorResponse {
 
   /**
    * Get ok
+   *
    * @return ok
-  */
-
+   */
   @JsonProperty("ok")
   public Boolean isOk() {
     return ok;
@@ -49,9 +43,9 @@ public class ErrorResponse {
 
   /**
    * Get errorMessage
+   *
    * @return errorMessage
-  */
-
+   */
   @JsonProperty("errorMessage")
   public String getErrorMessage() {
     return errorMessage;
@@ -70,8 +64,8 @@ public class ErrorResponse {
       return false;
     }
     ErrorResponse errorResponse = (ErrorResponse) o;
-    return Objects.equals(this.ok, errorResponse.ok) &&
-        Objects.equals(this.errorMessage, errorResponse.errorMessage);
+    return Objects.equals(this.ok, errorResponse.ok)
+        && Objects.equals(this.errorMessage, errorResponse.errorMessage);
   }
 
   @Override
@@ -90,8 +84,7 @@ public class ErrorResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

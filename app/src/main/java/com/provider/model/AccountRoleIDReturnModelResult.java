@@ -1,22 +1,16 @@
 package com.provider.model;
 
-import java.util.*;
-import java.util.Objects;
-import java.util.UUID;
-
-import org.hibernate.validator.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
+import java.util.UUID;
+import org.hibernate.validator.constraints.*;
 
-/**
- * AccountRoleIDReturnModelResult
- */
-
+/** AccountRoleIDReturnModelResult */
 @JsonTypeName("accountRoleIDReturnModel_result")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class AccountRoleIDReturnModelResult {
@@ -30,8 +24,9 @@ public class AccountRoleIDReturnModelResult {
 
   /**
    * Get roleId
+   *
    * @return roleId
-  */
+   */
   @Valid
   @JsonProperty("roleId")
   public UUID getRoleId() {
@@ -50,7 +45,8 @@ public class AccountRoleIDReturnModelResult {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AccountRoleIDReturnModelResult accountRoleIDReturnModelResult = (AccountRoleIDReturnModelResult) o;
+    AccountRoleIDReturnModelResult accountRoleIDReturnModelResult =
+        (AccountRoleIDReturnModelResult) o;
     return Objects.equals(this.roleId, accountRoleIDReturnModelResult.roleId);
   }
 
@@ -69,8 +65,7 @@ public class AccountRoleIDReturnModelResult {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

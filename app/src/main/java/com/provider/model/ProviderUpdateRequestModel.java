@@ -1,21 +1,15 @@
 package com.provider.model;
 
-import java.util.*;
-import java.util.Objects;
-
-import org.hibernate.validator.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
+import org.hibernate.validator.constraints.*;
 
-/**
- * ProviderUpdateRequestModel
- */
-
+/** ProviderUpdateRequestModel */
 @JsonTypeName("providerUpdateRequestModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ProviderUpdateRequestModel {
@@ -35,8 +29,9 @@ public class ProviderUpdateRequestModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
+   */
   @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
@@ -54,8 +49,9 @@ public class ProviderUpdateRequestModel {
 
   /**
    * Get description
+   *
    * @return description
-  */
+   */
   @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
@@ -73,8 +69,9 @@ public class ProviderUpdateRequestModel {
 
   /**
    * Get status
+   *
    * @return status
-  */
+   */
   @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
@@ -92,8 +89,9 @@ public class ProviderUpdateRequestModel {
 
   /**
    * Get phoneNumber
+   *
    * @return phoneNumber
-  */
+   */
   @Pattern(regexp = "^\\+?\\d{10,14}$")
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
@@ -113,10 +111,10 @@ public class ProviderUpdateRequestModel {
       return false;
     }
     ProviderUpdateRequestModel providerUpdateRequestModel = (ProviderUpdateRequestModel) o;
-    return Objects.equals(this.title, providerUpdateRequestModel.title) &&
-        Objects.equals(this.description, providerUpdateRequestModel.description) &&
-        Objects.equals(this.status, providerUpdateRequestModel.status) &&
-        Objects.equals(this.phoneNumber, providerUpdateRequestModel.phoneNumber);
+    return Objects.equals(this.title, providerUpdateRequestModel.title)
+        && Objects.equals(this.description, providerUpdateRequestModel.description)
+        && Objects.equals(this.status, providerUpdateRequestModel.status)
+        && Objects.equals(this.phoneNumber, providerUpdateRequestModel.phoneNumber);
   }
 
   @Override
@@ -137,8 +135,7 @@ public class ProviderUpdateRequestModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

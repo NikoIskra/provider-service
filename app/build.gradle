@@ -52,12 +52,7 @@ implementation 'org.modelmapper:modelmapper:3.1.1'
 
 spotless {
     java {
-        target 'src/*/java/**/*.java'
-          importOrder 'java', 'javax', 'org', 'com', 'com.diffplug', ''   // A sequence of package     names
-          trimTrailingWhitespace()
-          endWithNewline()
-          indentWithSpaces(2) // or spaces. Takes an integer argument if you don't like 4
-          removeUnusedImports() // removes any unused imports
+        googleJavaFormat('1.15.0')
     }
 }
 

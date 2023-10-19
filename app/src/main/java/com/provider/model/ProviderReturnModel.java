@@ -1,21 +1,15 @@
 package com.provider.model;
 
-import java.util.*;
-import java.util.Objects;
-
-import org.hibernate.validator.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
+import org.hibernate.validator.constraints.*;
 
-/**
- * ProviderReturnModel
- */
-
+/** ProviderReturnModel */
 @JsonTypeName("providerReturnModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ProviderReturnModel {
@@ -31,9 +25,9 @@ public class ProviderReturnModel {
 
   /**
    * Get ok
+   *
    * @return ok
-  */
-
+   */
   @JsonProperty("ok")
   public Boolean isOk() {
     return ok;
@@ -50,8 +44,9 @@ public class ProviderReturnModel {
 
   /**
    * Get result
+   *
    * @return result
-  */
+   */
   @Valid
   @JsonProperty("result")
   public ProviderReturnModelResult getResult() {
@@ -71,8 +66,8 @@ public class ProviderReturnModel {
       return false;
     }
     ProviderReturnModel providerReturnModel = (ProviderReturnModel) o;
-    return Objects.equals(this.ok, providerReturnModel.ok) &&
-        Objects.equals(this.result, providerReturnModel.result);
+    return Objects.equals(this.ok, providerReturnModel.ok)
+        && Objects.equals(this.result, providerReturnModel.result);
   }
 
   @Override
@@ -91,8 +86,7 @@ public class ProviderReturnModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

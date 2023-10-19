@@ -1,20 +1,14 @@
 package com.provider.model;
 
-import java.util.*;
-import java.util.Objects;
-
-import org.hibernate.validator.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import jakarta.annotation.Generated;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
+import org.hibernate.validator.constraints.*;
 
-/**
- * ProviderRequestModel
- */
-
+/** ProviderRequestModel */
 @JsonTypeName("providerRequestModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ProviderRequestModel {
@@ -29,6 +23,7 @@ public class ProviderRequestModel {
 
   /**
    * Default constructor
+   *
    * @deprecated Use {@link ProviderRequestModel#ProviderRequestModel(String, String, String)}
    */
   @Deprecated
@@ -36,9 +31,7 @@ public class ProviderRequestModel {
     super();
   }
 
-  /**
-   * Constructor with only required parameters
-   */
+  /** Constructor with only required parameters */
   public ProviderRequestModel(String name, String title, String phoneNumber) {
     this.name = name;
     this.title = title;
@@ -52,9 +45,11 @@ public class ProviderRequestModel {
 
   /**
    * Get name
+   *
    * @return name
-  */
-  @NotNull @Size(min = 5, max = 64)
+   */
+  @NotNull
+  @Size(min = 5, max = 64)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -71,9 +66,11 @@ public class ProviderRequestModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @NotNull @Size(min = 5, max = 128)
+   */
+  @NotNull
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -90,8 +87,9 @@ public class ProviderRequestModel {
 
   /**
    * Get description
+   *
    * @return description
-  */
+   */
   @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
@@ -109,9 +107,11 @@ public class ProviderRequestModel {
 
   /**
    * Get phoneNumber
+   *
    * @return phoneNumber
-  */
-  @NotNull @Pattern(regexp = "^\\+?\\d{10,14}$")
+   */
+  @NotNull
+  @Pattern(regexp = "^\\+?\\d{10,14}$")
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
     return phoneNumber;
@@ -130,10 +130,10 @@ public class ProviderRequestModel {
       return false;
     }
     ProviderRequestModel providerRequestModel = (ProviderRequestModel) o;
-    return Objects.equals(this.name, providerRequestModel.name) &&
-        Objects.equals(this.title, providerRequestModel.title) &&
-        Objects.equals(this.description, providerRequestModel.description) &&
-        Objects.equals(this.phoneNumber, providerRequestModel.phoneNumber);
+    return Objects.equals(this.name, providerRequestModel.name)
+        && Objects.equals(this.title, providerRequestModel.title)
+        && Objects.equals(this.description, providerRequestModel.description)
+        && Objects.equals(this.phoneNumber, providerRequestModel.phoneNumber);
   }
 
   @Override
@@ -154,8 +154,7 @@ public class ProviderRequestModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

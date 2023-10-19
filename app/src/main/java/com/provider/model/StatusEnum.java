@@ -1,22 +1,15 @@
 package com.provider.model;
 
-import java.util.*;
-
-import org.hibernate.validator.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-
 import jakarta.annotation.Generated;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import org.hibernate.validator.constraints.*;
 
-/**
- * Gets or Sets statusEnum
- */
-
+/** Gets or Sets statusEnum */
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public enum StatusEnum {
-
   ACTIVE("active"),
 
   SUSPENDED("suspended"),

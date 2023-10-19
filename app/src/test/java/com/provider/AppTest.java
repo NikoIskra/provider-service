@@ -15,11 +15,10 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 public class AppTest {
 
-    @Autowired
-    ApplicationContext context;
+  @Autowired ApplicationContext context;
 
-    @Test
-    void contextLoads(ApplicationContext context) {
-        assertNotNull(context);
-    }
+  @Test
+  void contextLoads(ApplicationContext context) {
+    assertNotNull(context);
+  }
 }

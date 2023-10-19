@@ -1,23 +1,17 @@
 package com.provider.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import org.hibernate.validator.constraints.*;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-
-import jakarta.annotation.Generated;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
-
-/**
- * ItemReturnModelResult
- */
-
+/** ItemReturnModelResult */
 @JsonTypeName("itemReturnModel_result")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemReturnModelResult {
@@ -34,8 +28,7 @@ public class ItemReturnModelResult {
 
   private StatusEnum status;
 
-  @Valid
-  private List<@Valid SubItemReturnModel> subItems;
+  @Valid private List<@Valid SubItemReturnModel> subItems;
 
   public ItemReturnModelResult id(Long id) {
     this.id = id;
@@ -44,9 +37,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get id
+   *
    * @return id
-  */
-
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -63,9 +56,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get providerId
+   *
    * @return providerId
-  */
-
+   */
   @JsonProperty("providerId")
   public Long getProviderId() {
     return providerId;
@@ -82,9 +75,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get title
+   *
    * @return title
-  */
-
+   */
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -101,9 +94,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get description
+   *
    * @return description
-  */
-
+   */
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -120,9 +113,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get priceCents
+   *
    * @return priceCents
-  */
-
+   */
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -139,8 +132,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get status
+   *
    * @return status
-  */
+   */
   @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
@@ -166,8 +160,9 @@ public class ItemReturnModelResult {
 
   /**
    * Get subItems
+   *
    * @return subItems
-  */
+   */
   @Valid
   @JsonProperty("subItems")
   public List<@Valid SubItemReturnModel> getSubItems() {
@@ -187,13 +182,13 @@ public class ItemReturnModelResult {
       return false;
     }
     ItemReturnModelResult itemReturnModelResult = (ItemReturnModelResult) o;
-    return Objects.equals(this.id, itemReturnModelResult.id) &&
-        Objects.equals(this.providerId, itemReturnModelResult.providerId) &&
-        Objects.equals(this.title, itemReturnModelResult.title) &&
-        Objects.equals(this.description, itemReturnModelResult.description) &&
-        Objects.equals(this.priceCents, itemReturnModelResult.priceCents) &&
-        Objects.equals(this.status, itemReturnModelResult.status) &&
-        Objects.equals(this.subItems, itemReturnModelResult.subItems);
+    return Objects.equals(this.id, itemReturnModelResult.id)
+        && Objects.equals(this.providerId, itemReturnModelResult.providerId)
+        && Objects.equals(this.title, itemReturnModelResult.title)
+        && Objects.equals(this.description, itemReturnModelResult.description)
+        && Objects.equals(this.priceCents, itemReturnModelResult.priceCents)
+        && Objects.equals(this.status, itemReturnModelResult.status)
+        && Objects.equals(this.subItems, itemReturnModelResult.subItems);
   }
 
   @Override
@@ -217,8 +212,7 @@ public class ItemReturnModelResult {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {

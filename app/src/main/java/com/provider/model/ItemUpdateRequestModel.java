@@ -1,21 +1,15 @@
 package com.provider.model;
 
-import java.util.*;
-import java.util.Objects;
-
-import org.hibernate.validator.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
+import org.hibernate.validator.constraints.*;
 
-/**
- * ItemUpdateRequestModel
- */
-
+/** ItemUpdateRequestModel */
 @JsonTypeName("itemUpdateRequestModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemUpdateRequestModel {
@@ -30,16 +24,16 @@ public class ItemUpdateRequestModel {
 
   /**
    * Default constructor
-   * @deprecated Use {@link ItemUpdateRequestModel#ItemUpdateRequestModel(String, Integer, StatusEnum)}
+   *
+   * @deprecated Use {@link ItemUpdateRequestModel#ItemUpdateRequestModel(String, Integer,
+   *     StatusEnum)}
    */
   @Deprecated
   public ItemUpdateRequestModel() {
     super();
   }
 
-  /**
-   * Constructor with only required parameters
-   */
+  /** Constructor with only required parameters */
   public ItemUpdateRequestModel(String title, Integer priceCents, StatusEnum status) {
     this.title = title;
     this.priceCents = priceCents;
@@ -53,9 +47,11 @@ public class ItemUpdateRequestModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @NotNull @Size(min = 5, max = 128)
+   */
+  @NotNull
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -72,8 +68,9 @@ public class ItemUpdateRequestModel {
 
   /**
    * Get description
+   *
    * @return description
-  */
+   */
   @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
@@ -91,8 +88,9 @@ public class ItemUpdateRequestModel {
 
   /**
    * Get priceCents
+   *
    * @return priceCents
-  */
+   */
   @NotNull
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
@@ -110,9 +108,11 @@ public class ItemUpdateRequestModel {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @NotNull @Valid
+   */
+  @NotNull
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -131,10 +131,10 @@ public class ItemUpdateRequestModel {
       return false;
     }
     ItemUpdateRequestModel itemUpdateRequestModel = (ItemUpdateRequestModel) o;
-    return Objects.equals(this.title, itemUpdateRequestModel.title) &&
-        Objects.equals(this.description, itemUpdateRequestModel.description) &&
-        Objects.equals(this.priceCents, itemUpdateRequestModel.priceCents) &&
-        Objects.equals(this.status, itemUpdateRequestModel.status);
+    return Objects.equals(this.title, itemUpdateRequestModel.title)
+        && Objects.equals(this.description, itemUpdateRequestModel.description)
+        && Objects.equals(this.priceCents, itemUpdateRequestModel.priceCents)
+        && Objects.equals(this.status, itemUpdateRequestModel.status);
   }
 
   @Override
@@ -155,8 +155,7 @@ public class ItemUpdateRequestModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
