@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.provider.config.Configuration;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemUpdateRequestModel;
@@ -61,10 +62,8 @@ public class ItemServiceImpl implements ItemService {
             ItemUpdateRequestModel itemUpdateRequestModel) {
         itemValidator.validateItemPut(accountID, ProviderID, itemID);
         Item item = itemRepository.getById(itemID);
-        item.setTitle(itemUpdateRequestModel.getTitle());
-        item.setPriceCents(itemUpdateRequestModel.getPriceCents());
-        item.setStatus(itemUpdateRequestModel.getStatus());
-        item.setDescription(itemUpdateRequestModel.getDescription());
+        entityConverter.setModelMapper(new Configuration().modelMapper2());
+        entityConverter.updateItemUpdateModelToItem(itemUpdateRequestModel, item);
         itemRepository.save(item);
         return entityConverter.convertItemToUpdateReturnModel(item);
     }

@@ -15,7 +15,7 @@ public class Configuration {
         return new RestTemplate();
     }
 
-    @Bean
+    @Bean(name = "modelMapper")
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setSkipNullEnabled(true);
@@ -23,8 +23,7 @@ public class Configuration {
         return modelMapper;
     }
 
-    @Bean
-    @Qualifier("modelMapperNull")
+    @Bean (name = "modelMapperNull")
     public ModelMapper modelMapper2() {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper;

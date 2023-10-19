@@ -26,6 +26,7 @@ import com.provider.config.Configuration;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
@@ -84,6 +85,7 @@ public class EntityConverterTest {
 
     private static Item createItem() {
         Item item = new Item("itemtitle", 1200, StatusEnum.VIEW_ONLY, null, null);
+        item.setDescription("desc");
         return item;
     }
 
@@ -107,6 +109,15 @@ public class EntityConverterTest {
         .title("updatedTitle")
         .phoneNumber("121212121212");
         return providerUpdateRequestModel;
+    }
+    
+    private static ItemUpdateRequestModel createItemUpdateRequestModel_nullDesc() {
+        ItemUpdateRequestModel itemUpdateRequestModel = new ItemUpdateRequestModel()
+        .description(null)
+        .status(StatusEnum.ACTIVE)
+        .priceCents(100)
+        .title("updatedTitle");
+        return itemUpdateRequestModel;
     }
 
     @Test
@@ -184,6 +195,18 @@ public class EntityConverterTest {
     }
 
     @Test
+    void testUpdateItem() {
+        ItemUpdateRequestModel itemUpdateRequestModel = createItemUpdateRequestModel_nullDesc();
+        Item item = createItem();
+        entityConverterService.setModelMapper(new Configuration().modelMapper2());
+        entityConverterService.updateItemUpdateModelToItem(itemUpdateRequestModel, item);
+        assertEquals(itemUpdateRequestModel.getDescription(), item.getDescription());
+        assertEquals(itemUpdateRequestModel.getStatus(), item.getStatus());
+        assertEquals(itemUpdateRequestModel.getPriceCents(), item.getPriceCents());
+        assertEquals(itemUpdateRequestModel.getTitle(), item.getTitle());
+    }
+
+    @Test
     void testConvertItemToUpdateReturnModel() {
         Item item = createItem();
         ItemUpdateReturnModel itemUpdateReturnModel = entityConverterService.convertItemToUpdateReturnModel(item);
@@ -193,4 +216,6 @@ public class EntityConverterTest {
         assertEquals(itemUpdateReturnModel.getResult().getStatus(), item.getStatus());
         assertEquals(itemUpdateReturnModel.getResult().getDescription(), item.getDescription());
     }
+
+    
 }

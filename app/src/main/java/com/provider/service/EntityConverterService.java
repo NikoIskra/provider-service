@@ -29,10 +29,20 @@ import lombok.RequiredArgsConstructor;
 
 
 @Service
-@RequiredArgsConstructor
 public class EntityConverterService {
 
-    private final ModelMapper modelMapper;
+    private ModelMapper modelMapper;
+
+    @Autowired
+    @Qualifier("modelMapperNull")
+    public void setModelMapper (ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
+    @Autowired
+    public EntityConverterService (@Qualifier("modelMapper") ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
 
     public ProviderReturnModel convertProviderToReturnModel (Provider provider) {
@@ -71,7 +81,7 @@ public class EntityConverterService {
         modelMapper.map(providerUpdateRequestModel, provider);
     }
 
-    public void patchItemUpdateModelToItem (ItemUpdateRequestModel itemUpdateRequestModel, Item item) {
+    public void updateItemUpdateModelToItem (ItemUpdateRequestModel itemUpdateRequestModel, Item item) {
         modelMapper.map(itemUpdateRequestModel, item);
     }
 
