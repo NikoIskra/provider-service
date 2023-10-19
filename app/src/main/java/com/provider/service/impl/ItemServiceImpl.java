@@ -62,7 +62,6 @@ public class ItemServiceImpl implements ItemService {
             ItemUpdateRequestModel itemUpdateRequestModel) {
         itemValidator.validateItemPut(accountID, ProviderID, itemID);
         Item item = itemRepository.getById(itemID);
-        entityConverter.setModelMapper(new Configuration().modelMapper2());
         entityConverter.updateItemUpdateModelToItem(itemUpdateRequestModel, item);
         itemRepository.save(item);
         return entityConverter.convertItemToUpdateReturnModel(item);

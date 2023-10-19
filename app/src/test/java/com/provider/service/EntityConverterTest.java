@@ -41,7 +41,7 @@ import com.provider.persistence.entity.SubItem;
 
 public class EntityConverterTest {
 
-    private final EntityConverterService entityConverterService = new EntityConverterService(new Configuration().modelMapper());
+    private final EntityConverterService entityConverterService = new EntityConverterService(new Configuration().modelMapper(), new Configuration().strictModelMapper());
 
     private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
@@ -198,7 +198,6 @@ public class EntityConverterTest {
     void testUpdateItem() {
         ItemUpdateRequestModel itemUpdateRequestModel = createItemUpdateRequestModel_nullDesc();
         Item item = createItem();
-        entityConverterService.setModelMapper(new Configuration().modelMapper2());
         entityConverterService.updateItemUpdateModelToItem(itemUpdateRequestModel, item);
         assertEquals(itemUpdateRequestModel.getDescription(), item.getDescription());
         assertEquals(itemUpdateRequestModel.getStatus(), item.getStatus());

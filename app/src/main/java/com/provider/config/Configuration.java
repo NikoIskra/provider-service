@@ -23,8 +23,8 @@ public class Configuration {
         return modelMapper;
     }
 
-    @Bean (name = "modelMapperNull")
-    public ModelMapper modelMapper2() {
+    @Bean (name = "strictModelMapper")
+    public ModelMapper strictModelMapper() {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper;
     }

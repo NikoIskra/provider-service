@@ -31,16 +31,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class EntityConverterService {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+    private final ModelMapper strictModelMapper;
 
-    @Autowired
-    @Qualifier("modelMapperNull")
-    public void setModelMapper (ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-
-    @Autowired
-    public EntityConverterService (@Qualifier("modelMapper") ModelMapper modelMapper) {
+    public EntityConverterService (@Qualifier("strictModelMapper") ModelMapper strictModelMapper, 
+                   @Qualifier("modelMapper") ModelMapper modelMapper) {
+        this.strictModelMapper = strictModelMapper;
         this.modelMapper = modelMapper;
     }
 
@@ -86,7 +82,7 @@ public class EntityConverterService {
     }
 
     public ItemUpdateReturnModel convertItemToUpdateReturnModel (Item item) {
-        ItemUpdateReturnModelResult itemUpdateReturnModelResult = modelMapper.map(item, ItemUpdateReturnModelResult.class);
+        ItemUpdateReturnModelResult itemUpdateReturnModelResult = strictModelMapper.map(item, ItemUpdateReturnModelResult.class);
         return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
     }
 
