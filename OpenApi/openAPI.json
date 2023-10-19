@@ -122,6 +122,44 @@
           }
         }
       }
+    },
+    "/api/v1/provider/{provider-id}/item/{item-id}" : {
+      "put": {
+        "tags" : [
+          "item"
+        ],
+        "description" : "Update item",
+        "parameters": [
+          {
+            "$ref" : "contentSchema/params/accountIDParam.json"
+          },
+          {
+            "$ref" : "contentSchema/params/providerIDParam.json"
+          },
+          {
+            "$ref" : "contentSchema/params/itemIDParam.json"
+          }
+        ],
+        "requestBody": {
+          "description": "Item to be updated",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "contentSchema/itemUpdateRequestModel.json"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "responses/200ItemUpdated.json"
+          },
+          "400": {
+            "$ref": "responses/400BadRequest.json"
+          }
+        }
+      }
     }
   }
 }

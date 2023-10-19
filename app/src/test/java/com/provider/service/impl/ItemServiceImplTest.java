@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -27,6 +28,9 @@ import com.provider.exception.BadRequestException;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemUpdateRequestModel;
+import com.provider.model.ItemUpdateReturnModel;
+import com.provider.model.ItemUpdateReturnModelResult;
 import com.provider.model.StatusEnum;
 import com.provider.model.SubItemRequestModel;
 import com.provider.model.SubItemReturnModel;
@@ -112,9 +116,21 @@ public class ItemServiceImplTest {
         return new ItemReturnModel().ok(true).result(itemReturnModelResult);
     }
 
+    private static ItemUpdateRequestModel createItemUpdateRequestModel() {
+        ItemUpdateRequestModel itemUpdateRequestModel = new ItemUpdateRequestModel("itemtitle", 1200, StatusEnum.VIEW_ONLY);
+        return itemUpdateRequestModel;
+    }
+
     private static Provider createProvider() {
         Provider provider = new Provider(uuid, "providername", "providertitle", "1234567890", StatusEnum.VIEW_ONLY);
         return provider;
+    }
+
+    private static ItemUpdateReturnModel createItemUpdateReturnModel() {
+        ItemUpdateReturnModelResult itemUpdateReturnModelResult = new ItemUpdateReturnModelResult()
+        .description("returndesc")
+        .id(1L);
+        return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
     }
 
     @Test
@@ -205,6 +221,37 @@ public class ItemServiceImplTest {
         verify(itemValidator).validateItemRequest(uuid, 1L);
         verifyNoInteractions(entityConverter);
         verifyNoInteractions(providerRepository, itemRepository);
+    }
+
+    @Test
+    void updateItem() {
+        ItemUpdateRequestModel itemUpdateRequestModel = createItemUpdateRequestModel();
+        Item item = createItem();
+        ItemUpdateReturnModel itemUpdateReturnModel = createItemUpdateReturnModel();
+        when(itemRepository.getById(any())).thenReturn(item);
+        when(entityConverter.convertItemToUpdateReturnModel(item)).thenReturn(itemUpdateReturnModel);
+        ItemUpdateReturnModel returnModel = itemServiceImpl.put(uuid, 1L, 2L, itemUpdateRequestModel);
+        verify(itemRepository).save(itemArgumentCaptor.capture());
+        Item captureditem = itemArgumentCaptor.getValue();
+        assertEquals(captureditem.getDescription(), itemUpdateRequestModel.getDescription());
+        assertEquals(captureditem.getTitle(), itemUpdateRequestModel.getTitle());
+        assertEquals(captureditem.getPriceCents(), itemUpdateRequestModel.getPriceCents());
+        assertEquals(captureditem.getStatus(), itemUpdateRequestModel.getStatus());
+        verify(itemValidator).validateItemPut(uuid, 1L, 2L);
+        verify(itemRepository).getById(2L);
+        verify(itemRepository).save(any());
+        verify(entityConverter).convertItemToUpdateReturnModel(any());
+    }
+
+    @Test
+    void updateItem_validatorException() {
+        ItemUpdateRequestModel itemUpdateRequestModel = createItemUpdateRequestModel();
+        doThrow(BadRequestException.class).when(itemValidator).validateItemPut(uuid, 1L, 2L);
+        assertThrows(BadRequestException.class,
+            () -> itemServiceImpl.put(uuid, 1L, 2L, itemUpdateRequestModel)
+        );
+        verify(itemValidator).validateItemPut(uuid, 1L, 2L);
+        verifyNoInteractions(itemRepository, entityConverter);
     }
 
 }

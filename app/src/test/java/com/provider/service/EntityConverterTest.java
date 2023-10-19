@@ -26,6 +26,8 @@ import com.provider.config.Configuration;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemUpdateRequestModel;
+import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
@@ -39,7 +41,7 @@ import com.provider.persistence.entity.SubItem;
 
 public class EntityConverterTest {
 
-    private final EntityConverterService entityConverterService = new EntityConverterService(new Configuration().modelMapper());
+    private final EntityConverterService entityConverterService = new EntityConverterService(new Configuration().modelMapper(), new Configuration().strictModelMapper());
 
     private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
@@ -83,6 +85,7 @@ public class EntityConverterTest {
 
     private static Item createItem() {
         Item item = new Item("itemtitle", 1200, StatusEnum.VIEW_ONLY, null, null);
+        item.setDescription("desc");
         return item;
     }
 
@@ -106,6 +109,15 @@ public class EntityConverterTest {
         .title("updatedTitle")
         .phoneNumber("121212121212");
         return providerUpdateRequestModel;
+    }
+    
+    private static ItemUpdateRequestModel createItemUpdateRequestModel_nullDesc() {
+        ItemUpdateRequestModel itemUpdateRequestModel = new ItemUpdateRequestModel()
+        .description(null)
+        .status(StatusEnum.ACTIVE)
+        .priceCents(100)
+        .title("updatedTitle");
+        return itemUpdateRequestModel;
     }
 
     @Test
@@ -181,4 +193,28 @@ public class EntityConverterTest {
         assertEquals(providerUpdateRequestModel.getStatus(), updatedProvider.getStatus());
         assertEquals(providerUpdateRequestModel.getPhoneNumber(), updatedProvider.getPhoneNumber());
     }
+
+    @Test
+    void testUpdateItem() {
+        ItemUpdateRequestModel itemUpdateRequestModel = createItemUpdateRequestModel_nullDesc();
+        Item item = createItem();
+        entityConverterService.updateItemUpdateModelToItem(itemUpdateRequestModel, item);
+        assertEquals(itemUpdateRequestModel.getDescription(), item.getDescription());
+        assertEquals(itemUpdateRequestModel.getStatus(), item.getStatus());
+        assertEquals(itemUpdateRequestModel.getPriceCents(), item.getPriceCents());
+        assertEquals(itemUpdateRequestModel.getTitle(), item.getTitle());
+    }
+
+    @Test
+    void testConvertItemToUpdateReturnModel() {
+        Item item = createItem();
+        ItemUpdateReturnModel itemUpdateReturnModel = entityConverterService.convertItemToUpdateReturnModel(item);
+        assertEquals(itemUpdateReturnModel.isOk(), true);
+        assertEquals(itemUpdateReturnModel.getResult().getTitle(), item.getTitle());
+        assertEquals(itemUpdateReturnModel.getResult().getPriceCents(), item.getPriceCents());
+        assertEquals(itemUpdateReturnModel.getResult().getStatus(), item.getStatus());
+        assertEquals(itemUpdateReturnModel.getResult().getDescription(), item.getDescription());
+    }
+
+    
 }

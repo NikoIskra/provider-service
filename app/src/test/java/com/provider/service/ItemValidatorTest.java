@@ -2,7 +2,9 @@ package com.provider.service;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -17,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.provider.exception.BadRequestException;
 import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
+import com.provider.persistence.repository.ItemRepository;
 import com.provider.persistence.repository.ProviderRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,6 +30,9 @@ public class ItemValidatorTest {
 
     @Mock
     AccountApiClient accountApiClient;
+
+    @Mock
+    ItemRepository itemRepository;
 
     @InjectMocks
     ItemValidator itemValidator;
@@ -71,5 +77,40 @@ public class ItemValidatorTest {
         verify(accountApiClient).verifyAccountID(uuid2);
         verify(providerRepository).findById(1L);
     }
+
+    @Test
+    void testValidateItemPut() {
+        when(providerRepository.existsByIdAndOwnerId(any(), any())).thenReturn(true);
+        when(itemRepository.existsByIdAndProviderId(any(), any())).thenReturn(true);
+        assertDoesNotThrow(
+            () -> itemValidator.validateItemPut(uuid, 1L, 2L)
+        );
+        verify(accountApiClient).verifyAccountID(uuid);
+        verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
+        verify(itemRepository).existsByIdAndProviderId(2L, 1L);
+    }
+
+    @Test
+    void testValidateItemPut_noProvider() {
+        when(providerRepository.existsByIdAndOwnerId(any(), any())).thenReturn(false);
+        assertThrows(BadRequestException.class,
+            () -> itemValidator.validateItemPut(uuid, 1L, 2L)
+        );
+        verify(accountApiClient).verifyAccountID(uuid);
+        verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
+        verifyNoInteractions(itemRepository);
+    }
+
+    @Test
+    void testValidateItemPut_noItem() {
+        when(providerRepository.existsByIdAndOwnerId(any(), any())).thenReturn(true);
+        when(itemRepository.existsByIdAndProviderId(any(), any())).thenReturn(false);  
+        assertThrows(BadRequestException.class,
+            () -> itemValidator.validateItemPut(uuid, 1L, 2L)
+        );
+        verify(accountApiClient).verifyAccountID(uuid);
+        verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
+        verify(itemRepository).existsByIdAndProviderId(2L, 1L);
+      }
     
 }

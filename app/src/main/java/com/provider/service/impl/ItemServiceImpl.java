@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.provider.config.Configuration;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
+import com.provider.model.ItemUpdateRequestModel;
+import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.SubItemRequestModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.SubItem;
@@ -50,5 +55,15 @@ public class ItemServiceImpl implements ItemService {
         item.setSubItems(subItems);
         itemRepository.saveAndFlush(item);
         return entityConverter.convertItemToReturnModel(item);
+    }
+
+    @Override
+    public ItemUpdateReturnModel put(UUID accountID, Long ProviderID, Long itemID,
+            ItemUpdateRequestModel itemUpdateRequestModel) {
+        itemValidator.validateItemPut(accountID, ProviderID, itemID);
+        Item item = itemRepository.getById(itemID);
+        entityConverter.updateItemUpdateModelToItem(itemUpdateRequestModel, item);
+        itemRepository.save(item);
+        return entityConverter.convertItemToUpdateReturnModel(item);
     }
 }
