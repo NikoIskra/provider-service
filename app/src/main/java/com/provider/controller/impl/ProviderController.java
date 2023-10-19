@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.provider.controller.ProviderApi;
-import com.provider.model.ItemRequestModel;
-import com.provider.model.ItemReturnModel;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderUpdateRequestModel;

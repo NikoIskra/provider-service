@@ -18,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 import com.provider.exception.BadRequestException;
 import com.provider.model.AccountRoleIDReturnModel;
 import com.provider.model.AccountRoleIDReturnModelResult;
-import com.provider.model.ProviderRequestModel;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountApiClientTest {
@@ -50,7 +49,7 @@ public class AccountApiClientTest {
             () -> accountApiClient.verifyAccountID(uuid)
         );
     }
-    
+
     @Test
     void testVerifyAccountID_exceptionThrown() {
                 when(restTemplate.getForObject("http://localhost:3000/api/v1/account/{account_id}/role/PROVIDER",

@@ -1,20 +1,16 @@
 package com.provider.model;
 
-import java.net.URI;
+import java.util.*;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+
 import org.hibernate.validator.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.*;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 /**
  * ItemUpdateRequestModel
@@ -59,7 +55,7 @@ public class ItemUpdateRequestModel {
    * Get title
    * @return title
   */
-  @NotNull @Size(min = 5, max = 128) 
+  @NotNull @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -78,7 +74,7 @@ public class ItemUpdateRequestModel {
    * Get description
    * @return description
   */
-  @Size(max = 512) 
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -97,7 +93,7 @@ public class ItemUpdateRequestModel {
    * Get priceCents
    * @return priceCents
   */
-  @NotNull 
+  @NotNull
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -116,7 +112,7 @@ public class ItemUpdateRequestModel {
    * Get status
    * @return status
   */
-  @NotNull @Valid 
+  @NotNull @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -169,4 +165,3 @@ public class ItemUpdateRequestModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

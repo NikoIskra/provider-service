@@ -1,14 +1,7 @@
 package com.provider.controller.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.notNull;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 import java.util.UUID;
 
@@ -18,21 +11,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.provider.model.ErrorResponse;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
-import com.provider.persistence.repository.ProviderRepository;
-import com.provider.service.ProviderValidator;
 import com.provider.service.impl.ProviderServiceImpl;
 
 @WebMvcTest(ProviderController.class)
@@ -51,7 +39,7 @@ public class ProviderControllerTest {
         ProviderRequestModel providerRequestModel = new ProviderRequestModel("testname", "testtitle", "1234567890");
         return providerRequestModel;
     }
-    
+
     private static ProviderRequestModel createInvalidProviderRequestModel() {
         ProviderRequestModel providerRequestModel = new ProviderRequestModel("testname", "testtitle", "12345678");
         return providerRequestModel;
@@ -69,7 +57,7 @@ public class ProviderControllerTest {
         return providerReturnModel;
     }
 
-        
+
     private static ProviderUpdateRequestModel createProviderUpdateRequestModel() {
         ProviderUpdateRequestModel providerUpdateRequestModel = new ProviderUpdateRequestModel()
         .description("updatedesc")
@@ -77,7 +65,7 @@ public class ProviderControllerTest {
         .title("updatedTitle");
         return providerUpdateRequestModel;
     }
-    
+
     private static ProviderUpdateRequestModel createInvalidProviderUpdateRequestModel() {
         ProviderUpdateRequestModel providerUpdateRequestModel = new ProviderUpdateRequestModel()
         .description("updatedesc")
@@ -99,7 +87,7 @@ public class ProviderControllerTest {
         ProviderReturnModel providerReturnModel = new ProviderReturnModel().ok(true).result(providerReturnModelResult);
         return providerReturnModel;
     }
-    
+
     ObjectMapper mapper = new ObjectMapper();
 
 

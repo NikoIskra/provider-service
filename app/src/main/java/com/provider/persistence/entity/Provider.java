@@ -59,7 +59,7 @@ public class Provider {
     public Provider() {
     }
 
-    
+
 
     public Provider(UUID ownerId, String name, String title, String phoneNumber, StatusEnum status, List<Item> items) {
         this.ownerId = ownerId;
@@ -166,5 +166,5 @@ public class Provider {
         this.items = items;
     }
 
-    
+
 }

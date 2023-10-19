@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
@@ -42,7 +40,6 @@ import com.provider.persistence.repository.ProviderRepository;
 import com.provider.service.EntityConverterService;
 import com.provider.service.ItemValidator;
 
-import jakarta.persistence.EntityManager;
 
 @ExtendWith(MockitoExtension.class)
 public class ItemServiceImplTest {
@@ -161,7 +158,7 @@ public class ItemServiceImplTest {
         verify(providerRepository).getById(1L);
         verify(itemRepository).saveAndFlush(any());
     }
-    
+
     @Test
     void insertItem_emptySubItems() {
         ItemRequestModel itemRequestModel = createItemRequestModel_emptySubItem();
@@ -185,7 +182,7 @@ public class ItemServiceImplTest {
         verify(providerRepository).getById(1L);
         verify(itemRepository).saveAndFlush(any());
     }
-    
+
     @Test
     void insertItem_nullSubItems() {
         ItemRequestModel itemRequestModel = createItemRequestModel_nullSubItem();
@@ -210,7 +207,7 @@ public class ItemServiceImplTest {
         verify(providerRepository).getById(1L);
         verify(itemRepository).saveAndFlush(any());
     }
-    
+
     @Test
     void insertItem_validatorException() {
         ItemRequestModel itemRequestModel = createItemRequestModel_1SubItem();

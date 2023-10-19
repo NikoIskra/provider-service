@@ -1,13 +1,9 @@
 package com.provider.service;
 
-import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.provider.config.Configuration;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
@@ -25,7 +21,6 @@ import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
 
-import lombok.RequiredArgsConstructor;
 
 
 @Service
@@ -34,7 +29,7 @@ public class EntityConverterService {
     private final ModelMapper modelMapper;
     private final ModelMapper strictModelMapper;
 
-    public EntityConverterService (@Qualifier("strictModelMapper") ModelMapper strictModelMapper, 
+    public EntityConverterService (@Qualifier("strictModelMapper") ModelMapper strictModelMapper,
                    @Qualifier("modelMapper") ModelMapper modelMapper) {
         this.strictModelMapper = strictModelMapper;
         this.modelMapper = modelMapper;

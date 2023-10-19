@@ -1,18 +1,15 @@
 package com.provider.model;
 
-import java.net.URI;
+import java.util.*;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+
 import org.hibernate.validator.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.*;
 import jakarta.annotation.Generated;
+import jakarta.validation.constraints.*;
 
 /**
  * ProviderRequestModel
@@ -57,7 +54,7 @@ public class ProviderRequestModel {
    * Get name
    * @return name
   */
-  @NotNull @Size(min = 5, max = 64) 
+  @NotNull @Size(min = 5, max = 64)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -76,7 +73,7 @@ public class ProviderRequestModel {
    * Get title
    * @return title
   */
-  @NotNull @Size(min = 5, max = 128) 
+  @NotNull @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -95,7 +92,7 @@ public class ProviderRequestModel {
    * Get description
    * @return description
   */
-  @Size(max = 512) 
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -114,7 +111,7 @@ public class ProviderRequestModel {
    * Get phoneNumber
    * @return phoneNumber
   */
-  @NotNull @Pattern(regexp = "^\\+?\\d{10,14}$") 
+  @NotNull @Pattern(regexp = "^\\+?\\d{10,14}$")
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
     return phoneNumber;
@@ -167,4 +164,3 @@ public class ProviderRequestModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

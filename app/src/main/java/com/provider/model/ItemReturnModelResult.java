@@ -1,23 +1,18 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import com.provider.model.SubItemReturnModel;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import java.util.Objects;
+
 import org.hibernate.validator.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.*;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 /**
  * ItemReturnModelResult
@@ -51,7 +46,7 @@ public class ItemReturnModelResult {
    * Get id
    * @return id
   */
-  
+
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -70,7 +65,7 @@ public class ItemReturnModelResult {
    * Get providerId
    * @return providerId
   */
-  
+
   @JsonProperty("providerId")
   public Long getProviderId() {
     return providerId;
@@ -89,7 +84,7 @@ public class ItemReturnModelResult {
    * Get title
    * @return title
   */
-  
+
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -108,7 +103,7 @@ public class ItemReturnModelResult {
    * Get description
    * @return description
   */
-  
+
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -127,7 +122,7 @@ public class ItemReturnModelResult {
    * Get priceCents
    * @return priceCents
   */
-  
+
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -146,7 +141,7 @@ public class ItemReturnModelResult {
    * Get status
    * @return status
   */
-  @Valid 
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -173,7 +168,7 @@ public class ItemReturnModelResult {
    * Get subItems
    * @return subItems
   */
-  @Valid 
+  @Valid
   @JsonProperty("subItems")
   public List<@Valid SubItemReturnModel> getSubItems() {
     return subItems;
@@ -232,4 +227,3 @@ public class ItemReturnModelResult {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

@@ -1,20 +1,16 @@
 package com.provider.model;
 
-import java.net.URI;
+import java.util.*;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+
 import org.hibernate.validator.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.*;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 /**
  * SubItemReturnModel
@@ -45,7 +41,7 @@ public class SubItemReturnModel {
    * Get id
    * @return id
   */
-  
+
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -64,7 +60,7 @@ public class SubItemReturnModel {
    * Get itemId
    * @return itemId
   */
-  
+
   @JsonProperty("itemId")
   public Long getItemId() {
     return itemId;
@@ -83,7 +79,7 @@ public class SubItemReturnModel {
    * Get title
    * @return title
   */
-  @Size(min = 5, max = 128) 
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -102,7 +98,7 @@ public class SubItemReturnModel {
    * Get description
    * @return description
   */
-  @Size(max = 512) 
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -121,7 +117,7 @@ public class SubItemReturnModel {
    * Get priceCents
    * @return priceCents
   */
-  
+
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -140,7 +136,7 @@ public class SubItemReturnModel {
    * Get status
    * @return status
   */
-  @Valid 
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -197,4 +193,3 @@ public class SubItemReturnModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

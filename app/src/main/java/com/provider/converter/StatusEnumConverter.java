@@ -30,5 +30,5 @@ public class StatusEnumConverter implements AttributeConverter<StatusEnum, Strin
         }
         throw new BadRequestException("conversion failed");
     }
-    
+
 }

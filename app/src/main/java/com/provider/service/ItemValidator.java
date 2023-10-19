@@ -21,7 +21,7 @@ public class ItemValidator {
     private final ProviderRepository providerRepository;
 
     private final ItemRepository itemRepository;
-    
+
     public void validateItemRequest(UUID accountID, Long providerId) {
         accountApiClient.verifyAccountID(accountID);
         Optional<Provider> provider = providerRepository.findById(providerId);

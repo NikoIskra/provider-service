@@ -16,7 +16,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Propagation;
 
 import com.provider.model.StatusEnum;
-import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.SubItem;
 
 @DataJpaTest
@@ -70,5 +69,5 @@ public class SubItemRepositoryTest {
             () -> insertEmptySubIstem()
         );
     }
-    
+
 }

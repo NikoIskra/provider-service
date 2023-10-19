@@ -25,8 +25,6 @@ import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
 import com.provider.model.StatusEnum;
-import com.provider.model.ItemRequestModel;
-import com.provider.model.ItemReturnModel;
 import com.provider.model.SubItemRequestModel;
 import com.provider.model.SubItemReturnModel;
 import com.provider.persistence.repository.ProviderRepository;

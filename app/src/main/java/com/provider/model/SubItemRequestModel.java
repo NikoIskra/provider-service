@@ -1,18 +1,15 @@
 package com.provider.model;
 
-import java.net.URI;
+import java.util.*;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+
 import org.hibernate.validator.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.*;
 import jakarta.annotation.Generated;
+import jakarta.validation.constraints.*;
 
 /**
  * SubItemRequestModel
@@ -54,7 +51,7 @@ public class SubItemRequestModel {
    * Get title
    * @return title
   */
-  @NotNull @Size(min = 5, max = 128) 
+  @NotNull @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -73,7 +70,7 @@ public class SubItemRequestModel {
    * Get description
    * @return description
   */
-  @Size(max = 512) 
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -92,7 +89,7 @@ public class SubItemRequestModel {
    * Get priceCents
    * @return priceCents
   */
-  @NotNull 
+  @NotNull
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -143,4 +140,3 @@ public class SubItemRequestModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

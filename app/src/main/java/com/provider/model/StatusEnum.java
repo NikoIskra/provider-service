@@ -1,19 +1,14 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.*;
-
-
 import java.util.*;
-import jakarta.annotation.Generated;
+
+import org.hibernate.validator.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import jakarta.annotation.Generated;
+import jakarta.validation.constraints.*;
 
 /**
  * Gets or Sets statusEnum
@@ -21,13 +16,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public enum StatusEnum {
-  
+
   ACTIVE("active"),
-  
+
   SUSPENDED("suspended"),
-  
+
   VIEW_ONLY("view-only"),
-  
+
   CANCELLED("cancelled");
 
   private String value;
@@ -56,4 +51,3 @@ public enum StatusEnum {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
-

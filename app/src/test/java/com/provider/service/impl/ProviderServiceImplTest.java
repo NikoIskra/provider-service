@@ -3,17 +3,14 @@ package com.provider.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import java.util.Optional;
 import java.util.UUID;
 
-import org.aspectj.apache.bcel.classfile.Module.Provide;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -107,7 +104,7 @@ public class ProviderServiceImplTest {
         verify(providerValidator).validateProviderRequest(uuid, providerRequestModel);
         verifyNoInteractions(providerRepository, entityConverter);
     }
-    
+
     @Test
     void testPatchProvider() {
         Provider provider = createProvider();

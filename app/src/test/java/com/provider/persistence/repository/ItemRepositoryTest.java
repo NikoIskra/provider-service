@@ -23,7 +23,7 @@ import com.provider.persistence.entity.Item;
 @org.springframework.transaction.annotation.Transactional(propagation = Propagation.NOT_SUPPORTED)
 @ActiveProfiles("test")
 public class ItemRepositoryTest {
-    
+
     @Autowired
     ItemRepository itemRepository;
 

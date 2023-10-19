@@ -1,21 +1,17 @@
 package com.provider.model;
 
-import java.net.URI;
+import java.util.*;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
 import java.util.UUID;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+
 import org.hibernate.validator.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.*;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 /**
  * ProviderReturnModelResult
@@ -48,7 +44,7 @@ public class ProviderReturnModelResult {
    * Get id
    * @return id
   */
-  
+
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -67,7 +63,7 @@ public class ProviderReturnModelResult {
    * Get ownerId
    * @return ownerId
   */
-  @Valid 
+  @Valid
   @JsonProperty("ownerId")
   public UUID getOwnerId() {
     return ownerId;
@@ -86,7 +82,7 @@ public class ProviderReturnModelResult {
    * Get name
    * @return name
   */
-  
+
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -105,7 +101,7 @@ public class ProviderReturnModelResult {
    * Get title
    * @return title
   */
-  
+
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -124,7 +120,7 @@ public class ProviderReturnModelResult {
    * Get description
    * @return description
   */
-  
+
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -143,7 +139,7 @@ public class ProviderReturnModelResult {
    * Get phoneNumber
    * @return phoneNumber
   */
-  
+
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
     return phoneNumber;
@@ -162,7 +158,7 @@ public class ProviderReturnModelResult {
    * Get status
    * @return status
   */
-  @Valid 
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -221,4 +217,3 @@ public class ProviderReturnModelResult {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

@@ -40,5 +40,5 @@ public class ItemController implements ItemApi {
                 ItemUpdateReturnModel itemUpdateReturnModel = itemService.put(X_ACCOUNT_ID, providerId, itemId, itemUpdateRequestModel);
                 return ResponseEntity.status(HttpStatus.OK).body(itemUpdateReturnModel);
             }
-    
+
 }

@@ -1,19 +1,16 @@
 package com.provider.model;
 
-import java.net.URI;
+import java.util.*;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.provider.model.ProviderReturnModelResult;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+
 import org.hibernate.validator.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.*;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 /**
  * ProviderReturnModel
@@ -36,7 +33,7 @@ public class ProviderReturnModel {
    * Get ok
    * @return ok
   */
-  
+
   @JsonProperty("ok")
   public Boolean isOk() {
     return ok;
@@ -55,7 +52,7 @@ public class ProviderReturnModel {
    * Get result
    * @return result
   */
-  @Valid 
+  @Valid
   @JsonProperty("result")
   public ProviderReturnModelResult getResult() {
     return result;
@@ -104,4 +101,3 @@ public class ProviderReturnModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

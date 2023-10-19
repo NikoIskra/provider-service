@@ -2,11 +2,8 @@ package com.provider.service.impl;
 
 import java.util.UUID;
 
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import com.provider.exception.BadRequestException;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderUpdateRequestModel;
@@ -22,9 +19,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ProviderServiceImpl implements ProviderService {
-    
+
     private final ProviderRepository providerRepository;
-    
+
     private final ProviderValidator providerValidator;
 
     private final EntityConverterService entityConverter;
@@ -47,5 +44,5 @@ public class ProviderServiceImpl implements ProviderService {
         providerRepository.save(provider);
         return entityConverter.convertProviderToReturnModel(provider);
     }
-    
+
 }

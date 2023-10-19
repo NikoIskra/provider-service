@@ -1,21 +1,18 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.provider.model.SubItemRequestModel;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import java.util.Objects;
+
 import org.hibernate.validator.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.*;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 /**
  * ItemRequestModel
@@ -60,7 +57,7 @@ public class ItemRequestModel {
    * Get title
    * @return title
   */
-  @NotNull @Size(min = 5, max = 128) 
+  @NotNull @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -79,7 +76,7 @@ public class ItemRequestModel {
    * Get description
    * @return description
   */
-  @Size(max = 512) 
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -98,7 +95,7 @@ public class ItemRequestModel {
    * Get priceCents
    * @return priceCents
   */
-  @NotNull 
+  @NotNull
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -125,7 +122,7 @@ public class ItemRequestModel {
    * Get subItems
    * @return subItems
   */
-  @Valid 
+  @Valid
   @JsonProperty("subItems")
   public List<@Valid SubItemRequestModel> getSubItems() {
     return subItems;
@@ -178,4 +175,3 @@ public class ItemRequestModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

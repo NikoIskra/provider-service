@@ -79,7 +79,7 @@ public class ProviderValidatorTest {
         ProviderRequestModel providerRequestModel = createProviderRequestModel();
         doThrow(new BadRequestException(null)).when(accountApiClient).verifyAccountID(uuid);
         assertThrows(BadRequestException.class,
-        () -> providerValidator.validateProviderRequest(uuid, providerRequestModel)    
+        () -> providerValidator.validateProviderRequest(uuid, providerRequestModel)
         );
         verifyNoInteractions(providerRepository);
     }
@@ -90,7 +90,7 @@ public class ProviderValidatorTest {
         doNothing().when(accountApiClient).verifyAccountID(uuid);
         when(providerRepository.existsByName(any())).thenReturn(true);
         assertThrows(BadRequestException.class,
-        () -> providerValidator.validateProviderRequest(uuid, providerRequestModel)    
+        () -> providerValidator.validateProviderRequest(uuid, providerRequestModel)
         );
         verify(accountApiClient).verifyAccountID(uuid);
         verify(providerRepository).existsByName(anyString());
@@ -100,7 +100,7 @@ public class ProviderValidatorTest {
     void testValidateProviderRequestData_invalidRequestModel() {
         ProviderRequestModel providerRequestModel = createInvalidProviderRequestModel();
         assertThrows(BadRequestException.class,
-        () -> providerValidator.validateProviderRequest(uuid, providerRequestModel)    
+        () -> providerValidator.validateProviderRequest(uuid, providerRequestModel)
         );
         verify(accountApiClient).verifyAccountID(uuid);
         verify(providerRepository).existsByName(anyString());
@@ -116,7 +116,7 @@ public class ProviderValidatorTest {
         verify(accountApiClient).verifyAccountID(uuid);
         verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
     }
-    
+
     @Test
     void testValidateProviderPatchRequest_noAccount() {
         ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
@@ -149,5 +149,5 @@ public class ProviderValidatorTest {
         verify(accountApiClient).verifyAccountID(uuid);
         verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
     }
-    
+
 }

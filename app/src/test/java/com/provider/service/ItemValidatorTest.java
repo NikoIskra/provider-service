@@ -56,7 +56,7 @@ public class ItemValidatorTest {
         verify(accountApiClient).verifyAccountID(uuid);
         verify(providerRepository).findById(1L);
     }
-    
+
     @Test
     void testValidateItemRequest_emptyOptional() {
         when(providerRepository.findById(1L)).thenReturn(Optional.empty());
@@ -66,7 +66,7 @@ public class ItemValidatorTest {
         verify(accountApiClient).verifyAccountID(uuid);
         verify(providerRepository).findById(1L);
     }
-    
+
     @Test
     void testValidateItemRequest_nonMatchingID() {
         Optional<Provider> provider = createProviderOptional();
@@ -104,7 +104,7 @@ public class ItemValidatorTest {
     @Test
     void testValidateItemPut_noItem() {
         when(providerRepository.existsByIdAndOwnerId(any(), any())).thenReturn(true);
-        when(itemRepository.existsByIdAndProviderId(any(), any())).thenReturn(false);  
+        when(itemRepository.existsByIdAndProviderId(any(), any())).thenReturn(false);
         assertThrows(BadRequestException.class,
             () -> itemValidator.validateItemPut(uuid, 1L, 2L)
         );
@@ -112,5 +112,5 @@ public class ItemValidatorTest {
         verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
         verify(itemRepository).existsByIdAndProviderId(2L, 1L);
       }
-    
+
 }

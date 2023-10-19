@@ -1,18 +1,15 @@
 package com.provider.model;
 
-import java.net.URI;
+import java.util.*;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+
 import org.hibernate.validator.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.*;
 import jakarta.annotation.Generated;
+import jakarta.validation.constraints.*;
 
 /**
  * ErrorResponse
@@ -35,7 +32,7 @@ public class ErrorResponse {
    * Get ok
    * @return ok
   */
-  
+
   @JsonProperty("ok")
   public Boolean isOk() {
     return ok;
@@ -54,7 +51,7 @@ public class ErrorResponse {
    * Get errorMessage
    * @return errorMessage
   */
-  
+
   @JsonProperty("errorMessage")
   public String getErrorMessage() {
     return errorMessage;
@@ -103,4 +100,3 @@ public class ErrorResponse {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

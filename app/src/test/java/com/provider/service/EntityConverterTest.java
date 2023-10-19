@@ -1,26 +1,10 @@
 package com.provider.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.ui.ModelMap;
 
 import com.provider.config.Configuration;
 import com.provider.model.ItemRequestModel;
@@ -110,7 +94,7 @@ public class EntityConverterTest {
         .phoneNumber("121212121212");
         return providerUpdateRequestModel;
     }
-    
+
     private static ItemUpdateRequestModel createItemUpdateRequestModel_nullDesc() {
         ItemUpdateRequestModel itemUpdateRequestModel = new ItemUpdateRequestModel()
         .description(null)
@@ -216,5 +200,5 @@ public class EntityConverterTest {
         assertEquals(itemUpdateReturnModel.getResult().getDescription(), item.getDescription());
     }
 
-    
+
 }
