@@ -78,11 +78,11 @@ public class EntityConverterService {
     }
 
     public void updateItemUpdateModelToItem (ItemUpdateRequestModel itemUpdateRequestModel, Item item) {
-        modelMapper.map(itemUpdateRequestModel, item);
+        strictModelMapper.map(itemUpdateRequestModel, item);
     }
 
     public ItemUpdateReturnModel convertItemToUpdateReturnModel (Item item) {
-        ItemUpdateReturnModelResult itemUpdateReturnModelResult = strictModelMapper.map(item, ItemUpdateReturnModelResult.class);
+        ItemUpdateReturnModelResult itemUpdateReturnModelResult = modelMapper.map(item, ItemUpdateReturnModelResult.class);
         return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
     }
 
