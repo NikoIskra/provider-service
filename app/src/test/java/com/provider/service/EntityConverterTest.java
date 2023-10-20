@@ -25,7 +25,7 @@ public class EntityConverterTest {
 
   private final EntityConverterService entityConverterService =
       new EntityConverterService(
-          new Configuration().modelMapper(), new Configuration().strictModelMapper());
+          new Configuration().strictModelMapper(), new Configuration().modelMapper());
 
   private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
