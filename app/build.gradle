@@ -62,10 +62,6 @@ test {
 	testLogging {
 		events "passed", "skipped", "failed"
 	}
-    filter {
-        includeTestsMatching "com.provider.service.*"
-        includeTestsMatching "com.provider.controller.impl"
-    }
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
