@@ -24,6 +24,7 @@ public class Configuration {
   @Bean(name = "strictModelMapper")
   public ModelMapper strictModelMapper() {
     ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(false);
     return modelMapper;
   }
 }
