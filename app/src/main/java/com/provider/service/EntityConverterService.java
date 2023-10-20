@@ -73,7 +73,7 @@ public class EntityConverterService {
   }
 
   public void updateItemUpdateModelToItem(
-    ItemUpdateRequestModel itemUpdateRequestModel, Item item) {
+      ItemUpdateRequestModel itemUpdateRequestModel, Item item) {
     strictModelMapper.map(itemUpdateRequestModel, item);
   }
 
