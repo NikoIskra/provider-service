@@ -1,5 +1,6 @@
 package com.provider.service.impl;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -18,13 +19,17 @@ import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ProviderRepository;
 import com.provider.service.EntityConverterService;
+import com.provider.service.ModelPopulationService;
 import com.provider.service.ProviderValidator;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class ProviderServiceImplTest {
@@ -33,6 +38,8 @@ public class ProviderServiceImplTest {
   @Mock ProviderValidator providerValidator;
 
   @Mock EntityConverterService entityConverter;
+
+  @Mock ModelPopulationService modelPopulationService;
 
   @InjectMocks ProviderServiceImpl providerServiceImpl;
 
@@ -128,5 +135,25 @@ public class ProviderServiceImplTest {
         () -> providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel));
     verify(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
     verifyNoInteractions(providerRepository, entityConverter);
+  }
+
+  @Test
+  void testGetAllProviders() {
+    Provider provider = createProvider();
+    List<Provider> providers = List.of(provider);
+    Page<Provider> providersPage = new PageImpl<>(providers);
+    when(providerRepository.findAllByStatusIn(any(), any())).thenReturn(providersPage);
+    assertDoesNotThrow(() -> providerServiceImpl.getAll(uuid, 0, 50));
+    verify(providerRepository).findAllByStatusIn(any(), any());
+    verify(providerValidator).validateProviderGetRequest(uuid);
+    verify(modelPopulationService).populateProviderGetDataObject(any(), any(), any());
+  }
+
+  @Test
+  void testGetAllProviders_validatorException() {
+    doThrow(new BadRequestException(null)).when(providerValidator).validateProviderGetRequest(uuid);
+    assertThrows(BadRequestException.class, () -> providerServiceImpl.getAll(uuid, 0, 50));
+    verify(providerValidator).validateProviderGetRequest(uuid);
+    verifyNoInteractions(providerRepository, modelPopulationService);
   }
 }

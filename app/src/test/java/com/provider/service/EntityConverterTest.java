@@ -8,6 +8,7 @@ import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
+import com.provider.model.ProviderGetDataObject;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
@@ -207,5 +208,16 @@ public class EntityConverterTest {
     assertEquals(itemUpdateReturnModel.getResult().getPriceCents(), item.getPriceCents());
     assertEquals(itemUpdateReturnModel.getResult().getStatus(), item.getStatus());
     assertEquals(itemUpdateReturnModel.getResult().getDescription(), item.getDescription());
+  }
+
+  @Test
+  void testConvertProviderToGetDataObject() {
+    Provider provider = createProvider();
+    ProviderGetDataObject providerGetDataObject =
+        entityConverterService.convertProviderToGetDataObject(provider);
+    assertEquals(providerGetDataObject.getName(), provider.getName());
+    assertEquals(providerGetDataObject.getPhoneNumber(), provider.getPhoneNumber());
+    assertEquals(providerGetDataObject.getTitle(), provider.getTitle());
+    assertEquals(providerGetDataObject.getStatus(), provider.getStatus());
   }
 }

@@ -1,0 +1,11 @@
+{
+    "name": "page-size",
+    "in": "query",
+    "required": true,
+    "schema": {
+      "type": "integer",
+      "minimum" : 20,
+      "maximum" : 100,
+      "default" : 50
+    }
+}

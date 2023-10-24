@@ -1,0 +1,30 @@
+{
+    "type" : "object",
+    "properties" : {
+        "id" : {
+            "type" : "integer",
+            "format" : "int64"
+        },
+        "name" : {
+            "type" : "string"
+        },
+        "title" : {
+            "$ref" : "title.json"
+        },
+        "description": {
+            "$ref" : "description.json"
+        },
+        "status" : {
+            "$ref" : "../enums/statusEnum.json"
+        },
+        "services" : {
+            "type" : "array",
+            "items" : {
+                "type" : "string"
+            }
+        },
+        "phoneNumber": {
+            "$ref" : "phoneNumber.json"
+        }
+    }
+}

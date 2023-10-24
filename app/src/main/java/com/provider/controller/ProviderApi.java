@@ -4,6 +4,7 @@
  */
 package com.provider.controller;
 
+import com.provider.model.ProviderGetAllReturnModel;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderUpdateRequestModel;
@@ -18,6 +19,29 @@ import org.springframework.web.bind.annotation.*;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 public interface ProviderApi {
+
+  /**
+   * GET /api/v1/provider Insert provider
+   *
+   * @param X_ACCOUNT_ID (required)
+   * @param page (required)
+   * @param pageSize (required)
+   * @return fetched (status code 200) or Bad request! (status code 400)
+   */
+  @RequestMapping(
+      method = RequestMethod.GET,
+      value = "/api/v1/provider",
+      produces = {"application/json"})
+  ResponseEntity<ProviderGetAllReturnModel> apiV1ProviderGet(
+      @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
+      @NotNull @Valid @RequestParam(value = "page", required = true) Integer page,
+      @NotNull
+          @Min(20)
+          @Max(100)
+          @Valid
+          @RequestParam(value = "page-size", required = true, defaultValue = "50")
+          Integer pageSize)
+      throws Exception;
 
   /**
    * POST /api/v1/provider Insert provider

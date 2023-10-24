@@ -41,4 +41,8 @@ public class ProviderValidator {
       throw new BadRequestException("Request body cannot be empty!");
     }
   }
+
+  public void validateProviderGetRequest(UUID accountID) {
+    accountApiClient.verifyAccountID(accountID);
+  }
 }

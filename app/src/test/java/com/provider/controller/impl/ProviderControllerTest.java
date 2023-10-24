@@ -4,12 +4,16 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.provider.model.ProviderGetAllReturnModel;
+import com.provider.model.ProviderGetAllReturnModelResult;
+import com.provider.model.ProviderGetDataObject;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.service.impl.ProviderServiceImpl;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +92,16 @@ public class ProviderControllerTest {
     ProviderReturnModel providerReturnModel =
         new ProviderReturnModel().ok(true).result(providerReturnModelResult);
     return providerReturnModel;
+  }
+
+  private static ProviderGetAllReturnModel createProviderGetAllReturnModel() {
+    List<String> services = List.of("test1", "test2");
+    ProviderGetDataObject providerGetDataObject =
+        new ProviderGetDataObject().id(1L).description("testdesc").services(services);
+    List<ProviderGetDataObject> providerDataList = List.of(providerGetDataObject);
+    ProviderGetAllReturnModelResult providerGetAllReturnModelResult =
+        new ProviderGetAllReturnModelResult().data(providerDataList).numberOfPages(2);
+    return new ProviderGetAllReturnModel().ok(true).result(providerGetAllReturnModelResult);
   }
 
   ObjectMapper mapper = new ObjectMapper();
@@ -176,5 +190,23 @@ public class ProviderControllerTest {
         .andExpect(status().isBadRequest())
         .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false))
         .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("validation failed"));
+  }
+
+  @Test
+  void getProviders() throws Exception {
+    ProviderGetAllReturnModel providerGetAllReturnModel = createProviderGetAllReturnModel();
+    when(providerServiceImpl.getAll(uuid, 0, 50)).thenReturn(providerGetAllReturnModel);
+    mvc.perform(
+            MockMvcRequestBuilders.get("/api/v1/provider?page=0&page-size=50")
+                .header("X-ACCOUNT-ID", "d3d35b67-b8f9-464b-a0b5-39f526e1f5f2"))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  void getProviders_badRequest() throws Exception {
+    mvc.perform(
+            MockMvcRequestBuilders.get("/api/v1/provider")
+                .header("X-ACCOUNT-ID", "d3d35b67-b8f9-464b-a0b5-39f526e1f5f2"))
+        .andExpect(status().isBadRequest());
   }
 }

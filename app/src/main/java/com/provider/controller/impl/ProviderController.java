@@ -1,11 +1,14 @@
 package com.provider.controller.impl;
 
 import com.provider.controller.ProviderApi;
+import com.provider.model.ProviderGetAllReturnModel;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.service.ProviderService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +45,16 @@ public class ProviderController implements ProviderApi {
     ProviderReturnModel providerReturnModel =
         providerService.patch(X_ACCOUNT_ID, providerId, providerUpdateRequestModel);
     return ResponseEntity.status(HttpStatus.OK).body(providerReturnModel);
+  }
+
+  @Override
+  public ResponseEntity<ProviderGetAllReturnModel> apiV1ProviderGet(
+      @NotNull UUID X_ACCOUNT_ID,
+      @NotNull @Valid Integer page,
+      @NotNull @Min(20) @Max(100) @Valid Integer pageSize)
+      throws Exception {
+    ProviderGetAllReturnModel providerGetAllReturnModel =
+        providerService.getAll(X_ACCOUNT_ID, page, pageSize);
+    return ResponseEntity.status(HttpStatus.OK).body(providerGetAllReturnModel);
   }
 }

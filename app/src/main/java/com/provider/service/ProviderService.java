@@ -1,5 +1,6 @@
 package com.provider.service;
 
+import com.provider.model.ProviderGetAllReturnModel;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderUpdateRequestModel;
@@ -10,4 +11,6 @@ public interface ProviderService {
 
   ProviderReturnModel patch(
       UUID accountID, Long providerID, ProviderUpdateRequestModel providerRequestModel);
+
+  ProviderGetAllReturnModel getAll(UUID accountID, int pageNo, int pageSize);
 }

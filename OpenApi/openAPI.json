@@ -51,6 +51,31 @@
             "$ref": "responses/409Conflict.json"
           }
         }
+      },
+      "get" : {
+        "tags": [
+          "provider"
+        ],
+        "description": "Insert provider",
+        "parameters": [
+          {
+            "$ref" : "contentSchema/params/accountIDParam.json"
+          },
+          {
+            "$ref" : "contentSchema/params/pageQueryParam.json"
+          },
+          {
+            "$ref" : "contentSchema/params/pageSizeQueryParam.json"
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "$ref" : "responses/200ProviderGetAllOK.json"
+          },
+          "400": {
+            "$ref": "responses/400BadRequest.json"
+          }
+        }        
       }
     },
     "/api/v1/provider/{provider-id}/item": {
