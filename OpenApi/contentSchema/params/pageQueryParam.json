@@ -3,6 +3,7 @@
     "in": "query",
     "required": true,
     "schema": {
-      "type": "integer"
+      "type": "integer",
+      "format": "int32"
     }
 }

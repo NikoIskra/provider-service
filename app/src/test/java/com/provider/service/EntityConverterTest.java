@@ -19,6 +19,8 @@ import com.provider.model.SubItemReturnModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +40,9 @@ public class EntityConverterTest {
 
   private static Provider createProvider() {
     Provider provider = new Provider(uuid, "name", "title", "1234567890", StatusEnum.VIEW_ONLY);
+    Item item = createItem();
+    List<Item> items = List.of(item);
+    provider.setItems(items);
     return provider;
   }
 
@@ -110,6 +115,9 @@ public class EntityConverterTest {
             .title("updatedTitle");
     return itemUpdateRequestModel;
   }
+
+  private final List<StatusEnum> statusList =
+      List.of(StatusEnum.ACTIVE, StatusEnum.SUSPENDED, StatusEnum.VIEW_ONLY);
 
   @Test
   void testConvertProviderToReturnModel() {
@@ -213,8 +221,11 @@ public class EntityConverterTest {
   @Test
   void testConvertProviderToGetDataObject() {
     Provider provider = createProvider();
-    ProviderGetDataObject providerGetDataObject =
-        entityConverterService.convertProviderToGetDataObject(provider);
+    List<Provider> providers = List.of(provider);
+    List<ProviderGetDataObject> providerGetDataObjects = new ArrayList<>();
+    entityConverterService.convertProviderToGetDataObjects(
+        providerGetDataObjects, providers, statusList);
+    ProviderGetDataObject providerGetDataObject = providerGetDataObjects.get(0);
     assertEquals(providerGetDataObject.getName(), provider.getName());
     assertEquals(providerGetDataObject.getPhoneNumber(), provider.getPhoneNumber());
     assertEquals(providerGetDataObject.getTitle(), provider.getTitle());

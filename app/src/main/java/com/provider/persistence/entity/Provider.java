@@ -6,6 +6,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +17,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "provider")
@@ -53,7 +55,8 @@ public class Provider {
   @UpdateTimestamp
   private Timestamp updatedAt;
 
-  @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST)
+  @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @Where(clause = "status != 'cancelled'")
   private List<Item> items;
 
   public Provider() {}

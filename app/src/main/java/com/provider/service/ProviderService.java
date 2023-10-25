@@ -12,5 +12,5 @@ public interface ProviderService {
   ProviderReturnModel patch(
       UUID accountID, Long providerID, ProviderUpdateRequestModel providerRequestModel);
 
-  ProviderGetAllReturnModel getAll(UUID accountID, int pageNo, int pageSize);
+  ProviderGetAllReturnModel getAll(UUID accountID, Integer pageNo, Integer pageSize);
 }

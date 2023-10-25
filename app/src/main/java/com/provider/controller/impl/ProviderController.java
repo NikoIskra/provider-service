@@ -51,7 +51,7 @@ public class ProviderController implements ProviderApi {
   public ResponseEntity<ProviderGetAllReturnModel> apiV1ProviderGet(
       @NotNull UUID X_ACCOUNT_ID,
       @NotNull @Valid Integer page,
-      @NotNull @Min(20) @Max(100) @Valid Integer pageSize)
+      @Min(20) @Max(100) @Valid Integer pageSize)
       throws Exception {
     ProviderGetAllReturnModel providerGetAllReturnModel =
         providerService.getAll(X_ACCOUNT_ID, page, pageSize);

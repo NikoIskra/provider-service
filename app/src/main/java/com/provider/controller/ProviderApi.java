@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.*;
 public interface ProviderApi {
 
   /**
-   * GET /api/v1/provider Insert provider
+   * GET /api/v1/provider Get all providers
    *
    * @param X_ACCOUNT_ID (required)
    * @param page (required)
-   * @param pageSize (required)
+   * @param pageSize (optional)
    * @return fetched (status code 200) or Bad request! (status code 400)
    */
   @RequestMapping(
@@ -35,11 +35,7 @@ public interface ProviderApi {
   ResponseEntity<ProviderGetAllReturnModel> apiV1ProviderGet(
       @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
       @NotNull @Valid @RequestParam(value = "page", required = true) Integer page,
-      @NotNull
-          @Min(20)
-          @Max(100)
-          @Valid
-          @RequestParam(value = "page-size", required = true, defaultValue = "50")
+      @Min(20) @Max(100) @Valid @RequestParam(value = "page-size", required = false)
           Integer pageSize)
       throws Exception;
 

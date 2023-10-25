@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.provider.exception.BadRequestException;
 import com.provider.model.ProviderGetAllReturnModel;
 import com.provider.model.ProviderGetAllReturnModelResult;
 import com.provider.model.ProviderGetDataObject;
@@ -100,7 +101,11 @@ public class ProviderControllerTest {
         new ProviderGetDataObject().id(1L).description("testdesc").services(services);
     List<ProviderGetDataObject> providerDataList = List.of(providerGetDataObject);
     ProviderGetAllReturnModelResult providerGetAllReturnModelResult =
-        new ProviderGetAllReturnModelResult().data(providerDataList).numberOfPages(2);
+        new ProviderGetAllReturnModelResult()
+            .data(providerDataList)
+            .numberOfPages(2)
+            .page(0)
+            .pageSize(50);
     return new ProviderGetAllReturnModel().ok(true).result(providerGetAllReturnModelResult);
   }
 
@@ -195,18 +200,25 @@ public class ProviderControllerTest {
   @Test
   void getProviders() throws Exception {
     ProviderGetAllReturnModel providerGetAllReturnModel = createProviderGetAllReturnModel();
-    when(providerServiceImpl.getAll(uuid, 0, 50)).thenReturn(providerGetAllReturnModel);
+    when(providerServiceImpl.getAll(uuid, 0, null)).thenReturn(providerGetAllReturnModel);
     mvc.perform(
-            MockMvcRequestBuilders.get("/api/v1/provider?page=0&page-size=50")
-                .header("X-ACCOUNT-ID", "d3d35b67-b8f9-464b-a0b5-39f526e1f5f2"))
-        .andExpect(status().isOk());
+            MockMvcRequestBuilders.get("/api/v1/provider?page=0")
+                .header("X-ACCOUNT-ID", uuid.toString()))
+        .andExpect(status().isOk())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(true))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.numberOfPages").value(2))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.page").value(0))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.pageSize").value(50));
   }
 
   @Test
   void getProviders_badRequest() throws Exception {
+    when(providerServiceImpl.getAll(uuid, 0, null)).thenThrow(new BadRequestException("failed"));
     mvc.perform(
-            MockMvcRequestBuilders.get("/api/v1/provider")
-                .header("X-ACCOUNT-ID", "d3d35b67-b8f9-464b-a0b5-39f526e1f5f2"))
-        .andExpect(status().isBadRequest());
+            MockMvcRequestBuilders.get("/api/v1/provider?page=0")
+                .header("X-ACCOUNT-ID", uuid.toString()))
+        .andExpect(status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("failed"));
   }
 }

@@ -56,7 +56,7 @@
         "tags": [
           "provider"
         ],
-        "description": "Insert provider",
+        "description": "Get all providers",
         "parameters": [
           {
             "$ref" : "contentSchema/params/accountIDParam.json"
