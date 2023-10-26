@@ -1,8 +1,12 @@
 package com.provider.service;
 
+import com.provider.model.ItemGetReturnModel;
+import com.provider.model.ItemGetReturnModelResult;
+import com.provider.model.ItemGetReturnModelResultProvider;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemSubItemsModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
@@ -98,5 +102,15 @@ public class EntityConverterService {
       providerGetDataObject.setServices(services);
       providerGetDataObjects.add(providerGetDataObject);
     }
+  }
+
+  public ItemGetReturnModel convertItemToGetReturnModle(Item item) {
+    ItemGetReturnModelResult itemGetReturnModelResult =
+        modelMapper.map(item, ItemGetReturnModelResult.class);
+    ItemGetReturnModelResultProvider itemGetReturnModelResultProvider =
+        modelMapper.map(item.getProvider(), ItemGetReturnModelResultProvider.class);
+    itemGetReturnModelResult.setProvider(itemGetReturnModelResultProvider);
+    item.getSubItems().forEach(s -> modelMapper.map(s, ItemSubItemsModel.class));
+    return new ItemGetReturnModel().ok(true).result(itemGetReturnModelResult);
   }
 }

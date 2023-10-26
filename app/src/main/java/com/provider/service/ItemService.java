@@ -1,5 +1,6 @@
 package com.provider.service;
 
+import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemUpdateRequestModel;
@@ -11,4 +12,6 @@ public interface ItemService {
 
   ItemUpdateReturnModel put(
       UUID accountID, Long ProviderID, Long itemID, ItemUpdateRequestModel itemUpdateRequestModel);
+
+  ItemGetReturnModel get(UUID accountID, Long ProviderID, Long itemID);
 }

@@ -1,5 +1,6 @@
 package com.provider.service.impl;
 
+import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemUpdateRequestModel;
@@ -59,5 +60,12 @@ public class ItemServiceImpl implements ItemService {
     entityConverter.updateItemUpdateModelToItem(itemUpdateRequestModel, item);
     itemRepository.save(item);
     return entityConverter.convertItemToUpdateReturnModel(item);
+  }
+
+  @Override
+  public ItemGetReturnModel get(UUID accountID, Long ProviderID, Long itemID) {
+    itemValidator.validateItemGet(accountID, ProviderID, itemID);
+    Item item = itemRepository.getItemWithParentAndListOfChildren(ProviderID, itemID);
+    return entityConverter.convertItemToGetReturnModle(item);
   }
 }

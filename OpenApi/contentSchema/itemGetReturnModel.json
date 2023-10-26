@@ -1,0 +1,55 @@
+{
+    "properties" : {
+        "ok" : {
+            "type":"boolean"
+        },
+        "result" : {
+            "type" : "object",
+            "properties" : {
+                "id" : {
+                    "type" : "integer",
+                    "format" : "int64"
+                },
+                "title" : {
+                    "$ref" : "props/title.json"
+                },
+                "description" : {
+                    "$ref" : "props/description.json"
+                },
+                "priceCents" : {
+                    "type" : "integer"
+                },
+                "status" : {
+                    "$ref" : "enums/statusEnum.json"
+                },
+                "provider" : {
+                    "type" : "object",
+                    "properties" : {
+                        "id" : {
+                            "type" : "integer",
+                            "format" : "int64"
+                        },
+                        "name" : {
+                            "type" : "string"
+                        },
+                        "title" : {
+                            "$ref" : "props/title.json"
+                        },
+                        "status" : {
+                            "$ref" : "enums/statusEnum.json"
+                        },
+                        "phoneNumber" : {
+                            "$ref" : "props/phoneNumber.json"
+                        }
+                    }
+                },
+                "subItems" : {
+                    "type" : "array",
+                    "items" : {
+                        "$ref" : "props/itemSubItemsModel.json"
+                    }
+                }
+            }
+        }
+    }
+}

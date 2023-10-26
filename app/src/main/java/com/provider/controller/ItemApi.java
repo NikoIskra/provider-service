@@ -4,6 +4,7 @@
  */
 package com.provider.controller;
 
+import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemUpdateRequestModel;
@@ -19,6 +20,24 @@ import org.springframework.web.bind.annotation.*;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 public interface ItemApi {
+
+  /**
+   * GET /api/v1/provider/{provider-id}/item/{item-id} Get item
+   *
+   * @param X_ACCOUNT_ID (required)
+   * @param providerId (required)
+   * @param itemId (required)
+   * @return fetched (status code 200) or Not found! (status code 404)
+   */
+  @RequestMapping(
+      method = RequestMethod.GET,
+      value = "/api/v1/provider/{provider-id}/item/{item-id}",
+      produces = {"application/json"})
+  ResponseEntity<ItemGetReturnModel> apiV1ProviderProviderIdItemItemIdGet(
+      @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
+      @PathVariable("provider-id") Long providerId,
+      @PathVariable("item-id") Long itemId)
+      throws Exception;
 
   /**
    * PUT /api/v1/provider/{provider-id}/item/{item-id} Update item
