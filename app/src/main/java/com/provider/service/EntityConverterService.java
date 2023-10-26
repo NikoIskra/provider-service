@@ -94,7 +94,7 @@ public class EntityConverterService {
       ProviderGetDataObject providerGetDataObject =
           modelMapper.map(provider, ProviderGetDataObject.class);
       List<String> services =
-          provider.getItems().stream().map(Item::getTitle).collect(Collectors.toList());
+          provider.getItems().stream().map(Item::getTitle).limit(10).collect(Collectors.toList());
       providerGetDataObject.setServices(services);
       providerGetDataObjects.add(providerGetDataObject);
     }

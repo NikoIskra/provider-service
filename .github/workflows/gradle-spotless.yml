@@ -9,7 +9,7 @@ name: Spotless check
 
 on:
   push:
-    branches: [ "main" ]
+    branches: "**"
   pull_request:
     branches: [ "main" ]
 

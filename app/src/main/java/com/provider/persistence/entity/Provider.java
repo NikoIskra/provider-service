@@ -1,22 +1,24 @@
 package com.provider.persistence.entity;
 
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.UUID;
+
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.provider.converter.StatusEnumConverter;
 import com.provider.model.StatusEnum;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.UUID;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "provider")
@@ -54,7 +56,7 @@ public class Provider {
   @UpdateTimestamp
   private Timestamp updatedAt;
 
-  @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST)
   private List<Item> items;
 
   public Provider() {}
