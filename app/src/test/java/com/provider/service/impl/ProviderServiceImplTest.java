@@ -140,12 +140,12 @@ public class ProviderServiceImplTest {
     Provider provider = createProvider();
     List<Provider> providers = List.of(provider);
     Page<Provider> providersPage = new PageImpl<>(providers);
-    when(providerRepository.findAllByStatusIn(any(), any())).thenReturn(providersPage);
+    when(providerRepository.findAllWithChildren(any())).thenReturn(providersPage);
     ProviderGetAllReturnModel providerGetAllReturnModel = providerServiceImpl.getAll(uuid, 0, 50);
     assertEquals(providerGetAllReturnModel.isOk(), true);
     assertEquals(providerGetAllReturnModel.getResult().getPage(), 0);
     assertEquals(providerGetAllReturnModel.getResult().getPageSize(), 50);
-    verify(providerRepository).findAllByStatusIn(any(), any());
+    verify(providerRepository).findAllWithChildren(any());
     verify(providerValidator).validateProviderGetRequest(uuid);
     verify(entityConverter).convertProviderToGetDataObjects(anyList(), anyList(), anyList());
   }

@@ -17,7 +17,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "provider")
@@ -56,7 +55,6 @@ public class Provider {
   private Timestamp updatedAt;
 
   @OneToMany(mappedBy = "provider", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  @Where(clause = "status != 'cancelled'")
   private List<Item> items;
 
   public Provider() {}

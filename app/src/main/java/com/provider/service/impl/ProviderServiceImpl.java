@@ -67,7 +67,7 @@ public class ProviderServiceImpl implements ProviderService {
     providerValidator.validateProviderGetRequest(accountID);
     Integer pageSizeActual = Objects.requireNonNullElse(pageSize, defaultPageSize);
     Pageable pageable = PageRequest.of(pageNo, pageSizeActual, Sort.by("createdAt"));
-    Page<Provider> providersPage = providerRepository.findAllByStatusIn(pageable, statusList);
+    Page<Provider> providersPage = providerRepository.findAllWithChildren(pageable);
     List<Provider> providers = providersPage.getContent();
     List<ProviderGetDataObject> providerGetDataObjects = new ArrayList<>();
     entityConverter.convertProviderToGetDataObjects(providerGetDataObjects, providers, statusList);

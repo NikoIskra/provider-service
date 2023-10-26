@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface ProviderRepository extends JpaRepository<Provider, Long> {
   Boolean existsByName(String name);
@@ -16,4 +17,8 @@ public interface ProviderRepository extends JpaRepository<Provider, Long> {
   Boolean existsByIdAndOwnerId(Long providerID, UUID ownerID);
 
   Page<Provider> findAllByStatusIn(Pageable pageable, List<StatusEnum> statusList);
+
+  @Query(
+      "select p from Provider as p join fetch p.items as i where i.status <> 'cancelled' and p.status <> 'cancelled'")
+  Page<Provider> findAllWithChildren(Pageable pageable);
 }
