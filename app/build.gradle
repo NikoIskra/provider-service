@@ -42,9 +42,9 @@ dependencies {
     implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
     implementation 'javax.validation:validation-api:2.0.0.Final'
     implementation  'org.flywaydb:flyway-core'
-implementation 'com.jayway.jsonpath:json-path:2.8.0'
-implementation 'org.apache.commons:commons-lang3:3.13.0'
-implementation 'org.modelmapper:modelmapper:3.1.1'
+    implementation 'com.jayway.jsonpath:json-path:2.8.0'
+    implementation 'org.apache.commons:commons-lang3:3.13.0'
+    implementation 'org.modelmapper:modelmapper:3.1.1'
 }
 
 spotless {
@@ -60,7 +60,6 @@ test {
 	}
 }
 
-// Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)

@@ -4,6 +4,7 @@ import com.provider.exception.BadRequestException;
 import com.provider.exception.ConflictException;
 import com.provider.exception.NotFoundException;
 import com.provider.model.ErrorResponse;
+import jakarta.validation.ConstraintViolationException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex) {
     ErrorResponse errorResponse = new ErrorResponse().ok(false).errorMessage(ex.getMessage());
     return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler
+  protected ResponseEntity<ErrorResponse> handleJakartaConstraintViolationException(
+      ConstraintViolationException ex) {
+    ErrorResponse errorResponse = new ErrorResponse().ok(false).errorMessage(ex.getMessage());
+    return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 
   @Override

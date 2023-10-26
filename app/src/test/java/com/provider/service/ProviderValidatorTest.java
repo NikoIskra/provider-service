@@ -143,4 +143,9 @@ public class ProviderValidatorTest {
     verify(accountApiClient).verifyAccountID(uuid);
     verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
   }
+
+  @Test
+  void testValidateGetRequest() {
+    assertDoesNotThrow(() -> providerValidator.validateProviderGetRequest(uuid));
+  }
 }

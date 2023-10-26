@@ -6,6 +6,7 @@ import com.provider.model.ItemReturnModelResult;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
+import com.provider.model.ProviderGetDataObject;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
@@ -16,6 +17,8 @@ import com.provider.model.SubItemReturnModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -81,5 +84,19 @@ public class EntityConverterService {
     ItemUpdateReturnModelResult itemUpdateReturnModelResult =
         modelMapper.map(item, ItemUpdateReturnModelResult.class);
     return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
+  }
+
+  public void convertProviderToGetDataObjects(
+      List<ProviderGetDataObject> providerGetDataObjects,
+      List<Provider> providers,
+      List<StatusEnum> statusList) {
+    for (Provider provider : providers) {
+      ProviderGetDataObject providerGetDataObject =
+          modelMapper.map(provider, ProviderGetDataObject.class);
+      List<String> services =
+          provider.getItems().stream().map(Item::getTitle).limit(10).collect(Collectors.toList());
+      providerGetDataObject.setServices(services);
+      providerGetDataObjects.add(providerGetDataObject);
+    }
   }
 }

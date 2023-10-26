@@ -3,6 +3,7 @@ package com.provider.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -10,6 +11,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.provider.exception.BadRequestException;
+import com.provider.model.ProviderGetAllReturnModel;
 import com.provider.model.ProviderRequestModel;
 import com.provider.model.ProviderReturnModel;
 import com.provider.model.ProviderReturnModelResult;
@@ -19,12 +21,15 @@ import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ProviderRepository;
 import com.provider.service.EntityConverterService;
 import com.provider.service.ProviderValidator;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class ProviderServiceImplTest {
@@ -127,6 +132,29 @@ public class ProviderServiceImplTest {
         BadRequestException.class,
         () -> providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel));
     verify(providerValidator).validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
+    verifyNoInteractions(providerRepository, entityConverter);
+  }
+
+  @Test
+  void testGetAllProviders() {
+    Provider provider = createProvider();
+    List<Provider> providers = List.of(provider);
+    Page<Provider> providersPage = new PageImpl<>(providers);
+    when(providerRepository.findAllWithChildren(any())).thenReturn(providersPage);
+    ProviderGetAllReturnModel providerGetAllReturnModel = providerServiceImpl.getAll(uuid, 0, 50);
+    assertEquals(providerGetAllReturnModel.isOk(), true);
+    assertEquals(providerGetAllReturnModel.getResult().getPage(), 0);
+    assertEquals(providerGetAllReturnModel.getResult().getPageSize(), 50);
+    verify(providerRepository).findAllWithChildren(any());
+    verify(providerValidator).validateProviderGetRequest(uuid);
+    verify(entityConverter).convertProviderToGetDataObjects(anyList(), anyList(), anyList());
+  }
+
+  @Test
+  void testGetAllProviders_validatorException() {
+    doThrow(new BadRequestException(null)).when(providerValidator).validateProviderGetRequest(uuid);
+    assertThrows(BadRequestException.class, () -> providerServiceImpl.getAll(uuid, 0, 50));
+    verify(providerValidator).validateProviderGetRequest(uuid);
     verifyNoInteractions(providerRepository, entityConverter);
   }
 }
