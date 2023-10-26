@@ -1,14 +1,7 @@
 package com.provider.persistence.entity;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.UUID;
-
-import org.hibernate.annotations.UpdateTimestamp;
-
 import com.provider.converter.StatusEnumConverter;
 import com.provider.model.StatusEnum;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -19,6 +12,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.UUID;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "provider")
