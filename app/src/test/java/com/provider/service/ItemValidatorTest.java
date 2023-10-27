@@ -8,7 +8,9 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.provider.exception.BadRequestException;
+import com.provider.exception.NotFoundException;
 import com.provider.model.StatusEnum;
+import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.repository.ItemRepository;
 import com.provider.persistence.repository.ProviderRepository;
@@ -34,6 +36,11 @@ public class ItemValidatorTest {
   private static Optional<Provider> createProviderOptional() {
     Provider provider = new Provider(uuid, "name", "title", "1234567890", StatusEnum.VIEW_ONLY);
     return Optional.of(provider);
+  }
+
+  private static Item createItem() {
+    Item item = new Item("itemtitle", 1200, StatusEnum.VIEW_ONLY, null, null);
+    return item;
   }
 
   private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
@@ -93,5 +100,29 @@ public class ItemValidatorTest {
     verify(accountApiClient).verifyAccountID(uuid);
     verify(providerRepository).existsByIdAndOwnerId(1L, uuid);
     verify(itemRepository).existsByIdAndProviderId(2L, 1L);
+  }
+
+  @Test
+  void testValidateItemGet() {
+    Item item = createItem();
+    when(itemRepository.findById(1L)).thenReturn(Optional.of(item));
+    assertDoesNotThrow(() -> itemValidator.validateItemGet(uuid, 1L, 1L));
+    verify(itemRepository).findById(1L);
+  }
+
+  @Test
+  void testValidateItemGet_emptyItem() {
+    when(itemRepository.findById(1L)).thenReturn(Optional.empty());
+    assertThrows(NotFoundException.class, () -> itemValidator.validateItemGet(uuid, 1L, 1L));
+    verify(itemRepository).findById(1L);
+  }
+
+  @Test
+  void testValidateItemGet_cancelledItem() {
+    Item item = createItem();
+    item.setStatus(StatusEnum.CANCELLED);
+    when(itemRepository.findById(1L)).thenReturn(Optional.of(item));
+    assertThrows(NotFoundException.class, () -> itemValidator.validateItemGet(uuid, 1L, 1L));
+    verify(itemRepository).findById(1L);
   }
 }
