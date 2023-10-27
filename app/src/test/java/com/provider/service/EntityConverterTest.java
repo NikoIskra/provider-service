@@ -246,6 +246,8 @@ public class EntityConverterTest {
   @Test
   void testConvertItemToGetReturnModel() {
     Item item = createItemWithProviderAndSubItems();
+    List<SubItem> subItems = new ArrayList<>(item.getSubItems());
+    item.setSubItems(subItems);
     ItemGetReturnModel itemGetReturnModel =
         entityConverterService.convertItemToGetReturnModle(item);
     assertEquals(itemGetReturnModel.isOk(), true);
