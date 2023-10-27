@@ -1,0 +1,10 @@
+{
+    "description": "fetched",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "../APIspecs/responses/providerGetAllReturnModel.json"
+            }
+        }
+    }
+}

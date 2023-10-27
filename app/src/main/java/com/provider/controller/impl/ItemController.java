@@ -22,7 +22,7 @@ public class ItemController implements ItemApi {
   @Autowired private ItemService itemService;
 
   @Override
-  public ResponseEntity<ItemReturnModel> apiV1ProviderProviderIdItemPost(
+  public ResponseEntity<ItemReturnModel> addItem(
       @NotNull UUID X_ACCOUNT_ID, Long providerId, @Valid ItemRequestModel itemRequestModel)
       throws Exception {
     ItemReturnModel itemReturnModel = itemService.save(X_ACCOUNT_ID, providerId, itemRequestModel);
@@ -37,7 +37,7 @@ public class ItemController implements ItemApi {
   }
 
   @Override
-  public ResponseEntity<ItemUpdateReturnModel> apiV1ProviderProviderIdItemItemIdPut(
+  public ResponseEntity<ItemUpdateReturnModel> updateItem(
       @NotNull UUID X_ACCOUNT_ID,
       Long providerId,
       Long itemId,
@@ -49,7 +49,7 @@ public class ItemController implements ItemApi {
   }
 
   @Override
-  public ResponseEntity<ItemGetReturnModel> apiV1ProviderProviderIdItemItemIdGet(
+  public ResponseEntity<ItemGetReturnModel> getItemByID(
       @NotNull UUID X_ACCOUNT_ID, Long providerId, Long itemId) throws Exception {
     ItemGetReturnModel itemGetReturnModel = itemService.get(X_ACCOUNT_ID, providerId, itemId);
     return ResponseEntity.status(HttpStatus.OK).body(itemGetReturnModel);

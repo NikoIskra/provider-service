@@ -15,7 +15,6 @@ import com.provider.exception.BadRequestException;
 import com.provider.exception.NotFoundException;
 import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemGetReturnModelResult;
-import com.provider.model.ItemGetReturnModelResultProvider;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
@@ -23,6 +22,7 @@ import com.provider.model.ItemSubItemsModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
+import com.provider.model.ProviderSchema;
 import com.provider.model.StatusEnum;
 import com.provider.model.SubItemRequestModel;
 import com.provider.model.SubItemReturnModel;
@@ -130,9 +130,9 @@ public class ItemServiceImplTest {
     return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
   }
 
-  private static ItemGetReturnModelResultProvider createItemGetReturnModelResultProvider() {
-    ItemGetReturnModelResultProvider provider =
-        new ItemGetReturnModelResultProvider()
+  private static ProviderSchema createProviderSchema() {
+    ProviderSchema provider =
+        new ProviderSchema()
             .id(1L)
             .name("testname")
             .title("testtitle")
@@ -153,7 +153,7 @@ public class ItemServiceImplTest {
   }
 
   private static ItemGetReturnModel createItemGetReturnModel() {
-    ItemGetReturnModelResultProvider provider = createItemGetReturnModelResultProvider();
+    ProviderSchema provider = createProviderSchema();
     ItemSubItemsModel itemSubItemsModel = createItemSubItemsModel();
     List<ItemSubItemsModel> subItemsModels = List.of(itemSubItemsModel);
     ItemGetReturnModelResult itemGetReturnModelResult =

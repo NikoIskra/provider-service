@@ -12,7 +12,7 @@ import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
 /** ItemGetReturnModelResult */
-@JsonTypeName("itemGetReturnModel_result")
+@JsonTypeName("itemGetReturnModelResult")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemGetReturnModelResult {
 
@@ -26,7 +26,7 @@ public class ItemGetReturnModelResult {
 
   private StatusEnum status;
 
-  private ItemGetReturnModelResultProvider provider;
+  private ProviderSchema provider;
 
   @Valid private List<@Valid ItemSubItemsModel> subItems;
 
@@ -128,7 +128,7 @@ public class ItemGetReturnModelResult {
     this.status = status;
   }
 
-  public ItemGetReturnModelResult provider(ItemGetReturnModelResultProvider provider) {
+  public ItemGetReturnModelResult provider(ProviderSchema provider) {
     this.provider = provider;
     return this;
   }
@@ -140,11 +140,11 @@ public class ItemGetReturnModelResult {
    */
   @Valid
   @JsonProperty("provider")
-  public ItemGetReturnModelResultProvider getProvider() {
+  public ProviderSchema getProvider() {
     return provider;
   }
 
-  public void setProvider(ItemGetReturnModelResultProvider provider) {
+  public void setProvider(ProviderSchema provider) {
     this.provider = provider;
   }
 

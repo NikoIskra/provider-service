@@ -7,29 +7,24 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import java.util.*;
 import java.util.Objects;
-import java.util.UUID;
 import org.hibernate.validator.constraints.*;
 
-/** ProviderReturnModelResult */
-@JsonTypeName("providerReturnModelResult")
+/** ProviderSchema */
+@JsonTypeName("providerSchema")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class ProviderReturnModelResult {
+public class ProviderSchema {
 
   private Long id;
-
-  private UUID ownerId;
 
   private String name;
 
   private String title;
 
-  private String description;
+  private StatusEnum status;
 
   private String phoneNumber;
 
-  private StatusEnum status;
-
-  public ProviderReturnModelResult id(Long id) {
+  public ProviderSchema id(Long id) {
     this.id = id;
     return this;
   }
@@ -48,27 +43,7 @@ public class ProviderReturnModelResult {
     this.id = id;
   }
 
-  public ProviderReturnModelResult ownerId(UUID ownerId) {
-    this.ownerId = ownerId;
-    return this;
-  }
-
-  /**
-   * Get ownerId
-   *
-   * @return ownerId
-   */
-  @Valid
-  @JsonProperty("ownerId")
-  public UUID getOwnerId() {
-    return ownerId;
-  }
-
-  public void setOwnerId(UUID ownerId) {
-    this.ownerId = ownerId;
-  }
-
-  public ProviderReturnModelResult name(String name) {
+  public ProviderSchema name(String name) {
     this.name = name;
     return this;
   }
@@ -87,7 +62,7 @@ public class ProviderReturnModelResult {
     this.name = name;
   }
 
-  public ProviderReturnModelResult title(String title) {
+  public ProviderSchema title(String title) {
     this.title = title;
     return this;
   }
@@ -107,47 +82,7 @@ public class ProviderReturnModelResult {
     this.title = title;
   }
 
-  public ProviderReturnModelResult description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Get description
-   *
-   * @return description
-   */
-  @Size(max = 512)
-  @JsonProperty("description")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public ProviderReturnModelResult phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-  /**
-   * Get phoneNumber
-   *
-   * @return phoneNumber
-   */
-  @Pattern(regexp = "^\\+?\\d{10,14}$")
-  @JsonProperty("phoneNumber")
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-  public ProviderReturnModelResult status(StatusEnum status) {
+  public ProviderSchema status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -167,6 +102,26 @@ public class ProviderReturnModelResult {
     this.status = status;
   }
 
+  public ProviderSchema phoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+    return this;
+  }
+
+  /**
+   * Get phoneNumber
+   *
+   * @return phoneNumber
+   */
+  @Pattern(regexp = "^\\+?\\d{10,14}$")
+  @JsonProperty("phoneNumber")
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -175,32 +130,28 @@ public class ProviderReturnModelResult {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProviderReturnModelResult providerReturnModelResult = (ProviderReturnModelResult) o;
-    return Objects.equals(this.id, providerReturnModelResult.id)
-        && Objects.equals(this.ownerId, providerReturnModelResult.ownerId)
-        && Objects.equals(this.name, providerReturnModelResult.name)
-        && Objects.equals(this.title, providerReturnModelResult.title)
-        && Objects.equals(this.description, providerReturnModelResult.description)
-        && Objects.equals(this.phoneNumber, providerReturnModelResult.phoneNumber)
-        && Objects.equals(this.status, providerReturnModelResult.status);
+    ProviderSchema providerSchema = (ProviderSchema) o;
+    return Objects.equals(this.id, providerSchema.id)
+        && Objects.equals(this.name, providerSchema.name)
+        && Objects.equals(this.title, providerSchema.title)
+        && Objects.equals(this.status, providerSchema.status)
+        && Objects.equals(this.phoneNumber, providerSchema.phoneNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, ownerId, name, title, description, phoneNumber, status);
+    return Objects.hash(id, name, title, status, phoneNumber);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProviderReturnModelResult {\n");
+    sb.append("class ProviderSchema {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    ownerId: ").append(toIndentedString(ownerId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("}");
     return sb.toString();
   }

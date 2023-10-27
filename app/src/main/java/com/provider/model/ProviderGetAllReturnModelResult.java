@@ -12,7 +12,7 @@ import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
 /** ProviderGetAllReturnModelResult */
-@JsonTypeName("providerGetAllReturnModel_result")
+@JsonTypeName("providerGetAllReturnModelResult")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ProviderGetAllReturnModelResult {
 

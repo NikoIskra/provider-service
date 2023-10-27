@@ -23,7 +23,7 @@ public class ProviderController implements ProviderApi {
   @Autowired private ProviderService providerService;
 
   @Override
-  public ResponseEntity<ProviderReturnModel> apiV1ProviderPost(
+  public ResponseEntity<ProviderReturnModel> addProvider(
       @NotNull UUID X_ACCOUNT_ID, @Valid ProviderRequestModel providerRequestModel)
       throws Exception {
     ProviderReturnModel providerReturnModel =
@@ -37,7 +37,7 @@ public class ProviderController implements ProviderApi {
   }
 
   @Override
-  public ResponseEntity<ProviderReturnModel> apiV1ProviderProviderIdPatch(
+  public ResponseEntity<ProviderReturnModel> patchProvider(
       @NotNull UUID X_ACCOUNT_ID,
       Long providerId,
       @Valid ProviderUpdateRequestModel providerUpdateRequestModel)
@@ -48,7 +48,7 @@ public class ProviderController implements ProviderApi {
   }
 
   @Override
-  public ResponseEntity<ProviderGetAllReturnModel> apiV1ProviderGet(
+  public ResponseEntity<ProviderGetAllReturnModel> getAllProviders(
       @NotNull UUID X_ACCOUNT_ID,
       @NotNull @Valid Integer page,
       @Min(20) @Max(100) @Valid Integer pageSize)

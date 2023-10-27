@@ -1,0 +1,20 @@
+{
+    "type" : "object",
+                    "properties" : {
+                        "id" : {
+                            "$ref" : "../props/longID.json"
+                        },
+                        "name" : {
+                            "type" : "string"
+                        },
+                        "title" : {
+                            "$ref" : "../props/title.json"
+                        },
+                        "status" : {
+                            "$ref" : "../enums/statusEnum.json"
+                        },
+                        "phoneNumber" : {
+                            "$ref" : "../props/phoneNumber.json"
+                        }
+                    }
+}

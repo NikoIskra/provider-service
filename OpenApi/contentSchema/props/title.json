@@ -1,5 +1,6 @@
 {
     "type" : "string",
     "minLength": 5,
-    "maxLength": 128
+    "maxLength": 128,
+    "example" : "title example"
 }

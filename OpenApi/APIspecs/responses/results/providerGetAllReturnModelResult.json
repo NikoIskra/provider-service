@@ -1,0 +1,20 @@
+{
+    "type" : "object",
+    "properties" : {
+        "data" : {
+            "type" : "array",
+            "items" : {
+                "$ref" : "../../../contentSchema/schemas/providerGetDataObject.json"
+            }
+        },
+        "page" : {
+            "type" : "integer"
+        },
+        "pageSize" : {
+            "type" : "integer"
+        },
+        "numberOfPages" : {
+            "type" : "integer"
+        }
+    }
+}

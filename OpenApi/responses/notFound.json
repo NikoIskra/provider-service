@@ -1,0 +1,10 @@
+{
+    "description": "Not found!",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "../APIspecs/responses/errorResponse.json"
+            }
+        }
+    }
+}

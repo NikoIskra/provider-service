@@ -1,0 +1,10 @@
+{
+    "description": "Conflict!",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "../APIspecs/responses/errorResponse.json"
+            }
+        }
+    }
+}

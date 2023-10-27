@@ -1,0 +1,10 @@
+{
+    "description": "updated",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "../APIspecs/responses/providerReturnModel.json"
+            }
+        }
+    }
+}

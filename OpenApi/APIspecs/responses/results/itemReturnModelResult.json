@@ -1,0 +1,29 @@
+{
+    "type" : "object",
+            "properties" : {
+                "id" : {
+                    "$ref" : "../../../contentSchema/props/longID.json"
+                },
+                "providerId": {
+                    "$ref" : "../../../contentSchema/props/longID.json"
+                },
+                "title": {
+                    "$ref" : "../../../contentSchema/props/title.json"
+                },
+                "description": {
+                    "$ref" : "../../../contentSchema/props/description.json"
+                },
+                "priceCents": {
+                    "type": "integer"
+                },
+                "status" : {
+                    "$ref" : "../../../contentSchema/enums/statusEnum.json"
+                },
+                "subItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "../../../contentSchema/schemas/subItemReturnModel.json"
+                    }
+                }
+            }
+}

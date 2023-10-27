@@ -12,7 +12,7 @@ import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
 /** ItemReturnModelResult */
-@JsonTypeName("itemReturnModel_result")
+@JsonTypeName("itemReturnModelResult")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemReturnModelResult {
 
@@ -78,6 +78,7 @@ public class ItemReturnModelResult {
    *
    * @return title
    */
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -97,6 +98,7 @@ public class ItemReturnModelResult {
    *
    * @return description
    */
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
