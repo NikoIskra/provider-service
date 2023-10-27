@@ -1,5 +1,7 @@
 package com.provider.service;
 
+import com.provider.model.ItemGetReturnModel;
+import com.provider.model.ItemGetReturnModelResult;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
@@ -17,6 +19,8 @@ import com.provider.model.SubItemReturnModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
@@ -98,5 +102,12 @@ public class EntityConverterService {
       providerGetDataObject.setServices(services);
       providerGetDataObjects.add(providerGetDataObject);
     }
+  }
+
+  public ItemGetReturnModel convertItemToGetReturnModle(Item item) {
+    Collections.sort(item.getSubItems(), Comparator.comparing(SubItem::getCreatedAt));
+    ItemGetReturnModelResult itemGetReturnModelResult =
+        modelMapper.map(item, ItemGetReturnModelResult.class);
+    return new ItemGetReturnModel().ok(true).result(itemGetReturnModelResult);
   }
 }

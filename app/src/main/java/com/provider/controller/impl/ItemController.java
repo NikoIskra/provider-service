@@ -1,6 +1,7 @@
 package com.provider.controller.impl;
 
 import com.provider.controller.ItemApi;
+import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemUpdateRequestModel;
@@ -45,5 +46,12 @@ public class ItemController implements ItemApi {
     ItemUpdateReturnModel itemUpdateReturnModel =
         itemService.put(X_ACCOUNT_ID, providerId, itemId, itemUpdateRequestModel);
     return ResponseEntity.status(HttpStatus.OK).body(itemUpdateReturnModel);
+  }
+
+  @Override
+  public ResponseEntity<ItemGetReturnModel> apiV1ProviderProviderIdItemItemIdGet(
+      @NotNull UUID X_ACCOUNT_ID, Long providerId, Long itemId) throws Exception {
+    ItemGetReturnModel itemGetReturnModel = itemService.get(X_ACCOUNT_ID, providerId, itemId);
+    return ResponseEntity.status(HttpStatus.OK).body(itemGetReturnModel);
   }
 }

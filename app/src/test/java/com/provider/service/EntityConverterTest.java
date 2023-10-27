@@ -3,6 +3,7 @@ package com.provider.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.provider.config.Configuration;
+import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
@@ -114,6 +115,16 @@ public class EntityConverterTest {
             .priceCents(100)
             .title("updatedTitle");
     return itemUpdateRequestModel;
+  }
+
+  private static Item createItemWithProviderAndSubItems() {
+    Provider provider = createProvider();
+    SubItem subItem = createSubItem();
+    List<SubItem> subItems = List.of(subItem);
+    Item item = createItem();
+    item.setProvider(provider);
+    item.setSubItems(subItems);
+    return item;
   }
 
   private final List<StatusEnum> statusList =
@@ -230,5 +241,20 @@ public class EntityConverterTest {
     assertEquals(providerGetDataObject.getPhoneNumber(), provider.getPhoneNumber());
     assertEquals(providerGetDataObject.getTitle(), provider.getTitle());
     assertEquals(providerGetDataObject.getStatus(), provider.getStatus());
+  }
+
+  @Test
+  void testConvertItemToGetReturnModel() {
+    Item item = createItemWithProviderAndSubItems();
+    List<SubItem> subItems = new ArrayList<>(item.getSubItems());
+    item.setSubItems(subItems);
+    ItemGetReturnModel itemGetReturnModel =
+        entityConverterService.convertItemToGetReturnModle(item);
+    assertEquals(itemGetReturnModel.isOk(), true);
+    assertEquals(itemGetReturnModel.getResult().getId(), item.getId());
+    assertEquals(
+        itemGetReturnModel.getResult().getSubItems().get(0).getId(),
+        item.getSubItems().get(0).getId());
+    assertEquals(itemGetReturnModel.getResult().getProvider().getId(), item.getProvider().getId());
   }
 }

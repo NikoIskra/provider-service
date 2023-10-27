@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -11,9 +12,14 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.provider.exception.BadRequestException;
+import com.provider.exception.NotFoundException;
+import com.provider.model.ItemGetReturnModel;
+import com.provider.model.ItemGetReturnModelResult;
+import com.provider.model.ItemGetReturnModelResultProvider;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemSubItemsModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
@@ -122,6 +128,44 @@ public class ItemServiceImplTest {
     ItemUpdateReturnModelResult itemUpdateReturnModelResult =
         new ItemUpdateReturnModelResult().description("returndesc").id(1L);
     return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
+  }
+
+  private static ItemGetReturnModelResultProvider createItemGetReturnModelResultProvider() {
+    ItemGetReturnModelResultProvider provider =
+        new ItemGetReturnModelResultProvider()
+            .id(1L)
+            .name("testname")
+            .title("testtitle")
+            .status(StatusEnum.ACTIVE)
+            .phoneNumber("123456789");
+    return provider;
+  }
+
+  private static ItemSubItemsModel createItemSubItemsModel() {
+    ItemSubItemsModel itemSubItemsModel =
+        new ItemSubItemsModel()
+            .id(1L)
+            .title("testtitle")
+            .description("testdesc")
+            .priceCents(123)
+            .status(StatusEnum.ACTIVE);
+    return itemSubItemsModel;
+  }
+
+  private static ItemGetReturnModel createItemGetReturnModel() {
+    ItemGetReturnModelResultProvider provider = createItemGetReturnModelResultProvider();
+    ItemSubItemsModel itemSubItemsModel = createItemSubItemsModel();
+    List<ItemSubItemsModel> subItemsModels = List.of(itemSubItemsModel);
+    ItemGetReturnModelResult itemGetReturnModelResult =
+        new ItemGetReturnModelResult()
+            .id(1L)
+            .title("testtitle")
+            .description("testdesc")
+            .priceCents(1200)
+            .status(StatusEnum.ACTIVE)
+            .provider(provider)
+            .subItems(subItemsModels);
+    return new ItemGetReturnModel().ok(true).result(itemGetReturnModelResult);
   }
 
   @Test
@@ -243,6 +287,34 @@ public class ItemServiceImplTest {
     assertThrows(
         BadRequestException.class, () -> itemServiceImpl.put(uuid, 1L, 2L, itemUpdateRequestModel));
     verify(itemValidator).validateItemPut(uuid, 1L, 2L);
+    verifyNoInteractions(itemRepository, entityConverter);
+  }
+
+  @Test
+  void getItem() {
+    Item item = createItem();
+    ItemGetReturnModel itemGetReturnModel = createItemGetReturnModel();
+    when(itemRepository.getItemWithParentAndListOfChildren(anyLong(), anyLong())).thenReturn(item);
+    when(entityConverter.convertItemToGetReturnModle(item)).thenReturn(itemGetReturnModel);
+    ItemGetReturnModel returnModel = itemServiceImpl.get(uuid, 1L, 1L);
+    assertEquals(returnModel.isOk(), itemGetReturnModel.isOk());
+    assertEquals(returnModel.getResult().getId(), itemGetReturnModel.getResult().getId());
+    assertEquals(
+        returnModel.getResult().getSubItems().get(0).getId(),
+        itemGetReturnModel.getResult().getSubItems().get(0).getId());
+    assertEquals(
+        returnModel.getResult().getProvider().getId(),
+        itemGetReturnModel.getResult().getProvider().getId());
+    verify(itemValidator).validateItemGet(uuid, 1L, 1L);
+    verify(itemRepository).getItemWithParentAndListOfChildren(anyLong(), anyLong());
+    verify(entityConverter).convertItemToGetReturnModle(item);
+  }
+
+  @Test
+  void getItem_validatorException() {
+    doThrow(NotFoundException.class).when(itemValidator).validateItemGet(uuid, 1L, 1L);
+    assertThrows(NotFoundException.class, () -> itemServiceImpl.get(uuid, 1L, 1L));
+    verify(itemValidator).validateItemGet(uuid, 1L, 1L);
     verifyNoInteractions(itemRepository, entityConverter);
   }
 }

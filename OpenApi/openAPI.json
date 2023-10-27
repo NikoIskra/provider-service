@@ -184,6 +184,31 @@
             "$ref": "responses/400BadRequest.json"
           }
         }
+      },
+      "get" : {
+        "tags" : [
+          "item"
+        ],
+        "description" : "Get item",
+        "parameters": [
+          {
+            "$ref" : "contentSchema/params/accountIDParam.json"
+          },
+          {
+            "$ref" : "contentSchema/params/providerIDParam.json"
+          },
+          {
+            "$ref" : "contentSchema/params/itemIDParam.json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "responses/200ItemGetOK.json"
+          },
+          "404": {
+            "$ref": "responses/404NotFound.json"
+          }
+        }        
       }
     }
   }

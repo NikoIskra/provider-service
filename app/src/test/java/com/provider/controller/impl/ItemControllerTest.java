@@ -4,9 +4,14 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.provider.exception.BadRequestException;
+import com.provider.exception.NotFoundException;
+import com.provider.model.ItemGetReturnModel;
+import com.provider.model.ItemGetReturnModelResult;
+import com.provider.model.ItemGetReturnModelResultProvider;
 import com.provider.model.ItemRequestModel;
 import com.provider.model.ItemReturnModel;
 import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemSubItemsModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
@@ -90,6 +95,44 @@ public class ItemControllerTest {
     return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
   }
 
+  private static ItemGetReturnModelResultProvider createProvider() {
+    ItemGetReturnModelResultProvider provider =
+        new ItemGetReturnModelResultProvider()
+            .id(1L)
+            .name("testname")
+            .title("testtitle")
+            .status(StatusEnum.ACTIVE)
+            .phoneNumber("123456789");
+    return provider;
+  }
+
+  private static ItemSubItemsModel createItemSubItemsModel() {
+    ItemSubItemsModel itemSubItemsModel =
+        new ItemSubItemsModel()
+            .id(1L)
+            .title("testtitle")
+            .description("testdesc")
+            .priceCents(123)
+            .status(StatusEnum.ACTIVE);
+    return itemSubItemsModel;
+  }
+
+  private static ItemGetReturnModel createItemGetReturnModel() {
+    ItemGetReturnModelResultProvider provider = createProvider();
+    ItemSubItemsModel itemSubItemsModel = createItemSubItemsModel();
+    List<ItemSubItemsModel> subItemsModels = List.of(itemSubItemsModel);
+    ItemGetReturnModelResult itemGetReturnModelResult =
+        new ItemGetReturnModelResult()
+            .id(1L)
+            .title("testtitle")
+            .description("testdesc")
+            .priceCents(1200)
+            .status(StatusEnum.ACTIVE)
+            .provider(provider)
+            .subItems(subItemsModels);
+    return new ItemGetReturnModel().ok(true).result(itemGetReturnModelResult);
+  }
+
   @Test
   void insertItem() throws Exception {
     ItemRequestModel itemRequestModel = createItemRequestModel();
@@ -161,5 +204,29 @@ public class ItemControllerTest {
                 .content(mapper.writeValueAsString(itemUpdateRequestModel)))
         .andExpect(MockMvcResultMatchers.status().isBadRequest())
         .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false));
+  }
+
+  @Test
+  void getItem() throws Exception {
+    ItemGetReturnModel itemGetReturnModel = createItemGetReturnModel();
+    when(itemServiceImpl.get(uuid, 1L, 1L)).thenReturn(itemGetReturnModel);
+    mvc.perform(
+            MockMvcRequestBuilders.get("/api/v1/provider/1/item/1")
+                .header("X-ACCOUNT-ID", uuid.toString()))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(true))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.id").value(1L))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.result.provider.id").value(1L));
+  }
+
+  @Test
+  void getItem_notFound() throws Exception {
+    when(itemServiceImpl.get(uuid, 1L, 1L)).thenThrow(new NotFoundException("not found"));
+    mvc.perform(
+            MockMvcRequestBuilders.get("/api/v1/provider/1/item/1")
+                .header("X-ACCOUNT-ID", uuid.toString()))
+        .andExpect(MockMvcResultMatchers.status().isNotFound())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.ok").value(false))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("not found"));
   }
 }
