@@ -1,10 +1,10 @@
 package com.provider.service.impl;
 
+import com.provider.model.GetAllProvidersProviderModel;
 import com.provider.model.ProviderGetAllReturnModel;
 import com.provider.model.ProviderGetAllReturnModelResult;
-import com.provider.model.ProviderGetDataObject;
-import com.provider.model.ProviderRequestModel;
-import com.provider.model.ProviderReturnModel;
+import com.provider.model.ProviderPostRequestModel;
+import com.provider.model.ProviderPostReturnModel;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
@@ -43,7 +43,7 @@ public class ProviderServiceImpl implements ProviderService {
 
   @Override
   @Transactional
-  public ProviderReturnModel save(UUID accountID, ProviderRequestModel providerRequestModel) {
+  public ProviderPostReturnModel save(UUID accountID, ProviderPostRequestModel providerRequestModel) {
     providerValidator.validateProviderRequest(accountID, providerRequestModel);
     Provider provider = entityConverter.convertProviderRequestModelToProvider(providerRequestModel);
     provider.setOwnerId(accountID);
@@ -52,7 +52,7 @@ public class ProviderServiceImpl implements ProviderService {
   }
 
   @Override
-  public ProviderReturnModel patch(
+  public ProviderPostReturnModel patch(
       UUID accountID, Long providerID, ProviderUpdateRequestModel providerUpdateRequestModel) {
     providerValidator.validateProviderPatchRequest(
         accountID, providerID, providerUpdateRequestModel);
@@ -69,7 +69,7 @@ public class ProviderServiceImpl implements ProviderService {
     Pageable pageable = PageRequest.of(pageNo, pageSizeActual, Sort.by("createdAt"));
     Page<Provider> providersPage = providerRepository.findAllWithChildren(pageable);
     List<Provider> providers = providersPage.getContent();
-    List<ProviderGetDataObject> providerGetDataObjects = new ArrayList<>();
+    List<GetAllProvidersProviderModel> providerGetDataObjects = new ArrayList<>();
     entityConverter.convertProviderToGetDataObjects(providerGetDataObjects, providers, statusList);
     ProviderGetAllReturnModelResult providerGetAllReturnModelResult =
         new ProviderGetAllReturnModelResult()

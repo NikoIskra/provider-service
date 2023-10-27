@@ -1,22 +1,32 @@
 package com.provider.model;
 
+import java.net.URI;
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import jakarta.annotation.Generated;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
-import java.util.*;
+import com.provider.model.GetAllProvidersProviderModel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.time.OffsetDateTime;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
 
-/** ProviderGetAllReturnModelResult */
+
+import java.util.*;
+import jakarta.annotation.Generated;
+
+/**
+ * ProviderGetAllReturnModelResult
+ */
+
 @JsonTypeName("providerGetAllReturnModelResult")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ProviderGetAllReturnModelResult {
 
-  @Valid private List<@Valid ProviderGetDataObject> data;
+  @Valid
+  private List<@Valid GetAllProvidersProviderModel> data;
 
   private Integer page;
 
@@ -24,12 +34,12 @@ public class ProviderGetAllReturnModelResult {
 
   private Integer numberOfPages;
 
-  public ProviderGetAllReturnModelResult data(List<@Valid ProviderGetDataObject> data) {
+  public ProviderGetAllReturnModelResult data(List<@Valid GetAllProvidersProviderModel> data) {
     this.data = data;
     return this;
   }
 
-  public ProviderGetAllReturnModelResult addDataItem(ProviderGetDataObject dataItem) {
+  public ProviderGetAllReturnModelResult addDataItem(GetAllProvidersProviderModel dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -39,16 +49,15 @@ public class ProviderGetAllReturnModelResult {
 
   /**
    * Get data
-   *
    * @return data
-   */
-  @Valid
+  */
+  @Valid 
   @JsonProperty("data")
-  public List<@Valid ProviderGetDataObject> getData() {
+  public List<@Valid GetAllProvidersProviderModel> getData() {
     return data;
   }
 
-  public void setData(List<@Valid ProviderGetDataObject> data) {
+  public void setData(List<@Valid GetAllProvidersProviderModel> data) {
     this.data = data;
   }
 
@@ -59,9 +68,9 @@ public class ProviderGetAllReturnModelResult {
 
   /**
    * Get page
-   *
    * @return page
-   */
+  */
+  
   @JsonProperty("page")
   public Integer getPage() {
     return page;
@@ -78,9 +87,9 @@ public class ProviderGetAllReturnModelResult {
 
   /**
    * Get pageSize
-   *
    * @return pageSize
-   */
+  */
+  
   @JsonProperty("pageSize")
   public Integer getPageSize() {
     return pageSize;
@@ -97,9 +106,9 @@ public class ProviderGetAllReturnModelResult {
 
   /**
    * Get numberOfPages
-   *
    * @return numberOfPages
-   */
+  */
+  
   @JsonProperty("numberOfPages")
   public Integer getNumberOfPages() {
     return numberOfPages;
@@ -117,12 +126,11 @@ public class ProviderGetAllReturnModelResult {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProviderGetAllReturnModelResult providerGetAllReturnModelResult =
-        (ProviderGetAllReturnModelResult) o;
-    return Objects.equals(this.data, providerGetAllReturnModelResult.data)
-        && Objects.equals(this.page, providerGetAllReturnModelResult.page)
-        && Objects.equals(this.pageSize, providerGetAllReturnModelResult.pageSize)
-        && Objects.equals(this.numberOfPages, providerGetAllReturnModelResult.numberOfPages);
+    ProviderGetAllReturnModelResult providerGetAllReturnModelResult = (ProviderGetAllReturnModelResult) o;
+    return Objects.equals(this.data, providerGetAllReturnModelResult.data) &&
+        Objects.equals(this.page, providerGetAllReturnModelResult.page) &&
+        Objects.equals(this.pageSize, providerGetAllReturnModelResult.pageSize) &&
+        Objects.equals(this.numberOfPages, providerGetAllReturnModelResult.numberOfPages);
   }
 
   @Override
@@ -143,7 +151,8 @@ public class ProviderGetAllReturnModelResult {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -152,3 +161,4 @@ public class ProviderGetAllReturnModelResult {
     return o.toString().replace("\n", "\n    ");
   }
 }
+

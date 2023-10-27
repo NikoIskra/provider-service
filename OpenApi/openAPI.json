@@ -28,35 +28,21 @@
         "description": "Insert provider",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/headers/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           }
         ],
         "requestBody": {
-          "description": "Provider to be added",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "APIspecs/requests/providerRequestModel.json"
-              },
-              "example" : {
-                "name" : "Bob",
-                "title" : "PROVIDER",
-                "description" : "provider named Bob",
-                "phoneNumber" : "1234567890"
-              }
-            }
-          }
+          "$ref" : "APIspecs/requests/providerPostRequestBody.json"
         },
         "responses": {
           "201": {
-            "$ref": "responses/providerCreated.json"
+            "$ref": "APIspecs/responses/providerCreated.json"
           },
           "400": {
-            "$ref": "responses/badRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           },
           "409": {
-            "$ref": "responses/conflict.json"
+            "$ref": "APIspecs/responses/conflict.json"
           }
         }
       },
@@ -68,21 +54,21 @@
         "description": "Get all providers",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/headers/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/queryParams/pageQueryParam.json"
+            "$ref" : "common/params/queryParams/pageQueryParam.json"
           },
           {
-            "$ref" : "contentSchema/params/queryParams/pageSizeQueryParam.json"
+            "$ref" : "common/params/queryParams/pageSizeQueryParam.json"
           }
         ],
         "responses" : {
           "200" : {
-            "$ref" : "responses/providerGetAllOK.json"
+            "$ref" : "APIspecs/responses/providerGetAllOK.json"
           },
           "400": {
-            "$ref": "responses/badRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           }
         }        
       }
@@ -96,34 +82,21 @@
         "description" : "Add item",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/headers/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/pathParams/providerIDParam.json"
+            "$ref" : "common/params/pathParams/providerIDParam.json"
           }
         ],
         "requestBody": {
-          "description": "Item to be added",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "APIspecs/requests/itemRequestModel.json"
-              },
-              "example" : {
-                "title" : "item title",
-                "description" : "item description",
-                "priceCents" : 100
-              }
-            }
-          }
+          "$ref" : "APIspecs/requests/itemPostRequestBody.json"
         },
         "responses": {
           "201": {
-            "$ref": "responses/itemCreated.json"
+            "$ref": "APIspecs/responses/itemCreated.json"
           },
           "400": {
-            "$ref": "responses/badRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           }
         }
       }
@@ -137,35 +110,21 @@
         "description": "Update provider",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/headers/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/pathParams/providerIDParam.json"
+            "$ref" : "common/params/pathParams/providerIDParam.json"
           }
         ],
         "requestBody": {
-          "description": "Provider to update",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "APIspecs/requests/providerUpdateRequestModel.json"
-              },
-              "example" : {
-                "title" : "PROVIDER",
-                "description" : "provider named Bob",
-                "status" : "active",
-                "phoneNumber" : "1234567890"
-              }
-            }
-          }
+          "$ref" : "APIspecs/requests/providerPatchRequestBody.json"
         },
         "responses": {
           "200": {
-            "$ref": "responses/providerUpdated.json"
+            "$ref": "APIspecs/responses/providerUpdated.json"
           },
           "400": {
-            "$ref": "responses/badRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           }
         }
       }
@@ -179,40 +138,24 @@
         "description" : "Update item",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/headers/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/pathParams/providerIDParam.json"
+            "$ref" : "common/params/pathParams/providerIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/pathParams/itemIDParam.json"
+            "$ref" : "common/params/pathParams/itemIDParam.json"
           }
         ],
         "requestBody": {
-          "description": "Item to be updated",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "APIspecs/requests/itemUpdateRequestModel.json"
-              },
-              "example" : {
-                "example" : {
-                  "title" : "PROVIDER",
-                  "description" : "provider named Bob",
-                  "priceCents" : 100,
-                  "status" : "active"
-                }
-              }
-            }
-          }
+          "$ref" : "APIspecs/requests/itemPutRequestBody.json"
         },
         "responses": {
           "200": {
-            "$ref": "responses/itemUpdated.json"
+            "$ref": "APIspecs/responses/itemUpdated.json"
           },
           "400": {
-            "$ref": "responses/badRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           }
         }
       },
@@ -224,21 +167,21 @@
         "description" : "Get item",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/headers/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/pathParams/providerIDParam.json"
+            "$ref" : "common/params/pathParams/providerIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/pathParams/itemIDParam.json"
+            "$ref" : "common/params/pathParams/itemIDParam.json"
           }
         ],
         "responses": {
           "200": {
-            "$ref": "responses/itemGetOK.json"
+            "$ref": "APIspecs/responses/itemGetOK.json"
           },
           "404": {
-            "$ref": "responses/notFound.json"
+            "$ref": "APIspecs/responses/notFound.json"
           }
         }        
       }

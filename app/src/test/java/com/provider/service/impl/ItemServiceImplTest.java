@@ -13,19 +13,19 @@ import static org.mockito.Mockito.when;
 
 import com.provider.exception.BadRequestException;
 import com.provider.exception.NotFoundException;
+import com.provider.model.GetItemsProviderModel;
+import com.provider.model.GetItemsSubItemModel;
 import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemGetReturnModelResult;
-import com.provider.model.ItemRequestModel;
-import com.provider.model.ItemReturnModel;
-import com.provider.model.ItemReturnModelResult;
-import com.provider.model.ItemSubItemsModel;
+import com.provider.model.ItemPostRequestModel;
+import com.provider.model.ItemPostReturnModel;
+import com.provider.model.ItemPostReturnModelResult;
+import com.provider.model.ItemPostSubItemModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
-import com.provider.model.ProviderSchema;
 import com.provider.model.StatusEnum;
-import com.provider.model.SubItemRequestModel;
-import com.provider.model.SubItemReturnModel;
+import com.provider.model.SubItemPostRequestModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
@@ -60,24 +60,24 @@ public class ItemServiceImplTest {
 
   private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
-  private static ItemRequestModel createItemRequestModel_1SubItem() {
-    ItemRequestModel itemRequestModel = new ItemRequestModel("itemtitle", 1200);
-    List<SubItemRequestModel> subItemRequestModels = new ArrayList<>();
-    SubItemRequestModel subItemRequestModel = new SubItemRequestModel("subitemtitle", 1300);
+  private static ItemPostRequestModel createItemRequestModel_1SubItem() {
+    ItemPostRequestModel itemRequestModel = new ItemPostRequestModel("itemtitle", 1200);
+    List<SubItemPostRequestModel> subItemRequestModels = new ArrayList<>();
+    SubItemPostRequestModel subItemRequestModel = new SubItemPostRequestModel("subitemtitle", 1300);
     subItemRequestModels.add(subItemRequestModel);
     itemRequestModel.setSubItems(subItemRequestModels);
     return itemRequestModel;
   }
 
-  private static ItemRequestModel createItemRequestModel_emptySubItem() {
-    ItemRequestModel itemRequestModel = new ItemRequestModel("itemtitle", 1200);
-    List<SubItemRequestModel> subItemRequestModels = new ArrayList<>();
+  private static ItemPostRequestModel createItemRequestModel_emptySubItem() {
+    ItemPostRequestModel itemRequestModel = new ItemPostRequestModel("itemtitle", 1200);
+    List<SubItemPostRequestModel> subItemRequestModels = new ArrayList<>();
     itemRequestModel.setSubItems(subItemRequestModels);
     return itemRequestModel;
   }
 
-  private static ItemRequestModel createItemRequestModel_nullSubItem() {
-    ItemRequestModel itemRequestModel = new ItemRequestModel("itemtitle", 1200);
+  private static ItemPostRequestModel createItemRequestModel_nullSubItem() {
+    ItemPostRequestModel itemRequestModel = new ItemPostRequestModel("itemtitle", 1200);
     return itemRequestModel;
   }
 
@@ -90,10 +90,10 @@ public class ItemServiceImplTest {
     return item;
   }
 
-  private static ItemReturnModel createItemReturnModel() {
-    List<SubItemReturnModel> subItemReturnModels = new ArrayList<>();
-    SubItemReturnModel subItemReturnModel =
-        new SubItemReturnModel()
+  private static ItemPostReturnModel createItemReturnModel() {
+    List<ItemPostSubItemModel> subItemReturnModels = new ArrayList<>();
+    ItemPostSubItemModel subItemReturnModel =
+        new ItemPostSubItemModel()
             .id(1L)
             .itemId(2L)
             .title("subitemtitle")
@@ -101,15 +101,15 @@ public class ItemServiceImplTest {
             .priceCents(140)
             .status(StatusEnum.VIEW_ONLY);
     subItemReturnModels.add(subItemReturnModel);
-    ItemReturnModelResult itemReturnModelResult =
-        new ItemReturnModelResult()
+    ItemPostReturnModelResult itemReturnModelResult =
+        new ItemPostReturnModelResult()
             .id(1L)
             .providerId(1000L)
             .title("itemtitle")
             .priceCents(1400)
             .status(StatusEnum.VIEW_ONLY)
             .subItems(subItemReturnModels);
-    return new ItemReturnModel().ok(true).result(itemReturnModelResult);
+    return new ItemPostReturnModel().ok(true).result(itemReturnModelResult);
   }
 
   private static ItemUpdateRequestModel createItemUpdateRequestModel() {
@@ -130,9 +130,9 @@ public class ItemServiceImplTest {
     return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
   }
 
-  private static ProviderSchema createProviderSchema() {
-    ProviderSchema provider =
-        new ProviderSchema()
+  private static GetItemsProviderModel createProviderSchema() {
+    GetItemsProviderModel provider =
+        new GetItemsProviderModel()
             .id(1L)
             .name("testname")
             .title("testtitle")
@@ -141,9 +141,9 @@ public class ItemServiceImplTest {
     return provider;
   }
 
-  private static ItemSubItemsModel createItemSubItemsModel() {
-    ItemSubItemsModel itemSubItemsModel =
-        new ItemSubItemsModel()
+  private static GetItemsSubItemModel createItemSubItemsModel() {
+    GetItemsSubItemModel itemSubItemsModel =
+        new GetItemsSubItemModel()
             .id(1L)
             .title("testtitle")
             .description("testdesc")
@@ -153,9 +153,9 @@ public class ItemServiceImplTest {
   }
 
   private static ItemGetReturnModel createItemGetReturnModel() {
-    ProviderSchema provider = createProviderSchema();
-    ItemSubItemsModel itemSubItemsModel = createItemSubItemsModel();
-    List<ItemSubItemsModel> subItemsModels = List.of(itemSubItemsModel);
+    GetItemsProviderModel provider = createProviderSchema();
+    GetItemsSubItemModel itemSubItemsModel = createItemSubItemsModel();
+    List<GetItemsSubItemModel> subItemsModels = List.of(itemSubItemsModel);
     ItemGetReturnModelResult itemGetReturnModelResult =
         new ItemGetReturnModelResult()
             .id(1L)
@@ -170,17 +170,17 @@ public class ItemServiceImplTest {
 
   @Test
   void insertItem() {
-    ItemRequestModel itemRequestModel = createItemRequestModel_1SubItem();
+    ItemPostRequestModel itemRequestModel = createItemRequestModel_1SubItem();
     doNothing().when(itemValidator).validateItemRequest(uuid, 1L);
     Provider provider = createProvider();
     Item item = createItem();
-    ItemReturnModel itemReturnModel = createItemReturnModel();
+    ItemPostReturnModel itemReturnModel = createItemReturnModel();
     when(entityConverter.convertItemRequestModelToItem(itemRequestModel)).thenReturn(item);
     when(providerRepository.getById(1L)).thenReturn(provider);
     when(entityConverter.convertItemToReturnModel(item)).thenReturn(itemReturnModel);
     SubItem subItem = createSubItem();
     when(entityConverter.convertSubItemRequestModelToSubItem(any())).thenReturn(subItem);
-    ItemReturnModel itemReturnModel2 = itemServiceImpl.save(uuid, 1L, itemRequestModel);
+    ItemPostReturnModel itemReturnModel2 = itemServiceImpl.save(uuid, 1L, itemRequestModel);
     verify(itemRepository).saveAndFlush(itemArgumentCaptor.capture());
     Item captureditem = itemArgumentCaptor.getValue();
     assertEquals(captureditem.getTitle(), itemRequestModel.getTitle());
@@ -203,15 +203,15 @@ public class ItemServiceImplTest {
 
   @Test
   void insertItem_emptySubItems() {
-    ItemRequestModel itemRequestModel = createItemRequestModel_emptySubItem();
+    ItemPostRequestModel itemRequestModel = createItemRequestModel_emptySubItem();
     doNothing().when(itemValidator).validateItemRequest(uuid, 1L);
     Provider provider = createProvider();
     Item item = createItem();
-    ItemReturnModel itemReturnModel = createItemReturnModel();
+    ItemPostReturnModel itemReturnModel = createItemReturnModel();
     when(entityConverter.convertItemRequestModelToItem(itemRequestModel)).thenReturn(item);
     when(providerRepository.getById(1L)).thenReturn(provider);
     when(entityConverter.convertItemToReturnModel(item)).thenReturn(itemReturnModel);
-    ItemReturnModel itemReturnModel2 = itemServiceImpl.save(uuid, 1L, itemRequestModel);
+    ItemPostReturnModel itemReturnModel2 = itemServiceImpl.save(uuid, 1L, itemRequestModel);
     verify(itemRepository).saveAndFlush(itemArgumentCaptor.capture());
     Item captureditem = itemArgumentCaptor.getValue();
     assertEquals(captureditem.getTitle(), itemRequestModel.getTitle());
@@ -227,15 +227,15 @@ public class ItemServiceImplTest {
 
   @Test
   void insertItem_nullSubItems() {
-    ItemRequestModel itemRequestModel = createItemRequestModel_nullSubItem();
+    ItemPostRequestModel itemRequestModel = createItemRequestModel_nullSubItem();
     doNothing().when(itemValidator).validateItemRequest(uuid, 1L);
     Provider provider = createProvider();
     Item item = createItem();
-    ItemReturnModel itemReturnModel = createItemReturnModel();
+    ItemPostReturnModel itemReturnModel = createItemReturnModel();
     when(entityConverter.convertItemRequestModelToItem(itemRequestModel)).thenReturn(item);
     when(providerRepository.getById(1L)).thenReturn(provider);
     when(entityConverter.convertItemToReturnModel(item)).thenReturn(itemReturnModel);
-    ItemReturnModel itemReturnModel2 = itemServiceImpl.save(uuid, 1L, itemRequestModel);
+    ItemPostReturnModel itemReturnModel2 = itemServiceImpl.save(uuid, 1L, itemRequestModel);
     verify(itemRepository).saveAndFlush(itemArgumentCaptor.capture());
     Item captureditem = itemArgumentCaptor.getValue();
     assertEquals(captureditem.getTitle(), itemRequestModel.getTitle());
@@ -252,7 +252,7 @@ public class ItemServiceImplTest {
 
   @Test
   void insertItem_validatorException() {
-    ItemRequestModel itemRequestModel = createItemRequestModel_1SubItem();
+    ItemPostRequestModel itemRequestModel = createItemRequestModel_1SubItem();
     doThrow(new BadRequestException(null)).when(itemValidator).validateItemRequest(uuid, 1L);
     assertThrows(BadRequestException.class, () -> itemServiceImpl.save(uuid, 1L, itemRequestModel));
     verify(itemValidator).validateItemRequest(uuid, 1L);

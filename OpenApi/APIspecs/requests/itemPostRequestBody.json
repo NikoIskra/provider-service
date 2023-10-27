@@ -1,0 +1,14 @@
+{
+    "description": "Item to be added",
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "schema/itemPostRequestModel.json"
+        },
+        "example" : {
+          "$ref" : "example/itemPostRequestBodyExample.json"
+        }
+      }
+    }
+}

@@ -5,19 +5,19 @@ import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.provider.exception.BadRequestException;
 import com.provider.exception.NotFoundException;
+import com.provider.model.GetItemsProviderModel;
+import com.provider.model.GetItemsSubItemModel;
 import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemGetReturnModelResult;
-import com.provider.model.ItemRequestModel;
-import com.provider.model.ItemReturnModel;
-import com.provider.model.ItemReturnModelResult;
-import com.provider.model.ItemSubItemsModel;
+import com.provider.model.ItemPostRequestModel;
+import com.provider.model.ItemPostReturnModel;
+import com.provider.model.ItemPostReturnModelResult;
+import com.provider.model.ItemPostSubItemModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
-import com.provider.model.ProviderSchema;
 import com.provider.model.StatusEnum;
-import com.provider.model.SubItemRequestModel;
-import com.provider.model.SubItemReturnModel;
+import com.provider.model.SubItemPostRequestModel;
 import com.provider.persistence.repository.ProviderRepository;
 import com.provider.service.impl.ItemServiceImpl;
 import java.util.ArrayList;
@@ -46,19 +46,19 @@ public class ItemControllerTest {
 
   ObjectMapper mapper = new ObjectMapper();
 
-  private static ItemRequestModel createItemRequestModel() {
-    ItemRequestModel itemRequestModel = new ItemRequestModel("testtitle", 1200);
-    List<SubItemRequestModel> subItemRequestModels = new ArrayList<>();
-    SubItemRequestModel subItemRequestModel = new SubItemRequestModel("subitemtitle", 1300);
+  private static ItemPostRequestModel createItemRequestModel() {
+    ItemPostRequestModel itemRequestModel = new ItemPostRequestModel("testtitle", 1200);
+    List<SubItemPostRequestModel> subItemRequestModels = new ArrayList<>();
+    SubItemPostRequestModel subItemRequestModel = new SubItemPostRequestModel("subitemtitle", 1300);
     subItemRequestModels.add(subItemRequestModel);
     itemRequestModel.setSubItems(subItemRequestModels);
     return itemRequestModel;
   }
 
-  private static ItemReturnModel createItemReturnModel() {
-    List<SubItemReturnModel> subItemReturnModels = new ArrayList<>();
-    SubItemReturnModel subItemReturnModel =
-        new SubItemReturnModel()
+  private static ItemPostReturnModel createItemReturnModel() {
+    List<ItemPostSubItemModel> subItemReturnModels = new ArrayList<>();
+    ItemPostSubItemModel subItemReturnModel =
+        new ItemPostSubItemModel()
             .id(1L)
             .itemId(2L)
             .title("testtitle")
@@ -66,15 +66,15 @@ public class ItemControllerTest {
             .priceCents(140)
             .status(StatusEnum.VIEW_ONLY);
     subItemReturnModels.add(subItemReturnModel);
-    ItemReturnModelResult itemReturnModelResult =
-        new ItemReturnModelResult()
+    ItemPostReturnModelResult itemReturnModelResult =
+        new ItemPostReturnModelResult()
             .id(1L)
             .providerId(1000L)
             .title("itemtitle")
             .priceCents(1400)
             .status(StatusEnum.VIEW_ONLY)
             .subItems(subItemReturnModels);
-    return new ItemReturnModel().ok(true).result(itemReturnModelResult);
+    return new ItemPostReturnModel().ok(true).result(itemReturnModelResult);
   }
 
   private static ItemUpdateRequestModel createItemUpdateRequestModel() {
@@ -95,9 +95,9 @@ public class ItemControllerTest {
     return new ItemUpdateReturnModel().ok(true).result(itemUpdateReturnModelResult);
   }
 
-  private static ProviderSchema createProvider() {
-    ProviderSchema provider =
-        new ProviderSchema()
+  private static GetItemsProviderModel createProvider() {
+    GetItemsProviderModel provider =
+        new GetItemsProviderModel()
             .id(1L)
             .name("testname")
             .title("testtitle")
@@ -106,9 +106,9 @@ public class ItemControllerTest {
     return provider;
   }
 
-  private static ItemSubItemsModel createItemSubItemsModel() {
-    ItemSubItemsModel itemSubItemsModel =
-        new ItemSubItemsModel()
+  private static GetItemsSubItemModel createItemSubItemsModel() {
+    GetItemsSubItemModel itemSubItemsModel =
+        new GetItemsSubItemModel()
             .id(1L)
             .title("testtitle")
             .description("testdesc")
@@ -118,9 +118,9 @@ public class ItemControllerTest {
   }
 
   private static ItemGetReturnModel createItemGetReturnModel() {
-    ProviderSchema provider = createProvider();
-    ItemSubItemsModel itemSubItemsModel = createItemSubItemsModel();
-    List<ItemSubItemsModel> subItemsModels = List.of(itemSubItemsModel);
+    GetItemsProviderModel provider = createProvider();
+    GetItemsSubItemModel itemSubItemsModel = createItemSubItemsModel();
+    List<GetItemsSubItemModel> subItemsModels = List.of(itemSubItemsModel);
     ItemGetReturnModelResult itemGetReturnModelResult =
         new ItemGetReturnModelResult()
             .id(1L)
@@ -135,8 +135,8 @@ public class ItemControllerTest {
 
   @Test
   void insertItem() throws Exception {
-    ItemRequestModel itemRequestModel = createItemRequestModel();
-    ItemReturnModel itemReturnModel = createItemReturnModel();
+    ItemPostRequestModel itemRequestModel = createItemRequestModel();
+    ItemPostReturnModel itemReturnModel = createItemReturnModel();
     when(itemServiceImpl.save(uuid, 1L, itemRequestModel)).thenReturn(itemReturnModel);
     mvc.perform(
             MockMvcRequestBuilders.post("/api/v1/provider/1/item")
@@ -150,7 +150,7 @@ public class ItemControllerTest {
 
   @Test
   void insertItem_internalServerError() throws Exception {
-    ItemRequestModel itemRequestModel = createItemRequestModel();
+    ItemPostRequestModel itemRequestModel = createItemRequestModel();
     mvc.perform(
             MockMvcRequestBuilders.post("/api/v1/provider/1/item")
                 .header("X-ACCOUNT-ID", uuid.toString())
@@ -162,7 +162,7 @@ public class ItemControllerTest {
 
   @Test
   void insertItem_badRequest() throws Exception {
-    ItemRequestModel itemRequestModel = createItemRequestModel();
+    ItemPostRequestModel itemRequestModel = createItemRequestModel();
     when(itemServiceImpl.save(uuid, 1L, itemRequestModel))
         .thenThrow(new BadRequestException("bad request"));
     mvc.perform(

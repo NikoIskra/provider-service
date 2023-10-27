@@ -2,8 +2,8 @@ package com.provider.controller.impl;
 
 import com.provider.controller.ItemApi;
 import com.provider.model.ItemGetReturnModel;
-import com.provider.model.ItemRequestModel;
-import com.provider.model.ItemReturnModel;
+import com.provider.model.ItemPostRequestModel;
+import com.provider.model.ItemPostReturnModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.service.ItemService;
@@ -22,10 +22,10 @@ public class ItemController implements ItemApi {
   @Autowired private ItemService itemService;
 
   @Override
-  public ResponseEntity<ItemReturnModel> addItem(
-      @NotNull UUID X_ACCOUNT_ID, Long providerId, @Valid ItemRequestModel itemRequestModel)
+  public ResponseEntity<ItemPostReturnModel> addItem(
+      @NotNull UUID X_ACCOUNT_ID, Long providerId, @Valid ItemPostRequestModel itemRequestModel)
       throws Exception {
-    ItemReturnModel itemReturnModel = itemService.save(X_ACCOUNT_ID, providerId, itemRequestModel);
+    ItemPostReturnModel itemReturnModel = itemService.save(X_ACCOUNT_ID, providerId, itemRequestModel);
     HttpHeaders returnHeaders = new HttpHeaders();
     String headerString =
         "/api/v1/provider/"

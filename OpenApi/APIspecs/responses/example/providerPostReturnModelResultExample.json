@@ -1,0 +1,12 @@
+{
+    "ok" : true,
+    "result" : {
+        "id" : "1",
+        "ownerId" : "ad9d7609-0a3f-4654-a24b-e2f0ba24f039s",
+        "name" : "example name",
+        "title" : "example title",
+        "description" : "example description",
+        "phoneNumber" : "1234567890",
+        "status" : "view-only"
+    }
+}

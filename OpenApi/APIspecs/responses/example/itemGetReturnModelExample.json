@@ -1,0 +1,29 @@
+{
+    "ok" : true,
+    "result" : {
+        "id" : "1",
+        "title" : "example title",
+        "description" : "example description",
+        "priceCents" : 100,
+        "status" : "view-only",
+        "provider" : {
+            "id" : "2",
+            "name" : "example name",
+            "title" : "example title",
+            "status" : "view-only",
+            "phoneNumber" : "1234567890"
+        },
+        "subItems" : [
+            {
+                "title" : "sub item title",
+                "description" : "sub item description",
+                "priceCents" : 100
+            },
+            {
+                "title" : "sub item 2 title",
+                "description" : "sub item 2 description",
+                "priceCents" : 200
+            }
+        ]
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "type" : "object",
+            "properties" : {
+                "id" : {
+                    "$ref" : "../../../../common/props/longID.json"
+                },
+                "providerId": {
+                    "$ref" : "../../../../common/props/longID.json"
+                },
+                "title": {
+                    "$ref" : "../../../../common/props/title.json"
+                },
+                "description": {
+                    "$ref" : "../../../../common/props/description.json"
+                },
+                "priceCents": {
+                    "type": "integer"
+                },
+                "status" : {
+                    "$ref" : "../../../../common/enums/statusEnum.json"
+                },
+                "subItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "models/itemPostSubItemModel.json"
+                    }
+                }
+            }
+}

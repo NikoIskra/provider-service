@@ -1,0 +1,23 @@
+{
+    "ok" : true,
+    "result" : {
+        "id" : "1",
+        "providerId" : "2",
+        "title" : "example title",
+        "description" : "example description",
+        "priceCents" : 100,
+        "status" : "view-only",
+        "subItems" : [
+            {
+                "title" : "sub item title",
+                "description" : "sub item description",
+                "priceCents" : 100
+            },
+            {
+                "title" : "sub item 2 title",
+                "description" : "sub item 2 description",
+                "priceCents" : 200
+            }
+        ]
+    }
+}

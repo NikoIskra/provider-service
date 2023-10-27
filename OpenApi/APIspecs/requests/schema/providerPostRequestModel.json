@@ -1,0 +1,24 @@
+{
+    "type" : "object",
+    "required" : [
+        "name",
+        "title",
+        "phoneNumber"
+    ],
+    "properties" : {
+        "name": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 64
+        },
+        "title": {
+            "$ref" : "../../../common/props/title.json"
+        },
+        "description" : {
+            "$ref" : "../../../common/props/description.json"
+        },
+        "phoneNumber": {
+            "$ref" : "../../../common/props/phoneNumber.json"
+        }
+    }
+}

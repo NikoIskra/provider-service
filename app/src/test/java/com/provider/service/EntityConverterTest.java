@@ -3,20 +3,19 @@ package com.provider.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.provider.config.Configuration;
+import com.provider.model.GetAllProvidersProviderModel;
 import com.provider.model.ItemGetReturnModel;
-import com.provider.model.ItemRequestModel;
-import com.provider.model.ItemReturnModel;
-import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemPostRequestModel;
+import com.provider.model.ItemPostReturnModel;
+import com.provider.model.ItemPostSubItemModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
-import com.provider.model.ProviderGetDataObject;
-import com.provider.model.ProviderRequestModel;
-import com.provider.model.ProviderReturnModel;
-import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.ProviderPostRequestModel;
+import com.provider.model.ProviderPostReturnModel;
+import com.provider.model.ProviderPostReturnModelResult;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
-import com.provider.model.SubItemRequestModel;
-import com.provider.model.SubItemReturnModel;
+import com.provider.model.SubItemPostRequestModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
@@ -33,9 +32,9 @@ public class EntityConverterTest {
 
   private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
-  private static ProviderRequestModel createProviderRequestModel() {
-    ProviderRequestModel providerRequestModel =
-        new ProviderRequestModel("name", "title", "1234567890");
+  private static ProviderPostRequestModel createProviderRequestModel() {
+    ProviderPostRequestModel providerRequestModel =
+        new ProviderPostRequestModel("name", "title", "1234567890");
     return providerRequestModel;
   }
 
@@ -47,9 +46,9 @@ public class EntityConverterTest {
     return provider;
   }
 
-  private static ProviderReturnModelResult createProviderReturnModelResult() {
-    ProviderReturnModelResult providerReturnModelResult =
-        new ProviderReturnModelResult()
+  private static ProviderPostReturnModelResult createProviderReturnModelResult() {
+    ProviderPostReturnModelResult providerReturnModelResult =
+        new ProviderPostReturnModelResult()
             .id(1L)
             .name("name")
             .ownerId(uuid)
@@ -59,8 +58,8 @@ public class EntityConverterTest {
     return providerReturnModelResult;
   }
 
-  private static SubItemRequestModel createSubItemRequestModel() {
-    SubItemRequestModel subItemRequestModel = new SubItemRequestModel("subitemtitle", 1300);
+  private static SubItemPostRequestModel createSubItemRequestModel() {
+    SubItemPostRequestModel subItemRequestModel = new SubItemPostRequestModel("subitemtitle", 1300);
     return subItemRequestModel;
   }
 
@@ -68,9 +67,9 @@ public class EntityConverterTest {
     return new SubItem("subitemtitle", 1300, StatusEnum.VIEW_ONLY, null);
   }
 
-  private static SubItemReturnModel createSubItemReturnModel() {
-    SubItemReturnModel subItemReturnModel =
-        new SubItemReturnModel()
+  private static ItemPostSubItemModel createSubItemReturnModel() {
+    ItemPostSubItemModel subItemReturnModel =
+        new ItemPostSubItemModel()
             .title("subitemtitle")
             .priceCents(1300)
             .status(StatusEnum.VIEW_ONLY);
@@ -83,17 +82,9 @@ public class EntityConverterTest {
     return item;
   }
 
-  private static ItemReturnModelResult createItemReturnModelResult() {
-    ItemReturnModelResult itemReturnModelResult =
-        new ItemReturnModelResult()
-            .title("itemtitle")
-            .priceCents(1200)
-            .status(StatusEnum.VIEW_ONLY);
-    return itemReturnModelResult;
-  }
 
-  private static ItemRequestModel createItemRequestModel() {
-    ItemRequestModel itemRequestModel = new ItemRequestModel("itemtitle", 1200);
+  private static ItemPostRequestModel createItemRequestModel() {
+    ItemPostRequestModel itemRequestModel = new ItemPostRequestModel("itemtitle", 1200);
     return itemRequestModel;
   }
 
@@ -133,7 +124,7 @@ public class EntityConverterTest {
   @Test
   void testConvertProviderToReturnModel() {
     Provider provider = createProvider();
-    ProviderReturnModel returnModel = entityConverterService.convertProviderToReturnModel(provider);
+    ProviderPostReturnModel returnModel = entityConverterService.convertProviderToReturnModel(provider);
     assertEquals(returnModel.isOk(), true);
     assertEquals(returnModel.getResult().getOwnerId(), provider.getOwnerId());
     assertEquals(returnModel.getResult().getName(), provider.getName());
@@ -144,7 +135,7 @@ public class EntityConverterTest {
 
   @Test
   void testConvertProviderRequestModelToProvider() {
-    ProviderRequestModel providerRequestModel = createProviderRequestModel();
+    ProviderPostRequestModel providerRequestModel = createProviderRequestModel();
     Provider provider =
         entityConverterService.convertProviderRequestModelToProvider(providerRequestModel);
     assertEquals(provider.getStatus(), StatusEnum.VIEW_ONLY);
@@ -155,7 +146,7 @@ public class EntityConverterTest {
 
   @Test
   void testConvertSubItemRequestModelToSubItem() {
-    SubItemRequestModel subItemRequestModel = createSubItemRequestModel();
+    SubItemPostRequestModel subItemRequestModel = createSubItemRequestModel();
     SubItem subItem =
         entityConverterService.convertSubItemRequestModelToSubItem(subItemRequestModel);
     assertEquals(subItemRequestModel.getTitle(), subItem.getTitle());
@@ -167,7 +158,7 @@ public class EntityConverterTest {
   @Test
   void testConvertSubItemToReturnModel() {
     SubItem subItem = createSubItem();
-    SubItemReturnModel returnModel = entityConverterService.convertSubItemToReturnModel(subItem);
+    ItemPostSubItemModel returnModel = entityConverterService.convertSubItemToReturnModel(subItem);
     assertEquals(returnModel.getTitle(), subItem.getTitle());
     assertEquals(returnModel.getPriceCents(), subItem.getPriceCents());
     assertEquals(returnModel.getStatus(), StatusEnum.VIEW_ONLY);
@@ -175,7 +166,7 @@ public class EntityConverterTest {
 
   @Test
   void testConvertItemRequestModelToItem() {
-    ItemRequestModel itemRequestModel = createItemRequestModel();
+    ItemPostRequestModel itemRequestModel = createItemRequestModel();
     Item returnItem = entityConverterService.convertItemRequestModelToItem(itemRequestModel);
     assertEquals(itemRequestModel.getTitle(), returnItem.getTitle());
     assertEquals(itemRequestModel.getPriceCents(), returnItem.getPriceCents());
@@ -185,7 +176,7 @@ public class EntityConverterTest {
   @Test
   void testConvertItemToReturnModel() {
     Item item = createItem();
-    ItemReturnModel itemReturnModel = entityConverterService.convertItemToReturnModel(item);
+    ItemPostReturnModel itemReturnModel = entityConverterService.convertItemToReturnModel(item);
     assertEquals(itemReturnModel.isOk(), true);
     assertEquals(itemReturnModel.getResult().getTitle(), item.getTitle());
     assertEquals(itemReturnModel.getResult().getPriceCents(), item.getPriceCents());
@@ -233,10 +224,10 @@ public class EntityConverterTest {
   void testConvertProviderToGetDataObject() {
     Provider provider = createProvider();
     List<Provider> providers = List.of(provider);
-    List<ProviderGetDataObject> providerGetDataObjects = new ArrayList<>();
+    List<GetAllProvidersProviderModel> providerGetDataObjects = new ArrayList<>();
     entityConverterService.convertProviderToGetDataObjects(
         providerGetDataObjects, providers, statusList);
-    ProviderGetDataObject providerGetDataObject = providerGetDataObjects.get(0);
+    GetAllProvidersProviderModel providerGetDataObject = providerGetDataObjects.get(0);
     assertEquals(providerGetDataObject.getName(), provider.getName());
     assertEquals(providerGetDataObject.getPhoneNumber(), provider.getPhoneNumber());
     assertEquals(providerGetDataObject.getTitle(), provider.getTitle());

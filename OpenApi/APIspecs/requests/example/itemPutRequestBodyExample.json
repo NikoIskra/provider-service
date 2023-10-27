@@ -1,0 +1,6 @@
+{ 
+    "title" : "PROVIDER",
+    "description" : "provider named Bob",
+    "priceCents" : 100,
+    "status" : "active"
+}

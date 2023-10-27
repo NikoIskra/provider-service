@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.provider.exception.BadRequestException;
-import com.provider.model.ProviderRequestModel;
+import com.provider.model.ProviderPostRequestModel;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.persistence.repository.ProviderRepository;
@@ -35,15 +35,15 @@ public class ProviderValidatorTest {
 
   private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
-  private static ProviderRequestModel createProviderRequestModel() {
-    ProviderRequestModel providerRequestModel =
-        new ProviderRequestModel("testname", "testtitle", "1234567890");
+  private static ProviderPostRequestModel createProviderRequestModel() {
+    ProviderPostRequestModel providerRequestModel =
+        new ProviderPostRequestModel("testname", "testtitle", "1234567890");
     return providerRequestModel;
   }
 
-  private static ProviderRequestModel createInvalidProviderRequestModel() {
-    ProviderRequestModel providerRequestModel =
-        new ProviderRequestModel("testname", "testtitle", "12345678");
+  private static ProviderPostRequestModel createInvalidProviderRequestModel() {
+    ProviderPostRequestModel providerRequestModel =
+        new ProviderPostRequestModel("testname", "testtitle", "12345678");
     return providerRequestModel;
   }
 
@@ -62,7 +62,7 @@ public class ProviderValidatorTest {
 
   @Test
   void testValidateProviderRequestData() {
-    ProviderRequestModel providerRequestModel = createProviderRequestModel();
+    ProviderPostRequestModel providerRequestModel = createProviderRequestModel();
     when(providerRepository.existsByName(anyString())).thenReturn(false);
     assertDoesNotThrow(() -> providerValidator.validateProviderRequest(uuid, providerRequestModel));
     verify(accountApiClient).verifyAccountID(uuid);
@@ -71,7 +71,7 @@ public class ProviderValidatorTest {
 
   @Test
   void testValidateProviderRequestData_noAccount() {
-    ProviderRequestModel providerRequestModel = createProviderRequestModel();
+    ProviderPostRequestModel providerRequestModel = createProviderRequestModel();
     doThrow(new BadRequestException(null)).when(accountApiClient).verifyAccountID(uuid);
     assertThrows(
         BadRequestException.class,
@@ -81,7 +81,7 @@ public class ProviderValidatorTest {
 
   @Test
   void testValidateProviderRequestData_nameExists() {
-    ProviderRequestModel providerRequestModel = createProviderRequestModel();
+    ProviderPostRequestModel providerRequestModel = createProviderRequestModel();
     doNothing().when(accountApiClient).verifyAccountID(uuid);
     when(providerRepository.existsByName(any())).thenReturn(true);
     assertThrows(
@@ -93,7 +93,7 @@ public class ProviderValidatorTest {
 
   @Test
   void testValidateProviderRequestData_invalidRequestModel() {
-    ProviderRequestModel providerRequestModel = createInvalidProviderRequestModel();
+    ProviderPostRequestModel providerRequestModel = createInvalidProviderRequestModel();
     assertThrows(
         BadRequestException.class,
         () -> providerValidator.validateProviderRequest(uuid, providerRequestModel));

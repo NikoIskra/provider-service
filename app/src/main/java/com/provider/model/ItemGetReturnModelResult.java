@@ -1,17 +1,29 @@
 package com.provider.model;
 
+import java.net.URI;
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import jakarta.annotation.Generated;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
-import java.util.*;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.provider.model.GetItemsProviderModel;
+import com.provider.model.GetItemsSubItemModel;
+import com.provider.model.StatusEnum;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.time.OffsetDateTime;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
 
-/** ItemGetReturnModelResult */
+
+import java.util.*;
+import jakarta.annotation.Generated;
+
+/**
+ * ItemGetReturnModelResult
+ */
+
 @JsonTypeName("itemGetReturnModelResult")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemGetReturnModelResult {
@@ -26,9 +38,10 @@ public class ItemGetReturnModelResult {
 
   private StatusEnum status;
 
-  private ProviderSchema provider;
+  private GetItemsProviderModel provider;
 
-  @Valid private List<@Valid ItemSubItemsModel> subItems;
+  @Valid
+  private List<@Valid GetItemsSubItemModel> subItems;
 
   public ItemGetReturnModelResult id(Long id) {
     this.id = id;
@@ -37,9 +50,9 @@ public class ItemGetReturnModelResult {
 
   /**
    * Get id
-   *
    * @return id
-   */
+  */
+  
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -56,10 +69,9 @@ public class ItemGetReturnModelResult {
 
   /**
    * Get title
-   *
    * @return title
-   */
-  @Size(min = 5, max = 128)
+  */
+  @Size(min = 5, max = 128) 
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -76,10 +88,9 @@ public class ItemGetReturnModelResult {
 
   /**
    * Get description
-   *
    * @return description
-   */
-  @Size(max = 512)
+  */
+  @Size(max = 512) 
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -96,9 +107,9 @@ public class ItemGetReturnModelResult {
 
   /**
    * Get priceCents
-   *
    * @return priceCents
-   */
+  */
+  
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -115,10 +126,9 @@ public class ItemGetReturnModelResult {
 
   /**
    * Get status
-   *
    * @return status
-   */
-  @Valid
+  */
+  @Valid 
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -128,32 +138,31 @@ public class ItemGetReturnModelResult {
     this.status = status;
   }
 
-  public ItemGetReturnModelResult provider(ProviderSchema provider) {
+  public ItemGetReturnModelResult provider(GetItemsProviderModel provider) {
     this.provider = provider;
     return this;
   }
 
   /**
    * Get provider
-   *
    * @return provider
-   */
-  @Valid
+  */
+  @Valid 
   @JsonProperty("provider")
-  public ProviderSchema getProvider() {
+  public GetItemsProviderModel getProvider() {
     return provider;
   }
 
-  public void setProvider(ProviderSchema provider) {
+  public void setProvider(GetItemsProviderModel provider) {
     this.provider = provider;
   }
 
-  public ItemGetReturnModelResult subItems(List<@Valid ItemSubItemsModel> subItems) {
+  public ItemGetReturnModelResult subItems(List<@Valid GetItemsSubItemModel> subItems) {
     this.subItems = subItems;
     return this;
   }
 
-  public ItemGetReturnModelResult addSubItemsItem(ItemSubItemsModel subItemsItem) {
+  public ItemGetReturnModelResult addSubItemsItem(GetItemsSubItemModel subItemsItem) {
     if (this.subItems == null) {
       this.subItems = new ArrayList<>();
     }
@@ -163,16 +172,15 @@ public class ItemGetReturnModelResult {
 
   /**
    * Get subItems
-   *
    * @return subItems
-   */
-  @Valid
+  */
+  @Valid 
   @JsonProperty("subItems")
-  public List<@Valid ItemSubItemsModel> getSubItems() {
+  public List<@Valid GetItemsSubItemModel> getSubItems() {
     return subItems;
   }
 
-  public void setSubItems(List<@Valid ItemSubItemsModel> subItems) {
+  public void setSubItems(List<@Valid GetItemsSubItemModel> subItems) {
     this.subItems = subItems;
   }
 
@@ -185,13 +193,13 @@ public class ItemGetReturnModelResult {
       return false;
     }
     ItemGetReturnModelResult itemGetReturnModelResult = (ItemGetReturnModelResult) o;
-    return Objects.equals(this.id, itemGetReturnModelResult.id)
-        && Objects.equals(this.title, itemGetReturnModelResult.title)
-        && Objects.equals(this.description, itemGetReturnModelResult.description)
-        && Objects.equals(this.priceCents, itemGetReturnModelResult.priceCents)
-        && Objects.equals(this.status, itemGetReturnModelResult.status)
-        && Objects.equals(this.provider, itemGetReturnModelResult.provider)
-        && Objects.equals(this.subItems, itemGetReturnModelResult.subItems);
+    return Objects.equals(this.id, itemGetReturnModelResult.id) &&
+        Objects.equals(this.title, itemGetReturnModelResult.title) &&
+        Objects.equals(this.description, itemGetReturnModelResult.description) &&
+        Objects.equals(this.priceCents, itemGetReturnModelResult.priceCents) &&
+        Objects.equals(this.status, itemGetReturnModelResult.status) &&
+        Objects.equals(this.provider, itemGetReturnModelResult.provider) &&
+        Objects.equals(this.subItems, itemGetReturnModelResult.subItems);
   }
 
   @Override
@@ -215,7 +223,8 @@ public class ItemGetReturnModelResult {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -224,3 +233,4 @@ public class ItemGetReturnModelResult {
     return o.toString().replace("\n", "\n    ");
   }
 }
+

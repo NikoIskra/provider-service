@@ -1,0 +1,8 @@
+{
+    "type" : "object",
+            "properties" : {
+                "roleId" : {
+                    "$ref" : "../../../../common/props/UUID.json"
+                }
+            }
+}

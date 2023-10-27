@@ -12,9 +12,9 @@ import static org.mockito.Mockito.when;
 
 import com.provider.exception.BadRequestException;
 import com.provider.model.ProviderGetAllReturnModel;
-import com.provider.model.ProviderRequestModel;
-import com.provider.model.ProviderReturnModel;
-import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.ProviderPostRequestModel;
+import com.provider.model.ProviderPostReturnModel;
+import com.provider.model.ProviderPostReturnModelResult;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.persistence.entity.Provider;
@@ -43,15 +43,15 @@ public class ProviderServiceImplTest {
 
   private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
-  private static ProviderRequestModel createProviderRequestModel() {
-    ProviderRequestModel providerRequestModel =
-        new ProviderRequestModel("testname", "testtitle", "1234567890");
+  private static ProviderPostRequestModel createProviderRequestModel() {
+    ProviderPostRequestModel providerRequestModel =
+        new ProviderPostRequestModel("testname", "testtitle", "1234567890");
     return providerRequestModel;
   }
 
-  private static ProviderRequestModel createInvalidProviderRequestModel() {
-    ProviderRequestModel providerRequestModel =
-        new ProviderRequestModel("testname", "testtitle", "12345678");
+  private static ProviderPostRequestModel createInvalidProviderRequestModel() {
+    ProviderPostRequestModel providerRequestModel =
+        new ProviderPostRequestModel("testname", "testtitle", "12345678");
     return providerRequestModel;
   }
 
@@ -60,16 +60,16 @@ public class ProviderServiceImplTest {
     return provider;
   }
 
-  private static ProviderReturnModel createProviderReturnModel() {
-    ProviderReturnModelResult providerReturnModelResult =
-        new ProviderReturnModelResult()
+  private static ProviderPostReturnModel createProviderReturnModel() {
+    ProviderPostReturnModelResult providerReturnModelResult =
+        new ProviderPostReturnModelResult()
             .id(1L)
             .name("testname")
             .ownerId(uuid)
             .status(StatusEnum.VIEW_ONLY)
             .title("testtitle")
             .phoneNumber("1234567890");
-    return new ProviderReturnModel().ok(true).result(providerReturnModelResult);
+    return new ProviderPostReturnModel().ok(true).result(providerReturnModelResult);
   }
 
   private static ProviderUpdateRequestModel createProviderUpdateRequestModel() {
@@ -78,14 +78,14 @@ public class ProviderServiceImplTest {
 
   @Test
   void testInsertProvider() {
-    ProviderRequestModel providerRequestModel = createProviderRequestModel();
+    ProviderPostRequestModel providerRequestModel = createProviderRequestModel();
     Provider provider = createProvider();
-    ProviderReturnModel providerReturnModel = createProviderReturnModel();
+    ProviderPostReturnModel providerReturnModel = createProviderReturnModel();
     doNothing().when(providerValidator).validateProviderRequest(uuid, providerRequestModel);
     when(entityConverter.convertProviderRequestModelToProvider(providerRequestModel))
         .thenReturn(provider);
     when(entityConverter.convertProviderToReturnModel(provider)).thenReturn(providerReturnModel);
-    ProviderReturnModel providerReturnModel2 = providerServiceImpl.save(uuid, providerRequestModel);
+    ProviderPostReturnModel providerReturnModel2 = providerServiceImpl.save(uuid, providerRequestModel);
     assertEquals(providerRequestModel.getName(), providerReturnModel2.getResult().getName());
     assertEquals(providerRequestModel.getTitle(), providerReturnModel2.getResult().getTitle());
     assertEquals(
@@ -98,7 +98,7 @@ public class ProviderServiceImplTest {
 
   @Test
   void testInsertProvider_validatorException() {
-    ProviderRequestModel providerRequestModel = createInvalidProviderRequestModel();
+    ProviderPostRequestModel providerRequestModel = createInvalidProviderRequestModel();
     doThrow(new BadRequestException(null))
         .when(providerValidator)
         .validateProviderRequest(uuid, providerRequestModel);
@@ -116,7 +116,7 @@ public class ProviderServiceImplTest {
         .when(providerValidator)
         .validateProviderPatchRequest(uuid, 1L, providerUpdateRequestModel);
     when(providerRepository.getById(any())).thenReturn(provider);
-    ProviderReturnModel providerReturnModel =
+    ProviderPostReturnModel providerReturnModel =
         providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel);
     verify(entityConverter).patchRequestModelToProvider(providerUpdateRequestModel, provider);
     verify(providerRepository).save(provider);

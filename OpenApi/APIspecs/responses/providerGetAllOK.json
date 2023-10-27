@@ -1,0 +1,13 @@
+{
+    "description": "fetched",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "schema/providerGetAllReturnModel.json"
+            },
+            "example" : {
+                "$ref" : "example/providerGetAllReturnModelExample.json"
+            }
+        }
+    }
+}

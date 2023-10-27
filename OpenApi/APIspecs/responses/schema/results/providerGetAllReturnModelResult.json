@@ -1,0 +1,20 @@
+{
+    "type" : "object",
+    "properties" : {
+        "data" : {
+            "type" : "array",
+            "items" : {
+                "$ref" : "models/getAllProvidersProviderModel.json"
+            }
+        },
+        "page" : {
+            "type" : "integer"
+        },
+        "pageSize" : {
+            "type" : "integer"
+        },
+        "numberOfPages" : {
+            "type" : "integer"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "description": "Item to be updated",
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "schema/itemUpdateRequestModel.json"
+        },
+        "example" : {
+          "$ref" : "example/itemPutRequestBodyExample.json"
+        }
+      }
+    }
+}

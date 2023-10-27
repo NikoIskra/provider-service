@@ -1,7 +1,7 @@
 package com.provider.service;
 
 import com.provider.exception.BadRequestException;
-import com.provider.model.ProviderRequestModel;
+import com.provider.model.ProviderPostRequestModel;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.persistence.repository.ProviderRepository;
 import java.util.UUID;
@@ -17,7 +17,7 @@ public class ProviderValidator {
 
   private final AccountApiClient accountApiClient;
 
-  public void validateProviderRequest(UUID accountID, ProviderRequestModel providerRequestModel) {
+  public void validateProviderRequest(UUID accountID, ProviderPostRequestModel providerRequestModel) {
     accountApiClient.verifyAccountID(accountID);
     if (providerRepository.existsByName(providerRequestModel.getName())) {
       throw new BadRequestException("Provider with that name already exists");

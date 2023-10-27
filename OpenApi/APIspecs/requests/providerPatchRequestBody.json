@@ -1,0 +1,14 @@
+{
+    "description": "Provider to update",
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "schema/providerUpdateRequestModel.json"
+        },
+        "example" : {
+          "$ref" : "schema/providerPatchRequestBodyExample.json"
+        }
+      }
+    }
+}

@@ -1,15 +1,24 @@
 package com.provider.model;
 
+import java.net.URI;
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import jakarta.annotation.Generated;
+import com.provider.model.ItemUpdateReturnModelResult;
+import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import java.util.*;
-import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-/** ItemUpdateReturnModel */
+
+import java.util.*;
+import jakarta.annotation.Generated;
+
+/**
+ * ItemUpdateReturnModel
+ */
+
 @JsonTypeName("itemUpdateReturnModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemUpdateReturnModel {
@@ -25,9 +34,9 @@ public class ItemUpdateReturnModel {
 
   /**
    * Get ok
-   *
    * @return ok
-   */
+  */
+  
   @JsonProperty("ok")
   public Boolean isOk() {
     return ok;
@@ -44,10 +53,9 @@ public class ItemUpdateReturnModel {
 
   /**
    * Get result
-   *
    * @return result
-   */
-  @Valid
+  */
+  @Valid 
   @JsonProperty("result")
   public ItemUpdateReturnModelResult getResult() {
     return result;
@@ -66,8 +74,8 @@ public class ItemUpdateReturnModel {
       return false;
     }
     ItemUpdateReturnModel itemUpdateReturnModel = (ItemUpdateReturnModel) o;
-    return Objects.equals(this.ok, itemUpdateReturnModel.ok)
-        && Objects.equals(this.result, itemUpdateReturnModel.result);
+    return Objects.equals(this.ok, itemUpdateReturnModel.ok) &&
+        Objects.equals(this.result, itemUpdateReturnModel.result);
   }
 
   @Override
@@ -86,7 +94,8 @@ public class ItemUpdateReturnModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -95,3 +104,4 @@ public class ItemUpdateReturnModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
+

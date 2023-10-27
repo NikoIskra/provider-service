@@ -1,0 +1,13 @@
+{
+    "description": "updated",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "schema/providerPostReturnModel.json"
+            },
+            "example" : {
+                "$ref" : "example/providerPostReturnModelExample.json"
+            }
+        }
+    }
+}

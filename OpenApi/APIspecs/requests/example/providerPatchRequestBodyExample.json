@@ -1,0 +1,6 @@
+{
+    "title" : "provider title",
+    "description" : "provider named Bob",
+    "status" : "active",
+    "phoneNumber" : "1234567890"
+}
