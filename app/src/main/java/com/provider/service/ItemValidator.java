@@ -33,7 +33,6 @@ public class ItemValidator {
   }
 
   public void validateItemPut(UUID accountID, Long providerID, Long itemID) {
-    accountApiClient.verifyAccountID(accountID);
     if (!providerRepository.existsByIdAndOwnerId(providerID, accountID)) {
       throw new BadRequestException("No record with provider and owner id found");
     }
