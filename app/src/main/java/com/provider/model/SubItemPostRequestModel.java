@@ -1,23 +1,14 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
+import jakarta.annotation.Generated;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * SubItemPostRequestModel
- */
-
+/** SubItemPostRequestModel */
 @JsonTypeName("subItemPostRequestModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class SubItemPostRequestModel {
@@ -30,6 +21,7 @@ public class SubItemPostRequestModel {
 
   /**
    * Default constructor
+   *
    * @deprecated Use {@link SubItemPostRequestModel#SubItemPostRequestModel(String, Integer)}
    */
   @Deprecated
@@ -37,9 +29,7 @@ public class SubItemPostRequestModel {
     super();
   }
 
-  /**
-   * Constructor with only required parameters
-   */
+  /** Constructor with only required parameters */
   public SubItemPostRequestModel(String title, Integer priceCents) {
     this.title = title;
     this.priceCents = priceCents;
@@ -52,9 +42,11 @@ public class SubItemPostRequestModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @NotNull @Size(min = 5, max = 128) 
+   */
+  @NotNull
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -71,9 +63,10 @@ public class SubItemPostRequestModel {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  @Size(max = 512) 
+   */
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -90,9 +83,10 @@ public class SubItemPostRequestModel {
 
   /**
    * Get priceCents
+   *
    * @return priceCents
-  */
-  @NotNull 
+   */
+  @NotNull
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -111,9 +105,9 @@ public class SubItemPostRequestModel {
       return false;
     }
     SubItemPostRequestModel subItemPostRequestModel = (SubItemPostRequestModel) o;
-    return Objects.equals(this.title, subItemPostRequestModel.title) &&
-        Objects.equals(this.description, subItemPostRequestModel.description) &&
-        Objects.equals(this.priceCents, subItemPostRequestModel.priceCents);
+    return Objects.equals(this.title, subItemPostRequestModel.title)
+        && Objects.equals(this.description, subItemPostRequestModel.description)
+        && Objects.equals(this.priceCents, subItemPostRequestModel.priceCents);
   }
 
   @Override
@@ -133,8 +127,7 @@ public class SubItemPostRequestModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -143,4 +136,3 @@ public class SubItemPostRequestModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

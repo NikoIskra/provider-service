@@ -85,7 +85,8 @@ public class ProviderServiceImplTest {
     when(entityConverter.convertProviderRequestModelToProvider(providerRequestModel))
         .thenReturn(provider);
     when(entityConverter.convertProviderToReturnModel(provider)).thenReturn(providerReturnModel);
-    ProviderPostReturnModel providerReturnModel2 = providerServiceImpl.save(uuid, providerRequestModel);
+    ProviderPostReturnModel providerReturnModel2 =
+        providerServiceImpl.save(uuid, providerRequestModel);
     assertEquals(providerRequestModel.getName(), providerReturnModel2.getResult().getName());
     assertEquals(providerRequestModel.getTitle(), providerReturnModel2.getResult().getTitle());
     assertEquals(

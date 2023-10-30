@@ -1,25 +1,15 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * GetItemsProviderModel
- */
-
+/** GetItemsProviderModel */
 @JsonTypeName("getItemsProviderModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class GetItemsProviderModel {
@@ -41,9 +31,9 @@ public class GetItemsProviderModel {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -60,9 +50,9 @@ public class GetItemsProviderModel {
 
   /**
    * Get name
+   *
    * @return name
-  */
-  
+   */
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -79,9 +69,10 @@ public class GetItemsProviderModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @Size(min = 5, max = 128) 
+   */
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -98,9 +89,10 @@ public class GetItemsProviderModel {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -117,9 +109,10 @@ public class GetItemsProviderModel {
 
   /**
    * Get phoneNumber
+   *
    * @return phoneNumber
-  */
-  @Pattern(regexp = "^\\+?\\d{10,14}$") 
+   */
+  @Pattern(regexp = "^\\+?\\d{10,14}$")
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
     return phoneNumber;
@@ -138,11 +131,11 @@ public class GetItemsProviderModel {
       return false;
     }
     GetItemsProviderModel getItemsProviderModel = (GetItemsProviderModel) o;
-    return Objects.equals(this.id, getItemsProviderModel.id) &&
-        Objects.equals(this.name, getItemsProviderModel.name) &&
-        Objects.equals(this.title, getItemsProviderModel.title) &&
-        Objects.equals(this.status, getItemsProviderModel.status) &&
-        Objects.equals(this.phoneNumber, getItemsProviderModel.phoneNumber);
+    return Objects.equals(this.id, getItemsProviderModel.id)
+        && Objects.equals(this.name, getItemsProviderModel.name)
+        && Objects.equals(this.title, getItemsProviderModel.title)
+        && Objects.equals(this.status, getItemsProviderModel.status)
+        && Objects.equals(this.phoneNumber, getItemsProviderModel.phoneNumber);
   }
 
   @Override
@@ -164,8 +157,7 @@ public class GetItemsProviderModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -174,4 +166,3 @@ public class GetItemsProviderModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

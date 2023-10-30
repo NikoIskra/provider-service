@@ -1,24 +1,15 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.provider.model.ItemGetReturnModelResult;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * ItemGetReturnModel
- */
-
+/** ItemGetReturnModel */
 @JsonTypeName("itemGetReturnModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemGetReturnModel {
@@ -34,9 +25,9 @@ public class ItemGetReturnModel {
 
   /**
    * Get ok
+   *
    * @return ok
-  */
-  
+   */
   @JsonProperty("ok")
   public Boolean isOk() {
     return ok;
@@ -53,9 +44,10 @@ public class ItemGetReturnModel {
 
   /**
    * Get result
+   *
    * @return result
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("result")
   public ItemGetReturnModelResult getResult() {
     return result;
@@ -74,8 +66,8 @@ public class ItemGetReturnModel {
       return false;
     }
     ItemGetReturnModel itemGetReturnModel = (ItemGetReturnModel) o;
-    return Objects.equals(this.ok, itemGetReturnModel.ok) &&
-        Objects.equals(this.result, itemGetReturnModel.result);
+    return Objects.equals(this.ok, itemGetReturnModel.ok)
+        && Objects.equals(this.result, itemGetReturnModel.result);
   }
 
   @Override
@@ -94,8 +86,7 @@ public class ItemGetReturnModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -104,4 +95,3 @@ public class ItemGetReturnModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

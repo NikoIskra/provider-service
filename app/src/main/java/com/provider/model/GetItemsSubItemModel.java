@@ -1,25 +1,15 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * GetItemsSubItemModel
- */
-
+/** GetItemsSubItemModel */
 @JsonTypeName("getItemsSubItemModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class GetItemsSubItemModel {
@@ -41,9 +31,9 @@ public class GetItemsSubItemModel {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -60,9 +50,10 @@ public class GetItemsSubItemModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @Size(min = 5, max = 128) 
+   */
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -79,9 +70,10 @@ public class GetItemsSubItemModel {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  @Size(max = 512) 
+   */
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -98,9 +90,9 @@ public class GetItemsSubItemModel {
 
   /**
    * Get priceCents
+   *
    * @return priceCents
-  */
-  
+   */
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -117,9 +109,10 @@ public class GetItemsSubItemModel {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -138,11 +131,11 @@ public class GetItemsSubItemModel {
       return false;
     }
     GetItemsSubItemModel getItemsSubItemModel = (GetItemsSubItemModel) o;
-    return Objects.equals(this.id, getItemsSubItemModel.id) &&
-        Objects.equals(this.title, getItemsSubItemModel.title) &&
-        Objects.equals(this.description, getItemsSubItemModel.description) &&
-        Objects.equals(this.priceCents, getItemsSubItemModel.priceCents) &&
-        Objects.equals(this.status, getItemsSubItemModel.status);
+    return Objects.equals(this.id, getItemsSubItemModel.id)
+        && Objects.equals(this.title, getItemsSubItemModel.title)
+        && Objects.equals(this.description, getItemsSubItemModel.description)
+        && Objects.equals(this.priceCents, getItemsSubItemModel.priceCents)
+        && Objects.equals(this.status, getItemsSubItemModel.status);
   }
 
   @Override
@@ -164,8 +157,7 @@ public class GetItemsSubItemModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -174,4 +166,3 @@ public class GetItemsSubItemModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

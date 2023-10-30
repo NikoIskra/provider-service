@@ -82,7 +82,6 @@ public class EntityConverterTest {
     return item;
   }
 
-
   private static ItemPostRequestModel createItemRequestModel() {
     ItemPostRequestModel itemRequestModel = new ItemPostRequestModel("itemtitle", 1200);
     return itemRequestModel;
@@ -124,7 +123,8 @@ public class EntityConverterTest {
   @Test
   void testConvertProviderToReturnModel() {
     Provider provider = createProvider();
-    ProviderPostReturnModel returnModel = entityConverterService.convertProviderToReturnModel(provider);
+    ProviderPostReturnModel returnModel =
+        entityConverterService.convertProviderToReturnModel(provider);
     assertEquals(returnModel.isOk(), true);
     assertEquals(returnModel.getResult().getOwnerId(), provider.getOwnerId());
     assertEquals(returnModel.getResult().getName(), provider.getName());

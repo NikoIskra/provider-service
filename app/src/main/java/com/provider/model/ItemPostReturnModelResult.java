@@ -1,28 +1,17 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.ItemPostSubItemModel;
-import com.provider.model.StatusEnum;
-import java.util.ArrayList;
-import java.util.List;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * ItemPostReturnModelResult
- */
-
+/** ItemPostReturnModelResult */
 @JsonTypeName("itemPostReturnModelResult")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemPostReturnModelResult {
@@ -39,8 +28,7 @@ public class ItemPostReturnModelResult {
 
   private StatusEnum status;
 
-  @Valid
-  private List<@Valid ItemPostSubItemModel> subItems;
+  @Valid private List<@Valid ItemPostSubItemModel> subItems;
 
   public ItemPostReturnModelResult id(Long id) {
     this.id = id;
@@ -49,9 +37,9 @@ public class ItemPostReturnModelResult {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -68,9 +56,9 @@ public class ItemPostReturnModelResult {
 
   /**
    * Get providerId
+   *
    * @return providerId
-  */
-  
+   */
   @JsonProperty("providerId")
   public Long getProviderId() {
     return providerId;
@@ -87,9 +75,10 @@ public class ItemPostReturnModelResult {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @Size(min = 5, max = 128) 
+   */
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -106,9 +95,10 @@ public class ItemPostReturnModelResult {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  @Size(max = 512) 
+   */
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -125,9 +115,9 @@ public class ItemPostReturnModelResult {
 
   /**
    * Get priceCents
+   *
    * @return priceCents
-  */
-  
+   */
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -144,9 +134,10 @@ public class ItemPostReturnModelResult {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -171,9 +162,10 @@ public class ItemPostReturnModelResult {
 
   /**
    * Get subItems
+   *
    * @return subItems
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("subItems")
   public List<@Valid ItemPostSubItemModel> getSubItems() {
     return subItems;
@@ -192,13 +184,13 @@ public class ItemPostReturnModelResult {
       return false;
     }
     ItemPostReturnModelResult itemPostReturnModelResult = (ItemPostReturnModelResult) o;
-    return Objects.equals(this.id, itemPostReturnModelResult.id) &&
-        Objects.equals(this.providerId, itemPostReturnModelResult.providerId) &&
-        Objects.equals(this.title, itemPostReturnModelResult.title) &&
-        Objects.equals(this.description, itemPostReturnModelResult.description) &&
-        Objects.equals(this.priceCents, itemPostReturnModelResult.priceCents) &&
-        Objects.equals(this.status, itemPostReturnModelResult.status) &&
-        Objects.equals(this.subItems, itemPostReturnModelResult.subItems);
+    return Objects.equals(this.id, itemPostReturnModelResult.id)
+        && Objects.equals(this.providerId, itemPostReturnModelResult.providerId)
+        && Objects.equals(this.title, itemPostReturnModelResult.title)
+        && Objects.equals(this.description, itemPostReturnModelResult.description)
+        && Objects.equals(this.priceCents, itemPostReturnModelResult.priceCents)
+        && Objects.equals(this.status, itemPostReturnModelResult.status)
+        && Objects.equals(this.subItems, itemPostReturnModelResult.subItems);
   }
 
   @Override
@@ -222,8 +214,7 @@ public class ItemPostReturnModelResult {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -232,4 +223,3 @@ public class ItemPostReturnModelResult {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

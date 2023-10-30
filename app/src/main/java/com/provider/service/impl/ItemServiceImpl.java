@@ -3,7 +3,6 @@ package com.provider.service.impl;
 import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemPostRequestModel;
 import com.provider.model.ItemPostReturnModel;
-import com.provider.model.ItemPostSubItemModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.SubItemPostRequestModel;
@@ -36,7 +35,8 @@ public class ItemServiceImpl implements ItemService {
 
   @Override
   @Transactional
-  public ItemPostReturnModel save(UUID accountID, Long providerID, ItemPostRequestModel itemRequestModel) {
+  public ItemPostReturnModel save(
+      UUID accountID, Long providerID, ItemPostRequestModel itemRequestModel) {
     itemValidator.validateItemRequest(accountID, providerID);
     Item item = entityConverter.convertItemRequestModelToItem(itemRequestModel);
     item.setProvider(providerRepository.getById(providerID));

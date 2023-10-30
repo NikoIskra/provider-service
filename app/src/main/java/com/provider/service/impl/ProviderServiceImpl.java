@@ -43,7 +43,8 @@ public class ProviderServiceImpl implements ProviderService {
 
   @Override
   @Transactional
-  public ProviderPostReturnModel save(UUID accountID, ProviderPostRequestModel providerRequestModel) {
+  public ProviderPostReturnModel save(
+      UUID accountID, ProviderPostRequestModel providerRequestModel) {
     providerValidator.validateProviderRequest(accountID, providerRequestModel);
     Provider provider = entityConverter.convertProviderRequestModelToProvider(providerRequestModel);
     provider.setOwnerId(accountID);

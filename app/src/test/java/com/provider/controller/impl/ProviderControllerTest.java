@@ -43,7 +43,7 @@ public class ProviderControllerTest {
 
   private static ProviderPostRequestModel createInvalidProviderRequestModel() {
     ProviderPostRequestModel providerRequestModel =
-    new ProviderPostRequestModel("testname", "testtitle", "12345678");
+        new ProviderPostRequestModel("testname", "testtitle", "12345678");
     return providerRequestModel;
   }
 

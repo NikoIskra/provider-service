@@ -1,26 +1,16 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import java.util.UUID;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
+import java.util.UUID;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * ProviderPostReturnModelResult
- */
-
+/** ProviderPostReturnModelResult */
 @JsonTypeName("providerPostReturnModelResult")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ProviderPostReturnModelResult {
@@ -46,9 +36,9 @@ public class ProviderPostReturnModelResult {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -65,9 +55,10 @@ public class ProviderPostReturnModelResult {
 
   /**
    * Get ownerId
+   *
    * @return ownerId
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("ownerId")
   public UUID getOwnerId() {
     return ownerId;
@@ -84,9 +75,9 @@ public class ProviderPostReturnModelResult {
 
   /**
    * Get name
+   *
    * @return name
-  */
-  
+   */
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -103,9 +94,10 @@ public class ProviderPostReturnModelResult {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @Size(min = 5, max = 128) 
+   */
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -122,9 +114,10 @@ public class ProviderPostReturnModelResult {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  @Size(max = 512) 
+   */
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -141,9 +134,10 @@ public class ProviderPostReturnModelResult {
 
   /**
    * Get phoneNumber
+   *
    * @return phoneNumber
-  */
-  @Pattern(regexp = "^\\+?\\d{10,14}$") 
+   */
+  @Pattern(regexp = "^\\+?\\d{10,14}$")
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
     return phoneNumber;
@@ -160,9 +154,10 @@ public class ProviderPostReturnModelResult {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -181,13 +176,13 @@ public class ProviderPostReturnModelResult {
       return false;
     }
     ProviderPostReturnModelResult providerPostReturnModelResult = (ProviderPostReturnModelResult) o;
-    return Objects.equals(this.id, providerPostReturnModelResult.id) &&
-        Objects.equals(this.ownerId, providerPostReturnModelResult.ownerId) &&
-        Objects.equals(this.name, providerPostReturnModelResult.name) &&
-        Objects.equals(this.title, providerPostReturnModelResult.title) &&
-        Objects.equals(this.description, providerPostReturnModelResult.description) &&
-        Objects.equals(this.phoneNumber, providerPostReturnModelResult.phoneNumber) &&
-        Objects.equals(this.status, providerPostReturnModelResult.status);
+    return Objects.equals(this.id, providerPostReturnModelResult.id)
+        && Objects.equals(this.ownerId, providerPostReturnModelResult.ownerId)
+        && Objects.equals(this.name, providerPostReturnModelResult.name)
+        && Objects.equals(this.title, providerPostReturnModelResult.title)
+        && Objects.equals(this.description, providerPostReturnModelResult.description)
+        && Objects.equals(this.phoneNumber, providerPostReturnModelResult.phoneNumber)
+        && Objects.equals(this.status, providerPostReturnModelResult.status);
   }
 
   @Override
@@ -211,8 +206,7 @@ public class ProviderPostReturnModelResult {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -221,4 +215,3 @@ public class ProviderPostReturnModelResult {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

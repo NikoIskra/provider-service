@@ -25,7 +25,8 @@ public class ItemController implements ItemApi {
   public ResponseEntity<ItemPostReturnModel> addItem(
       @NotNull UUID X_ACCOUNT_ID, Long providerId, @Valid ItemPostRequestModel itemRequestModel)
       throws Exception {
-    ItemPostReturnModel itemReturnModel = itemService.save(X_ACCOUNT_ID, providerId, itemRequestModel);
+    ItemPostReturnModel itemReturnModel =
+        itemService.save(X_ACCOUNT_ID, providerId, itemRequestModel);
     HttpHeaders returnHeaders = new HttpHeaders();
     String headerString =
         "/api/v1/provider/"

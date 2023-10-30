@@ -1,27 +1,17 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import java.util.ArrayList;
-import java.util.List;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * GetAllProvidersProviderModel
- */
-
+/** GetAllProvidersProviderModel */
 @JsonTypeName("getAllProvidersProviderModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class GetAllProvidersProviderModel {
@@ -36,8 +26,7 @@ public class GetAllProvidersProviderModel {
 
   private StatusEnum status;
 
-  @Valid
-  private List<String> services;
+  @Valid private List<String> services;
 
   private String phoneNumber;
 
@@ -48,9 +37,9 @@ public class GetAllProvidersProviderModel {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -67,9 +56,9 @@ public class GetAllProvidersProviderModel {
 
   /**
    * Get name
+   *
    * @return name
-  */
-  
+   */
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -86,9 +75,10 @@ public class GetAllProvidersProviderModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @Size(min = 5, max = 128) 
+   */
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -105,9 +95,10 @@ public class GetAllProvidersProviderModel {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  @Size(max = 512) 
+   */
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -124,9 +115,10 @@ public class GetAllProvidersProviderModel {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -151,9 +143,9 @@ public class GetAllProvidersProviderModel {
 
   /**
    * Get services
+   *
    * @return services
-  */
-  
+   */
   @JsonProperty("services")
   public List<String> getServices() {
     return services;
@@ -170,9 +162,10 @@ public class GetAllProvidersProviderModel {
 
   /**
    * Get phoneNumber
+   *
    * @return phoneNumber
-  */
-  @Pattern(regexp = "^\\+?\\d{10,14}$") 
+   */
+  @Pattern(regexp = "^\\+?\\d{10,14}$")
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
     return phoneNumber;
@@ -191,13 +184,13 @@ public class GetAllProvidersProviderModel {
       return false;
     }
     GetAllProvidersProviderModel getAllProvidersProviderModel = (GetAllProvidersProviderModel) o;
-    return Objects.equals(this.id, getAllProvidersProviderModel.id) &&
-        Objects.equals(this.name, getAllProvidersProviderModel.name) &&
-        Objects.equals(this.title, getAllProvidersProviderModel.title) &&
-        Objects.equals(this.description, getAllProvidersProviderModel.description) &&
-        Objects.equals(this.status, getAllProvidersProviderModel.status) &&
-        Objects.equals(this.services, getAllProvidersProviderModel.services) &&
-        Objects.equals(this.phoneNumber, getAllProvidersProviderModel.phoneNumber);
+    return Objects.equals(this.id, getAllProvidersProviderModel.id)
+        && Objects.equals(this.name, getAllProvidersProviderModel.name)
+        && Objects.equals(this.title, getAllProvidersProviderModel.title)
+        && Objects.equals(this.description, getAllProvidersProviderModel.description)
+        && Objects.equals(this.status, getAllProvidersProviderModel.status)
+        && Objects.equals(this.services, getAllProvidersProviderModel.services)
+        && Objects.equals(this.phoneNumber, getAllProvidersProviderModel.phoneNumber);
   }
 
   @Override
@@ -221,8 +214,7 @@ public class GetAllProvidersProviderModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -231,4 +223,3 @@ public class GetAllProvidersProviderModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

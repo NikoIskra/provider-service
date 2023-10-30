@@ -1,25 +1,15 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.provider.model.StatusEnum;
-import java.time.OffsetDateTime;
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * ItemPostSubItemModel
- */
-
+/** ItemPostSubItemModel */
 @JsonTypeName("itemPostSubItemModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemPostSubItemModel {
@@ -43,9 +33,9 @@ public class ItemPostSubItemModel {
 
   /**
    * Get id
+   *
    * @return id
-  */
-  
+   */
   @JsonProperty("id")
   public Long getId() {
     return id;
@@ -62,9 +52,9 @@ public class ItemPostSubItemModel {
 
   /**
    * Get itemId
+   *
    * @return itemId
-  */
-  
+   */
   @JsonProperty("itemId")
   public Long getItemId() {
     return itemId;
@@ -81,9 +71,10 @@ public class ItemPostSubItemModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @Size(min = 5, max = 128) 
+   */
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -100,9 +91,10 @@ public class ItemPostSubItemModel {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  @Size(max = 512) 
+   */
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -119,9 +111,9 @@ public class ItemPostSubItemModel {
 
   /**
    * Get priceCents
+   *
    * @return priceCents
-  */
-  
+   */
   @JsonProperty("priceCents")
   public Integer getPriceCents() {
     return priceCents;
@@ -138,9 +130,10 @@ public class ItemPostSubItemModel {
 
   /**
    * Get status
+   *
    * @return status
-  */
-  @Valid 
+   */
+  @Valid
   @JsonProperty("status")
   public StatusEnum getStatus() {
     return status;
@@ -159,12 +152,12 @@ public class ItemPostSubItemModel {
       return false;
     }
     ItemPostSubItemModel itemPostSubItemModel = (ItemPostSubItemModel) o;
-    return Objects.equals(this.id, itemPostSubItemModel.id) &&
-        Objects.equals(this.itemId, itemPostSubItemModel.itemId) &&
-        Objects.equals(this.title, itemPostSubItemModel.title) &&
-        Objects.equals(this.description, itemPostSubItemModel.description) &&
-        Objects.equals(this.priceCents, itemPostSubItemModel.priceCents) &&
-        Objects.equals(this.status, itemPostSubItemModel.status);
+    return Objects.equals(this.id, itemPostSubItemModel.id)
+        && Objects.equals(this.itemId, itemPostSubItemModel.itemId)
+        && Objects.equals(this.title, itemPostSubItemModel.title)
+        && Objects.equals(this.description, itemPostSubItemModel.description)
+        && Objects.equals(this.priceCents, itemPostSubItemModel.priceCents)
+        && Objects.equals(this.status, itemPostSubItemModel.status);
   }
 
   @Override
@@ -187,8 +180,7 @@ public class ItemPostSubItemModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -197,4 +189,3 @@ public class ItemPostSubItemModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

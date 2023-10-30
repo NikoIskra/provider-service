@@ -1,23 +1,14 @@
 package com.provider.model;
 
-import java.net.URI;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
+import jakarta.annotation.Generated;
 import jakarta.validation.constraints.*;
+import java.util.*;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-
-import java.util.*;
-import jakarta.annotation.Generated;
-
-/**
- * ProviderPostRequestModel
- */
-
+/** ProviderPostRequestModel */
 @JsonTypeName("providerPostRequestModel")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ProviderPostRequestModel {
@@ -32,16 +23,16 @@ public class ProviderPostRequestModel {
 
   /**
    * Default constructor
-   * @deprecated Use {@link ProviderPostRequestModel#ProviderPostRequestModel(String, String, String)}
+   *
+   * @deprecated Use {@link ProviderPostRequestModel#ProviderPostRequestModel(String, String,
+   *     String)}
    */
   @Deprecated
   public ProviderPostRequestModel() {
     super();
   }
 
-  /**
-   * Constructor with only required parameters
-   */
+  /** Constructor with only required parameters */
   public ProviderPostRequestModel(String name, String title, String phoneNumber) {
     this.name = name;
     this.title = title;
@@ -55,9 +46,11 @@ public class ProviderPostRequestModel {
 
   /**
    * Get name
+   *
    * @return name
-  */
-  @NotNull @Size(min = 5, max = 64) 
+   */
+  @NotNull
+  @Size(min = 5, max = 64)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -74,9 +67,11 @@ public class ProviderPostRequestModel {
 
   /**
    * Get title
+   *
    * @return title
-  */
-  @NotNull @Size(min = 5, max = 128) 
+   */
+  @NotNull
+  @Size(min = 5, max = 128)
   @JsonProperty("title")
   public String getTitle() {
     return title;
@@ -93,9 +88,10 @@ public class ProviderPostRequestModel {
 
   /**
    * Get description
+   *
    * @return description
-  */
-  @Size(max = 512) 
+   */
+  @Size(max = 512)
   @JsonProperty("description")
   public String getDescription() {
     return description;
@@ -112,9 +108,11 @@ public class ProviderPostRequestModel {
 
   /**
    * Get phoneNumber
+   *
    * @return phoneNumber
-  */
-  @NotNull @Pattern(regexp = "^\\+?\\d{10,14}$") 
+   */
+  @NotNull
+  @Pattern(regexp = "^\\+?\\d{10,14}$")
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
     return phoneNumber;
@@ -133,10 +131,10 @@ public class ProviderPostRequestModel {
       return false;
     }
     ProviderPostRequestModel providerPostRequestModel = (ProviderPostRequestModel) o;
-    return Objects.equals(this.name, providerPostRequestModel.name) &&
-        Objects.equals(this.title, providerPostRequestModel.title) &&
-        Objects.equals(this.description, providerPostRequestModel.description) &&
-        Objects.equals(this.phoneNumber, providerPostRequestModel.phoneNumber);
+    return Objects.equals(this.name, providerPostRequestModel.name)
+        && Objects.equals(this.title, providerPostRequestModel.title)
+        && Objects.equals(this.description, providerPostRequestModel.description)
+        && Objects.equals(this.phoneNumber, providerPostRequestModel.phoneNumber);
   }
 
   @Override
@@ -157,8 +155,7 @@ public class ProviderPostRequestModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     if (o == null) {
@@ -167,4 +164,3 @@ public class ProviderPostRequestModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

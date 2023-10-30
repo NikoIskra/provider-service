@@ -46,7 +46,8 @@ public class EntityConverterService {
     return new ProviderPostReturnModel().ok(true).result(providerReturnModelResult);
   }
 
-  public Provider convertProviderRequestModelToProvider(ProviderPostRequestModel providerRequestModel) {
+  public Provider convertProviderRequestModelToProvider(
+      ProviderPostRequestModel providerRequestModel) {
     Provider provider = modelMapper.map(providerRequestModel, Provider.class);
     provider.setStatus(StatusEnum.VIEW_ONLY);
     return provider;
