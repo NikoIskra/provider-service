@@ -1,0 +1,23 @@
+{
+    "ok" : true,
+    "result" : {
+        "data" : [
+            {
+                "id" : "1",
+                "name" : "example name",
+                "title" : "example title",
+                "description" : "example description",
+                "status" : "view-only",
+                "services" : [
+                    {
+                        "example" : "example"
+                    }
+                ],
+                "phoneNumber" : "1234567890"
+            }
+        ],
+        "page" : 0,
+        "pageSize" : 50,
+        "numberOfPages" : 2
+    }
+}

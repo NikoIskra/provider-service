@@ -1,0 +1,13 @@
+{
+    "description": "Bad request!",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "schema/errorResponse.json"
+            },
+            "description" : {
+                "$ref" : "example/errorResponseExample.json"
+            }
+        }
+    }
+}

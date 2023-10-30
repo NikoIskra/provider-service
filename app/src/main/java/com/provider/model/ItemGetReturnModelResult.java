@@ -12,7 +12,7 @@ import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
 /** ItemGetReturnModelResult */
-@JsonTypeName("itemGetReturnModel_result")
+@JsonTypeName("itemGetReturnModelResult")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ItemGetReturnModelResult {
 
@@ -26,9 +26,9 @@ public class ItemGetReturnModelResult {
 
   private StatusEnum status;
 
-  private ItemGetReturnModelResultProvider provider;
+  private GetItemsProviderModel provider;
 
-  @Valid private List<@Valid ItemSubItemsModel> subItems;
+  @Valid private List<@Valid GetItemsSubItemModel> subItems;
 
   public ItemGetReturnModelResult id(Long id) {
     this.id = id;
@@ -128,7 +128,7 @@ public class ItemGetReturnModelResult {
     this.status = status;
   }
 
-  public ItemGetReturnModelResult provider(ItemGetReturnModelResultProvider provider) {
+  public ItemGetReturnModelResult provider(GetItemsProviderModel provider) {
     this.provider = provider;
     return this;
   }
@@ -140,20 +140,20 @@ public class ItemGetReturnModelResult {
    */
   @Valid
   @JsonProperty("provider")
-  public ItemGetReturnModelResultProvider getProvider() {
+  public GetItemsProviderModel getProvider() {
     return provider;
   }
 
-  public void setProvider(ItemGetReturnModelResultProvider provider) {
+  public void setProvider(GetItemsProviderModel provider) {
     this.provider = provider;
   }
 
-  public ItemGetReturnModelResult subItems(List<@Valid ItemSubItemsModel> subItems) {
+  public ItemGetReturnModelResult subItems(List<@Valid GetItemsSubItemModel> subItems) {
     this.subItems = subItems;
     return this;
   }
 
-  public ItemGetReturnModelResult addSubItemsItem(ItemSubItemsModel subItemsItem) {
+  public ItemGetReturnModelResult addSubItemsItem(GetItemsSubItemModel subItemsItem) {
     if (this.subItems == null) {
       this.subItems = new ArrayList<>();
     }
@@ -168,11 +168,11 @@ public class ItemGetReturnModelResult {
    */
   @Valid
   @JsonProperty("subItems")
-  public List<@Valid ItemSubItemsModel> getSubItems() {
+  public List<@Valid GetItemsSubItemModel> getSubItems() {
     return subItems;
   }
 
-  public void setSubItems(List<@Valid ItemSubItemsModel> subItems) {
+  public void setSubItems(List<@Valid GetItemsSubItemModel> subItems) {
     this.subItems = subItems;
   }
 

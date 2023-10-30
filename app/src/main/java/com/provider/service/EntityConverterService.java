@@ -1,21 +1,21 @@
 package com.provider.service;
 
+import com.provider.model.GetAllProvidersProviderModel;
 import com.provider.model.ItemGetReturnModel;
 import com.provider.model.ItemGetReturnModelResult;
-import com.provider.model.ItemRequestModel;
-import com.provider.model.ItemReturnModel;
-import com.provider.model.ItemReturnModelResult;
+import com.provider.model.ItemPostRequestModel;
+import com.provider.model.ItemPostReturnModel;
+import com.provider.model.ItemPostReturnModelResult;
+import com.provider.model.ItemPostSubItemModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import com.provider.model.ItemUpdateReturnModelResult;
-import com.provider.model.ProviderGetDataObject;
-import com.provider.model.ProviderRequestModel;
-import com.provider.model.ProviderReturnModel;
-import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.ProviderPostRequestModel;
+import com.provider.model.ProviderPostReturnModel;
+import com.provider.model.ProviderPostReturnModelResult;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
-import com.provider.model.SubItemRequestModel;
-import com.provider.model.SubItemReturnModel;
+import com.provider.model.SubItemPostRequestModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
@@ -40,38 +40,39 @@ public class EntityConverterService {
     this.modelMapper = modelMapper;
   }
 
-  public ProviderReturnModel convertProviderToReturnModel(Provider provider) {
-    ProviderReturnModelResult providerReturnModelResult =
-        modelMapper.map(provider, ProviderReturnModelResult.class);
-    return new ProviderReturnModel().ok(true).result(providerReturnModelResult);
+  public ProviderPostReturnModel convertProviderToReturnModel(Provider provider) {
+    ProviderPostReturnModelResult providerReturnModelResult =
+        modelMapper.map(provider, ProviderPostReturnModelResult.class);
+    return new ProviderPostReturnModel().ok(true).result(providerReturnModelResult);
   }
 
-  public Provider convertProviderRequestModelToProvider(ProviderRequestModel providerRequestModel) {
+  public Provider convertProviderRequestModelToProvider(
+      ProviderPostRequestModel providerRequestModel) {
     Provider provider = modelMapper.map(providerRequestModel, Provider.class);
     provider.setStatus(StatusEnum.VIEW_ONLY);
     return provider;
   }
 
-  public SubItem convertSubItemRequestModelToSubItem(SubItemRequestModel subItemRequestModel) {
+  public SubItem convertSubItemRequestModelToSubItem(SubItemPostRequestModel subItemRequestModel) {
     SubItem subItem = modelMapper.map(subItemRequestModel, SubItem.class);
     subItem.setStatus(StatusEnum.VIEW_ONLY);
     return subItem;
   }
 
-  public SubItemReturnModel convertSubItemToReturnModel(SubItem subItem) {
-    return modelMapper.map(subItem, SubItemReturnModel.class);
+  public ItemPostSubItemModel convertSubItemToReturnModel(SubItem subItem) {
+    return modelMapper.map(subItem, ItemPostSubItemModel.class);
   }
 
-  public Item convertItemRequestModelToItem(ItemRequestModel itemRequestModel) {
+  public Item convertItemRequestModelToItem(ItemPostRequestModel itemRequestModel) {
     Item item = modelMapper.map(itemRequestModel, Item.class);
     item.setStatus(StatusEnum.VIEW_ONLY);
     return item;
   }
 
-  public ItemReturnModel convertItemToReturnModel(Item item) {
-    ItemReturnModelResult itemReturnModelResult =
-        modelMapper.map(item, ItemReturnModelResult.class);
-    return new ItemReturnModel().ok(true).result(itemReturnModelResult);
+  public ItemPostReturnModel convertItemToReturnModel(Item item) {
+    ItemPostReturnModelResult itemReturnModelResult =
+        modelMapper.map(item, ItemPostReturnModelResult.class);
+    return new ItemPostReturnModel().ok(true).result(itemReturnModelResult);
   }
 
   public void patchRequestModelToProvider(
@@ -91,12 +92,12 @@ public class EntityConverterService {
   }
 
   public void convertProviderToGetDataObjects(
-      List<ProviderGetDataObject> providerGetDataObjects,
+      List<GetAllProvidersProviderModel> providerGetDataObjects,
       List<Provider> providers,
       List<StatusEnum> statusList) {
     for (Provider provider : providers) {
-      ProviderGetDataObject providerGetDataObject =
-          modelMapper.map(provider, ProviderGetDataObject.class);
+      GetAllProvidersProviderModel providerGetDataObject =
+          modelMapper.map(provider, GetAllProvidersProviderModel.class);
       List<String> services =
           provider.getItems().stream().map(Item::getTitle).limit(10).collect(Collectors.toList());
       providerGetDataObject.setServices(services);

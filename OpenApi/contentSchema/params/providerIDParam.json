@@ -1,9 +1,0 @@
-{
-    "name": "provider-id",
-    "in": "path",
-    "required": true,
-    "schema": {
-      "type": "integer",
-      "format": "int64"
-    }
-}

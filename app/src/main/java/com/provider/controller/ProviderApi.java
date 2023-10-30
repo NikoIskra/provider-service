@@ -5,8 +5,8 @@
 package com.provider.controller;
 
 import com.provider.model.ProviderGetAllReturnModel;
-import com.provider.model.ProviderRequestModel;
-import com.provider.model.ProviderReturnModel;
+import com.provider.model.ProviderPostRequestModel;
+import com.provider.model.ProviderPostReturnModel;
 import com.provider.model.ProviderUpdateRequestModel;
 import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
@@ -21,6 +21,24 @@ import org.springframework.web.bind.annotation.*;
 public interface ProviderApi {
 
   /**
+   * POST /api/v1/provider Insert provider
+   *
+   * @param X_ACCOUNT_ID (required)
+   * @param providerPostRequestModel Provider to be added (required)
+   * @return Created (status code 201) or Bad request! (status code 400) or Conflict! (status code
+   *     409)
+   */
+  @RequestMapping(
+      method = RequestMethod.POST,
+      value = "/api/v1/provider",
+      produces = {"application/json"},
+      consumes = {"application/json"})
+  ResponseEntity<ProviderPostReturnModel> addProvider(
+      @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
+      @Valid @RequestBody ProviderPostRequestModel providerPostRequestModel)
+      throws Exception;
+
+  /**
    * GET /api/v1/provider Get all providers
    *
    * @param X_ACCOUNT_ID (required)
@@ -32,29 +50,11 @@ public interface ProviderApi {
       method = RequestMethod.GET,
       value = "/api/v1/provider",
       produces = {"application/json"})
-  ResponseEntity<ProviderGetAllReturnModel> apiV1ProviderGet(
+  ResponseEntity<ProviderGetAllReturnModel> getAllProviders(
       @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
       @NotNull @Valid @RequestParam(value = "page", required = true) Integer page,
       @Min(20) @Max(100) @Valid @RequestParam(value = "page-size", required = false)
           Integer pageSize)
-      throws Exception;
-
-  /**
-   * POST /api/v1/provider Insert provider
-   *
-   * @param X_ACCOUNT_ID (required)
-   * @param providerRequestModel Provider to be added (required)
-   * @return Created (status code 201) or Bad request! (status code 400) or Conflict! (status code
-   *     409)
-   */
-  @RequestMapping(
-      method = RequestMethod.POST,
-      value = "/api/v1/provider",
-      produces = {"application/json"},
-      consumes = {"application/json"})
-  ResponseEntity<ProviderReturnModel> apiV1ProviderPost(
-      @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
-      @Valid @RequestBody ProviderRequestModel providerRequestModel)
       throws Exception;
 
   /**
@@ -70,7 +70,7 @@ public interface ProviderApi {
       value = "/api/v1/provider/{provider-id}",
       produces = {"application/json"},
       consumes = {"application/json"})
-  ResponseEntity<ProviderReturnModel> apiV1ProviderProviderIdPatch(
+  ResponseEntity<ProviderPostReturnModel> patchProvider(
       @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
       @PathVariable("provider-id") Long providerId,
       @Valid @RequestBody ProviderUpdateRequestModel providerUpdateRequestModel)

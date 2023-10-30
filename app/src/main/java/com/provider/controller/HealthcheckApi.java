@@ -20,5 +20,5 @@ public interface HealthcheckApi {
    * @return OK (status code 200)
    */
   @RequestMapping(method = RequestMethod.GET, value = "/api/v1/healthcheck")
-  ResponseEntity<Void> apiV1HealthcheckGet() throws Exception;
+  ResponseEntity<Void> healthcheck() throws Exception;
 }

@@ -5,8 +5,8 @@
 package com.provider.controller;
 
 import com.provider.model.ItemGetReturnModel;
-import com.provider.model.ItemRequestModel;
-import com.provider.model.ItemReturnModel;
+import com.provider.model.ItemPostRequestModel;
+import com.provider.model.ItemPostReturnModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
 import jakarta.annotation.Generated;
@@ -22,6 +22,25 @@ import org.springframework.web.bind.annotation.*;
 public interface ItemApi {
 
   /**
+   * POST /api/v1/provider/{provider-id}/item Add item
+   *
+   * @param X_ACCOUNT_ID (required)
+   * @param providerId (required)
+   * @param itemPostRequestModel Item to be added (required)
+   * @return Created (status code 201) or Bad request! (status code 400)
+   */
+  @RequestMapping(
+      method = RequestMethod.POST,
+      value = "/api/v1/provider/{provider-id}/item",
+      produces = {"application/json"},
+      consumes = {"application/json"})
+  ResponseEntity<ItemPostReturnModel> addItem(
+      @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
+      @PathVariable("provider-id") Long providerId,
+      @Valid @RequestBody ItemPostRequestModel itemPostRequestModel)
+      throws Exception;
+
+  /**
    * GET /api/v1/provider/{provider-id}/item/{item-id} Get item
    *
    * @param X_ACCOUNT_ID (required)
@@ -33,7 +52,7 @@ public interface ItemApi {
       method = RequestMethod.GET,
       value = "/api/v1/provider/{provider-id}/item/{item-id}",
       produces = {"application/json"})
-  ResponseEntity<ItemGetReturnModel> apiV1ProviderProviderIdItemItemIdGet(
+  ResponseEntity<ItemGetReturnModel> getItemByID(
       @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
       @PathVariable("provider-id") Long providerId,
       @PathVariable("item-id") Long itemId)
@@ -53,29 +72,10 @@ public interface ItemApi {
       value = "/api/v1/provider/{provider-id}/item/{item-id}",
       produces = {"application/json"},
       consumes = {"application/json"})
-  ResponseEntity<ItemUpdateReturnModel> apiV1ProviderProviderIdItemItemIdPut(
+  ResponseEntity<ItemUpdateReturnModel> updateItem(
       @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
       @PathVariable("provider-id") Long providerId,
       @PathVariable("item-id") Long itemId,
       @Valid @RequestBody ItemUpdateRequestModel itemUpdateRequestModel)
-      throws Exception;
-
-  /**
-   * POST /api/v1/provider/{provider-id}/item Add item
-   *
-   * @param X_ACCOUNT_ID (required)
-   * @param providerId (required)
-   * @param itemRequestModel Item to be added (required)
-   * @return Created (status code 201) or Bad request! (status code 400)
-   */
-  @RequestMapping(
-      method = RequestMethod.POST,
-      value = "/api/v1/provider/{provider-id}/item",
-      produces = {"application/json"},
-      consumes = {"application/json"})
-  ResponseEntity<ItemReturnModel> apiV1ProviderProviderIdItemPost(
-      @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
-      @PathVariable("provider-id") Long providerId,
-      @Valid @RequestBody ItemRequestModel itemRequestModel)
       throws Exception;
 }

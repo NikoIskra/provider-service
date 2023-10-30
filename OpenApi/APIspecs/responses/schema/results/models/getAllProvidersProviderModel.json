@@ -1,0 +1,29 @@
+{
+    "type" : "object",
+    "properties" : {
+        "id" : {
+            "$ref" : "../../../../../common/props/longID.json"
+        },
+        "name" : {
+            "type" : "string"
+        },
+        "title" : {
+            "$ref" : "../../../../../common/props/title.json"
+        },
+        "description": {
+            "$ref" : "../../../../../common/props/description.json"
+        },
+        "status" : {
+            "$ref" : "../../../../../common/enums/statusEnum.json"
+        },
+        "services" : {
+            "type" : "array",
+            "items" : {
+                "type" : "string"
+            }
+        },
+        "phoneNumber": {
+            "$ref" : "../../../../../common/props/phoneNumber.json"
+        }
+    }
+}

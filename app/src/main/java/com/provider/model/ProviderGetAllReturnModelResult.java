@@ -12,11 +12,11 @@ import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
 /** ProviderGetAllReturnModelResult */
-@JsonTypeName("providerGetAllReturnModel_result")
+@JsonTypeName("providerGetAllReturnModelResult")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ProviderGetAllReturnModelResult {
 
-  @Valid private List<@Valid ProviderGetDataObject> data;
+  @Valid private List<@Valid GetAllProvidersProviderModel> data;
 
   private Integer page;
 
@@ -24,12 +24,12 @@ public class ProviderGetAllReturnModelResult {
 
   private Integer numberOfPages;
 
-  public ProviderGetAllReturnModelResult data(List<@Valid ProviderGetDataObject> data) {
+  public ProviderGetAllReturnModelResult data(List<@Valid GetAllProvidersProviderModel> data) {
     this.data = data;
     return this;
   }
 
-  public ProviderGetAllReturnModelResult addDataItem(ProviderGetDataObject dataItem) {
+  public ProviderGetAllReturnModelResult addDataItem(GetAllProvidersProviderModel dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -44,11 +44,11 @@ public class ProviderGetAllReturnModelResult {
    */
   @Valid
   @JsonProperty("data")
-  public List<@Valid ProviderGetDataObject> getData() {
+  public List<@Valid GetAllProvidersProviderModel> getData() {
     return data;
   }
 
-  public void setData(List<@Valid ProviderGetDataObject> data) {
+  public void setData(List<@Valid GetAllProvidersProviderModel> data) {
     this.data = data;
   }
 

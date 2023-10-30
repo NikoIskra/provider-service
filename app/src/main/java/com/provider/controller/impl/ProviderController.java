@@ -2,8 +2,8 @@ package com.provider.controller.impl;
 
 import com.provider.controller.ProviderApi;
 import com.provider.model.ProviderGetAllReturnModel;
-import com.provider.model.ProviderRequestModel;
-import com.provider.model.ProviderReturnModel;
+import com.provider.model.ProviderPostRequestModel;
+import com.provider.model.ProviderPostReturnModel;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.service.ProviderService;
 import jakarta.validation.Valid;
@@ -23,10 +23,10 @@ public class ProviderController implements ProviderApi {
   @Autowired private ProviderService providerService;
 
   @Override
-  public ResponseEntity<ProviderReturnModel> apiV1ProviderPost(
-      @NotNull UUID X_ACCOUNT_ID, @Valid ProviderRequestModel providerRequestModel)
+  public ResponseEntity<ProviderPostReturnModel> addProvider(
+      @NotNull UUID X_ACCOUNT_ID, @Valid ProviderPostRequestModel providerRequestModel)
       throws Exception {
-    ProviderReturnModel providerReturnModel =
+    ProviderPostReturnModel providerReturnModel =
         providerService.save(X_ACCOUNT_ID, providerRequestModel);
     HttpHeaders returnHeaders = new HttpHeaders();
     String headerString = "/api/v1/provider/" + providerReturnModel.getResult().getId().toString();
@@ -37,18 +37,18 @@ public class ProviderController implements ProviderApi {
   }
 
   @Override
-  public ResponseEntity<ProviderReturnModel> apiV1ProviderProviderIdPatch(
+  public ResponseEntity<ProviderPostReturnModel> patchProvider(
       @NotNull UUID X_ACCOUNT_ID,
       Long providerId,
       @Valid ProviderUpdateRequestModel providerUpdateRequestModel)
       throws Exception {
-    ProviderReturnModel providerReturnModel =
+    ProviderPostReturnModel providerReturnModel =
         providerService.patch(X_ACCOUNT_ID, providerId, providerUpdateRequestModel);
     return ResponseEntity.status(HttpStatus.OK).body(providerReturnModel);
   }
 
   @Override
-  public ResponseEntity<ProviderGetAllReturnModel> apiV1ProviderGet(
+  public ResponseEntity<ProviderGetAllReturnModel> getAllProviders(
       @NotNull UUID X_ACCOUNT_ID,
       @NotNull @Valid Integer page,
       @Min(20) @Max(100) @Valid Integer pageSize)

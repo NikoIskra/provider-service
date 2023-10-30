@@ -7,6 +7,7 @@
   "paths": {
     "/api/v1/healthcheck": {
       "get": {
+        "operationId": "Healthcheck",
         "tags": [
           "healthcheck"
         ],
@@ -20,193 +21,167 @@
     },
     "/api/v1/provider": {
       "post": {
+        "operationId": "addProvider",
         "tags": [
           "provider"
         ],
         "description": "Insert provider",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           }
         ],
         "requestBody": {
-          "description": "Provider to be added",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "contentSchema/providerRequestModel.json"
-              }
-            }
-          }
+          "$ref" : "APIspecs/requests/providerPostRequestBody.json"
         },
         "responses": {
           "201": {
-            "$ref": "responses/201ProviderCreated.json"
+            "$ref": "APIspecs/responses/providerCreated.json"
           },
           "400": {
-            "$ref": "responses/400BadRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           },
           "409": {
-            "$ref": "responses/409Conflict.json"
+            "$ref": "APIspecs/responses/conflict.json"
           }
         }
       },
       "get" : {
+        "operationId": "getAllProviders",
         "tags": [
           "provider"
         ],
         "description": "Get all providers",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/pageQueryParam.json"
+            "$ref" : "common/params/queryParams/pageQueryParam.json"
           },
           {
-            "$ref" : "contentSchema/params/pageSizeQueryParam.json"
+            "$ref" : "common/params/queryParams/pageSizeQueryParam.json"
           }
         ],
         "responses" : {
           "200" : {
-            "$ref" : "responses/200ProviderGetAllOK.json"
+            "$ref" : "APIspecs/responses/providerGetAllOK.json"
           },
           "400": {
-            "$ref": "responses/400BadRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           }
         }        
       }
     },
     "/api/v1/provider/{provider-id}/item": {
       "post": {
+        "operationId": "addItem",
         "tags": [
           "item"
         ],
         "description" : "Add item",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/providerIDParam.json"
+            "$ref" : "common/params/pathParams/providerIDParam.json"
           }
         ],
         "requestBody": {
-          "description": "Item to be added",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "contentSchema/itemRequestModel.json"
-              }
-            }
-          }
+          "$ref" : "APIspecs/requests/itemPostRequestBody.json"
         },
         "responses": {
           "201": {
-            "$ref": "responses/201ItemCreated.json"
+            "$ref": "APIspecs/responses/itemCreated.json"
           },
           "400": {
-            "$ref": "responses/400BadRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           }
         }
       }
     },
     "/api/v1/provider/{provider-id}" : {
       "patch" : {
+        "operationId": "patchProvider",
         "tags": [
           "provider"
         ],
         "description": "Update provider",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/providerIDParam.json"
+            "$ref" : "common/params/pathParams/providerIDParam.json"
           }
         ],
         "requestBody": {
-          "description": "Provider to update",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "contentSchema/providerUpdateRequestModel.json"
-              }
-            }
-          }
+          "$ref" : "APIspecs/requests/providerPatchRequestBody.json"
         },
         "responses": {
           "200": {
-            "$ref": "responses/200ProviderUpdated.json"
+            "$ref": "APIspecs/responses/providerUpdated.json"
           },
           "400": {
-            "$ref": "responses/400BadRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           }
         }
       }
     },
     "/api/v1/provider/{provider-id}/item/{item-id}" : {
       "put": {
+        "operationId": "updateItem",
         "tags" : [
           "item"
         ],
         "description" : "Update item",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/providerIDParam.json"
+            "$ref" : "common/params/pathParams/providerIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/itemIDParam.json"
+            "$ref" : "common/params/pathParams/itemIDParam.json"
           }
         ],
         "requestBody": {
-          "description": "Item to be updated",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "contentSchema/itemUpdateRequestModel.json"
-              }
-            }
-          }
+          "$ref" : "APIspecs/requests/itemPutRequestBody.json"
         },
         "responses": {
           "200": {
-            "$ref": "responses/200ItemUpdated.json"
+            "$ref": "APIspecs/responses/itemUpdated.json"
           },
           "400": {
-            "$ref": "responses/400BadRequest.json"
+            "$ref": "APIspecs/responses/badRequest.json"
           }
         }
       },
       "get" : {
+        "operationId": "getItemByID",
         "tags" : [
           "item"
         ],
         "description" : "Get item",
         "parameters": [
           {
-            "$ref" : "contentSchema/params/accountIDParam.json"
+            "$ref" : "common/params/headers/accountIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/providerIDParam.json"
+            "$ref" : "common/params/pathParams/providerIDParam.json"
           },
           {
-            "$ref" : "contentSchema/params/itemIDParam.json"
+            "$ref" : "common/params/pathParams/itemIDParam.json"
           }
         ],
         "responses": {
           "200": {
-            "$ref": "responses/200ItemGetOK.json"
+            "$ref": "APIspecs/responses/itemGetOK.json"
           },
           "404": {
-            "$ref": "responses/404NotFound.json"
+            "$ref": "APIspecs/responses/notFound.json"
           }
         }        
       }

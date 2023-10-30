@@ -1,0 +1,13 @@
+{
+    "description": "updated",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "schema/itemUpdateReturnModel.json"
+            },
+            "example" : {
+                "$ref" : "example/itemUpdateReturnModelExample.json"
+            }
+        }
+    }
+}

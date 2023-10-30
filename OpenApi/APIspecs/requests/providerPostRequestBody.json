@@ -1,0 +1,14 @@
+{
+    "description": "Provider to be added",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref" : "schema/providerPostRequestModel.json"
+              },
+              "example" : {
+                "$ref" : "example/providerPostRequestBody.json"
+              }
+            }
+          }
+}

@@ -5,12 +5,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.provider.exception.BadRequestException;
+import com.provider.model.GetAllProvidersProviderModel;
 import com.provider.model.ProviderGetAllReturnModel;
 import com.provider.model.ProviderGetAllReturnModelResult;
-import com.provider.model.ProviderGetDataObject;
-import com.provider.model.ProviderRequestModel;
-import com.provider.model.ProviderReturnModel;
-import com.provider.model.ProviderReturnModelResult;
+import com.provider.model.ProviderPostRequestModel;
+import com.provider.model.ProviderPostReturnModel;
+import com.provider.model.ProviderPostReturnModelResult;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.service.impl.ProviderServiceImpl;
@@ -35,29 +35,29 @@ public class ProviderControllerTest {
 
   private static final UUID uuid = UUID.fromString("ec73eca8-1e43-4c0d-b5a7-588b3c0e3c9c");
 
-  private static ProviderRequestModel createProviderRequestModel() {
-    ProviderRequestModel providerRequestModel =
-        new ProviderRequestModel("testname", "testtitle", "1234567890");
+  private static ProviderPostRequestModel createProviderRequestModel() {
+    ProviderPostRequestModel providerRequestModel =
+        new ProviderPostRequestModel("testname", "testtitle", "1234567890");
     return providerRequestModel;
   }
 
-  private static ProviderRequestModel createInvalidProviderRequestModel() {
-    ProviderRequestModel providerRequestModel =
-        new ProviderRequestModel("testname", "testtitle", "12345678");
+  private static ProviderPostRequestModel createInvalidProviderRequestModel() {
+    ProviderPostRequestModel providerRequestModel =
+        new ProviderPostRequestModel("testname", "testtitle", "12345678");
     return providerRequestModel;
   }
 
-  private static ProviderReturnModel createProviderReturnModel() {
-    ProviderReturnModelResult providerReturnModelResult =
-        new ProviderReturnModelResult()
+  private static ProviderPostReturnModel createProviderReturnModel() {
+    ProviderPostReturnModelResult providerReturnModelResult =
+        new ProviderPostReturnModelResult()
             .id(1L)
             .phoneNumber("1324567890")
             .ownerId(uuid)
             .name("testname")
             .title("testtitle")
             .status(StatusEnum.VIEW_ONLY);
-    ProviderReturnModel providerReturnModel =
-        new ProviderReturnModel().ok(true).result(providerReturnModelResult);
+    ProviderPostReturnModel providerReturnModel =
+        new ProviderPostReturnModel().ok(true).result(providerReturnModelResult);
     return providerReturnModel;
   }
 
@@ -80,9 +80,9 @@ public class ProviderControllerTest {
     return providerUpdateRequestModel;
   }
 
-  private static ProviderReturnModel createPatchedProviderReturnModel() {
-    ProviderReturnModelResult providerReturnModelResult =
-        new ProviderReturnModelResult()
+  private static ProviderPostReturnModel createPatchedProviderReturnModel() {
+    ProviderPostReturnModelResult providerReturnModelResult =
+        new ProviderPostReturnModelResult()
             .id(1L)
             .phoneNumber("1324567890")
             .ownerId(uuid)
@@ -90,16 +90,16 @@ public class ProviderControllerTest {
             .name("testname")
             .title("updatedTitle")
             .status(StatusEnum.ACTIVE);
-    ProviderReturnModel providerReturnModel =
-        new ProviderReturnModel().ok(true).result(providerReturnModelResult);
+    ProviderPostReturnModel providerReturnModel =
+        new ProviderPostReturnModel().ok(true).result(providerReturnModelResult);
     return providerReturnModel;
   }
 
   private static ProviderGetAllReturnModel createProviderGetAllReturnModel() {
     List<String> services = List.of("test1", "test2");
-    ProviderGetDataObject providerGetDataObject =
-        new ProviderGetDataObject().id(1L).description("testdesc").services(services);
-    List<ProviderGetDataObject> providerDataList = List.of(providerGetDataObject);
+    GetAllProvidersProviderModel providerGetDataObject =
+        new GetAllProvidersProviderModel().id(1L).description("testdesc").services(services);
+    List<GetAllProvidersProviderModel> providerDataList = List.of(providerGetDataObject);
     ProviderGetAllReturnModelResult providerGetAllReturnModelResult =
         new ProviderGetAllReturnModelResult()
             .data(providerDataList)
@@ -113,8 +113,8 @@ public class ProviderControllerTest {
 
   @Test
   void insertProvider() throws Exception {
-    ProviderRequestModel providerRequestModel = createProviderRequestModel();
-    ProviderReturnModel providerReturnModel = createProviderReturnModel();
+    ProviderPostRequestModel providerRequestModel = createProviderRequestModel();
+    ProviderPostReturnModel providerReturnModel = createProviderReturnModel();
     when(providerServiceImpl.save(uuid, providerRequestModel)).thenReturn(providerReturnModel);
     mvc.perform(
             MockMvcRequestBuilders.post("/api/v1/provider")
@@ -142,7 +142,7 @@ public class ProviderControllerTest {
 
   @Test
   void insertProviderBadRequest() throws Exception {
-    ProviderRequestModel providerRequestModel = createInvalidProviderRequestModel();
+    ProviderPostRequestModel providerRequestModel = createInvalidProviderRequestModel();
     mvc.perform(
             MockMvcRequestBuilders.post("/api/v1/provider")
                 .header("X-ACCOUNT-ID", "d3d35b67-b8f9-464b-a0b5-39f526e1f5f2")
@@ -156,7 +156,7 @@ public class ProviderControllerTest {
   @Test
   void patchProvider() throws Exception {
     ProviderUpdateRequestModel providerUpdateRequestModel = createProviderUpdateRequestModel();
-    ProviderReturnModel providerReturnModel = createPatchedProviderReturnModel();
+    ProviderPostReturnModel providerReturnModel = createPatchedProviderReturnModel();
     when(providerServiceImpl.patch(uuid, 1L, providerUpdateRequestModel))
         .thenReturn(providerReturnModel);
     mvc.perform(

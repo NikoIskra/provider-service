@@ -1,0 +1,22 @@
+{
+    "type" : "object",
+    "required" : [
+        "title",
+        "priceCents",
+        "status"
+    ],
+    "properties" : {
+        "title": {
+            "$ref" : "../../../common/props/title.json"
+        },
+        "description" : {
+            "$ref" : "../../../common/props/description.json"
+        },
+        "priceCents": {
+            "type": "integer"
+        },
+        "status" : {
+            "$ref" : "../../../common/enums/statusEnum.json"
+        }
+    }
+}

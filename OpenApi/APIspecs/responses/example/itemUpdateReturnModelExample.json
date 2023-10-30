@@ -1,0 +1,11 @@
+{
+    "ok" : true,
+    "result" : {
+        "id" : "1",
+        "providerId" : "2",
+        "title" : "example title",
+        "description" : "example description",
+        "priceCents" : 100,
+        "status" : "view-only"
+    }
+}

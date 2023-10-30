@@ -1,11 +1,11 @@
 package com.provider.service.impl;
 
 import com.provider.model.ItemGetReturnModel;
-import com.provider.model.ItemRequestModel;
-import com.provider.model.ItemReturnModel;
+import com.provider.model.ItemPostRequestModel;
+import com.provider.model.ItemPostReturnModel;
 import com.provider.model.ItemUpdateRequestModel;
 import com.provider.model.ItemUpdateReturnModel;
-import com.provider.model.SubItemRequestModel;
+import com.provider.model.SubItemPostRequestModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.SubItem;
 import com.provider.persistence.repository.ItemRepository;
@@ -35,13 +35,14 @@ public class ItemServiceImpl implements ItemService {
 
   @Override
   @Transactional
-  public ItemReturnModel save(UUID accountID, Long providerID, ItemRequestModel itemRequestModel) {
+  public ItemPostReturnModel save(
+      UUID accountID, Long providerID, ItemPostRequestModel itemRequestModel) {
     itemValidator.validateItemRequest(accountID, providerID);
     Item item = entityConverter.convertItemRequestModelToItem(itemRequestModel);
     item.setProvider(providerRepository.getById(providerID));
     List<SubItem> subItems = new ArrayList<>();
     if (!CollectionUtils.isEmpty(itemRequestModel.getSubItems())) {
-      for (SubItemRequestModel subItemRequestModel : itemRequestModel.getSubItems()) {
+      for (SubItemPostRequestModel subItemRequestModel : itemRequestModel.getSubItems()) {
         SubItem subItem = entityConverter.convertSubItemRequestModelToSubItem(subItemRequestModel);
         subItem.setItem(item);
         subItems.add(subItem);
