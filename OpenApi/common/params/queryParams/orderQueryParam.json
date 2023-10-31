@@ -1,0 +1,8 @@
+{
+    "name": "order",
+    "in": "query",
+    "required": false,
+    "schema": {
+        "$ref" : "../../enums/orderEnum.json"
+    }
+}

@@ -7,7 +7,7 @@
           "$ref": "schema/providerUpdateRequestModel.json"
         },
         "example" : {
-          "$ref" : "schema/providerPatchRequestBodyExample.json"
+          "$ref" : "example/providerPatchRequestBodyExample.json"
         }
       }
     }

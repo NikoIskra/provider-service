@@ -16,9 +16,11 @@ import com.provider.model.ProviderPostReturnModelResult;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.model.SubItemPostRequestModel;
+import com.provider.model.TitleGetModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -110,5 +112,33 @@ public class EntityConverterService {
     ItemGetReturnModelResult itemGetReturnModelResult =
         modelMapper.map(item, ItemGetReturnModelResult.class);
     return new ItemGetReturnModel().ok(true).result(itemGetReturnModelResult);
+  }
+
+  public List<TitleGetModel> convertObjectsListToTitleGetModel(List<Object[]> objects) {
+    List<TitleGetModel> titleGetModels = new ArrayList<>();
+    for (Object[] row : objects) {
+      Long id = ((Number) row[0]).longValue();
+      String title = (String) row[1];
+      String type = (String) row[2];
+      String ref = (String) row[3];
+      TitleGetModel titleGetModel = new TitleGetModel().id(id).title(title).type(type).ref(ref);
+      titleGetModels.add(titleGetModel);
+    }
+    Collections.sort(
+        titleGetModels, Comparator.comparingInt(model -> getTypeOrder(model.getType())));
+    return titleGetModels;
+  }
+
+  private int getTypeOrder(String type) {
+    switch (type) {
+      case "provider":
+        return 1;
+      case "item":
+        return 2;
+      case "subitem":
+        return 3;
+      default:
+        return 10;
+    }
   }
 }

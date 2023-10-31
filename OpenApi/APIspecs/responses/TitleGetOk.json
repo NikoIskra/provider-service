@@ -1,0 +1,13 @@
+{
+    "description": "fetched",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "schema/titleGetReturnModel.json"
+            },
+            "example" : {
+                "$ref" : "example/titleGetExample.json"
+            }
+        }
+    }
+}

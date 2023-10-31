@@ -13,7 +13,7 @@
                 "$ref": "schema/providerPostReturnModel.json"
             },
             "example" : {
-                "$ref" : "example/providerPostReturnModelExample.json"
+                "$ref" : "example/providerPostReturnModelResultExample.json"
             }
         }
     }

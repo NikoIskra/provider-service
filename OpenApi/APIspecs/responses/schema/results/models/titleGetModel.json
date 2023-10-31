@@ -1,0 +1,17 @@
+{
+    "type" : "object",
+    "properties" : {
+        "id" : {
+            "$ref" : "../../../../../common/props/longID.json"
+        },
+        "title" : {
+            "$ref" : "../../../../../common/props/title.json"
+        },
+        "type" : {
+            "type" : "string"
+        },
+        "ref" : {
+            "type" : "string"
+        }
+    }
+}

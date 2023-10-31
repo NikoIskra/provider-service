@@ -1,0 +1,29 @@
+{
+    "type" : "object",
+    "properties" : {
+        "data" : {
+            "type" : "array",
+            "items" : {
+                "$ref" : "models/titleGetModel.json"
+            }
+        },
+        "page" : {
+            "type" : "integer"
+        },
+        "pageSize" : {
+            "type" : "integer"
+        },
+        "numberOfPages" : {
+            "type" : "integer"
+        },
+        "query" : {
+            "type" : "string"
+        },
+        "order" : {
+            "type" : "string"
+        },
+        "orderBy" : {
+            "type" : "string"
+        }
+    }
+}
