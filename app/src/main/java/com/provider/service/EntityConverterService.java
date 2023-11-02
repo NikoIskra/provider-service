@@ -134,16 +134,18 @@ public class EntityConverterService {
         default:
           break;
       }
+      Long parentID = ((Number) row[4]).longValue();
+      Long parentsParentID = ((Number) row[5]).longValue();
       String ref = "";
       switch (type) {
         case "provider":
           ref = "/api/v1/provider/" + id;
           break;
         case "item":
-          ref = "/api/v1/item/" + id;
+          ref = "/api/v1/provider/" + parentID + "/item/" + id;
           break;
         case "sub item":
-          ref = "/api/v1/subitem" + id;
+          ref = "/api/v1/provider/" + parentsParentID + "/item/" + parentID + "/subitem/" + id;
           break;
         default:
           break;

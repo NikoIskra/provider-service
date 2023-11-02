@@ -48,8 +48,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler
-  protected ResponseEntity<ErrorResponse> handleNoContentException(NoContentException ex) {
-    return new ResponseEntity<ErrorResponse>(HttpStatus.NO_CONTENT);
+  protected ResponseEntity<Void> handleNoContentException(NoContentException ex) {
+    return ResponseEntity.noContent().build();
   }
 
   @ExceptionHandler

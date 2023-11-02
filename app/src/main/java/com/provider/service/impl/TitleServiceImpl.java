@@ -28,10 +28,12 @@ public class TitleServiceImpl implements TitleService {
   private final TitleValidator titleValidator;
 
   private static final String queryString =
-      "select id, title, type, :orderBy FROM ( select id, title, '1' as type, :orderBy from \"provider-service\".provider WHERE title LIKE :query AND name LIKE :query UNION "
-          + "select id, title, '2' as type, :orderBy from \"provider-service\".item WHERE title LIKE :query UNION "
-          + "select id, title, '3' as type, :orderBy from \"provider-service\".sub_item WHERE title LIKE :query) AS all_records "
-          + "ORDER BY type, :orderBy ";
+      """
+      select id, title, type, :orderBy, parentid, parentsParentId FROM ( select id, title, '1' as type, :orderBy, '0' as parentid, 0 as parentsParentId from \"provider-service\".provider WHERE title LIKE :query AND name LIKE :query UNION
+      select id, title, '2' as type, :orderBy, provider_id as parentid, 0 as parentsParentId from \"provider-service\".item WHERE title LIKE :query UNION
+      select id, title, '3' as type, :orderBy, item_id as parentid, (select provider_id from \"provider-service\".item where id = sub_item_table.item_id) as parentsParentId from \"provider-service\".sub_item as sub_item_table WHERE title LIKE :query) AS all_records
+      ORDER BY type, :orderBy
+      """;
 
   @Value("${page.size.default}")
   private Integer defaultPageSize;
@@ -50,7 +52,7 @@ public class TitleServiceImpl implements TitleService {
     OrderEnum orderEnumActual = Objects.requireNonNullElse(orderEnum, OrderEnum.ASC);
     Query queryExecute = entityManager.createNativeQuery(queryString + orderEnumActual.toString());
     queryExecute.setParameter("query", "%" + query + "%");
-    queryExecute.setParameter("orderBy", orderByEnumActual.toString());
+    queryExecute.setParameter("orderBy", orderByEnumActual.getValue());
     queryExecute.setFirstResult(page * pageSizeActual);
     queryExecute.setMaxResults(pageSizeActual);
     List<Object[]> objects = queryExecute.getResultList();
