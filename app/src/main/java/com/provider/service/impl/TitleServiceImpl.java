@@ -31,7 +31,7 @@ public class TitleServiceImpl implements TitleService {
       "select id, title, type, :orderBy FROM ( select id, title, '1' as type, :orderBy from \"provider-service\".provider WHERE title LIKE :query AND name LIKE :query UNION "
           + "select id, title, '2' as type, :orderBy from \"provider-service\".item WHERE title LIKE :query UNION "
           + "select id, title, '3' as type, :orderBy from \"provider-service\".sub_item WHERE title LIKE :query) AS all_records "
-          + "ORDER BY type, :orderBy";
+          + "ORDER BY type, :orderBy ";
 
   @Value("${page.size.default}")
   private Integer defaultPageSize;

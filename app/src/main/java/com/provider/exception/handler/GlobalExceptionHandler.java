@@ -49,16 +49,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler
   protected ResponseEntity<ErrorResponse> handleNoContentException(NoContentException ex) {
-    String errorMessage =
-        "value not expected, orderBy can be \"created_at\" and order can be \"asc\" or \"desc\"";
-    ErrorResponse errorResponse = new ErrorResponse().ok(false).errorMessage(errorMessage);
-    return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NO_CONTENT);
+    return new ResponseEntity<ErrorResponse>(HttpStatus.NO_CONTENT);
   }
 
   @ExceptionHandler
   protected ResponseEntity<ErrorResponse> test(MethodArgumentTypeMismatchException ex) {
     String errorMessage =
-        "value not expected, orderBy can be \"created_at\" and order can be \"ASC\" or \"DESC\"";
+        "value not expected";
+    if (ex.getMessage().contains("orderEnum")) {
+      errorMessage = "value not expected, order can be ASC or DESC only!";
+    }
+    else if (ex.getMessage().contains("orderByEnum")) {
+      errorMessage = "value not expected, order by can be created_at only!";
+    }
     ErrorResponse errorResponse = new ErrorResponse().ok(false).errorMessage(errorMessage);
     return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
   }
