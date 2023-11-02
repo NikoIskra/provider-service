@@ -54,12 +54,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler
   protected ResponseEntity<ErrorResponse> test(MethodArgumentTypeMismatchException ex) {
-    String errorMessage =
-        "value not expected";
+    String errorMessage = "value not expected";
     if (ex.getMessage().contains("orderEnum")) {
       errorMessage = "value not expected, order can be ASC or DESC only!";
-    }
-    else if (ex.getMessage().contains("orderByEnum")) {
+    } else if (ex.getMessage().contains("orderByEnum")) {
       errorMessage = "value not expected, order by can be created_at only!";
     }
     ErrorResponse errorResponse = new ErrorResponse().ok(false).errorMessage(errorMessage);
