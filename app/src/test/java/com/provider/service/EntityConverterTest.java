@@ -119,9 +119,9 @@ public class EntityConverterTest {
   }
 
   private static List<Object[]> createListOfObjects() {
-    Object[] object1 = new Object[] {1, "providertitle", "1", "path"};
-    Object[] object2 = new Object[] {2, "itemTitle", "2", "path"};
-    Object[] object3 = new Object[] {3, "subItemTitle", "3", "path"};
+    Object[] object1 = new Object[] {1, "providertitle", "1", 1, 2, 3};
+    Object[] object2 = new Object[] {2, "itemTitle", "2", 1, 2, 3};
+    Object[] object3 = new Object[] {3, "subItemTitle", "3", 1, 2, 3};
     List<Object[]> objects = List.of(object2, object1, object3);
     return objects;
   }
