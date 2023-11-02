@@ -2,6 +2,7 @@ package com.provider.exception.handler;
 
 import com.provider.exception.BadRequestException;
 import com.provider.exception.ConflictException;
+import com.provider.exception.NoContentException;
 import com.provider.exception.NotFoundException;
 import com.provider.model.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
@@ -42,6 +44,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<ErrorResponse> handleJakartaConstraintViolationException(
       ConstraintViolationException ex) {
     ErrorResponse errorResponse = new ErrorResponse().ok(false).errorMessage(ex.getMessage());
+    return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler
+  protected ResponseEntity<ErrorResponse> handleNoContentException(NoContentException ex) {
+    String errorMessage =
+        "value not expected, orderBy can be \"created_at\" and order can be \"asc\" or \"desc\"";
+    ErrorResponse errorResponse = new ErrorResponse().ok(false).errorMessage(errorMessage);
+    return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NO_CONTENT);
+  }
+
+  @ExceptionHandler
+  protected ResponseEntity<ErrorResponse> test(MethodArgumentTypeMismatchException ex) {
+    String errorMessage =
+        "value not expected, orderBy can be \"created_at\" and order can be \"ASC\" or \"DESC\"";
+    ErrorResponse errorResponse = new ErrorResponse().ok(false).errorMessage(errorMessage);
     return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 

@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ public class TitleController implements TitleApi {
   @Override
   public ResponseEntity<TitleGetReturnModel> getAllByTitle(
       @NotNull UUID X_ACCOUNT_ID,
-      @NotNull @Size(min = 3) @Valid String query,
+      @NotNull @Valid String query,
       @NotNull @Valid Integer page,
       @Valid OrderByEnum orderBy,
       @Valid OrderEnum order,

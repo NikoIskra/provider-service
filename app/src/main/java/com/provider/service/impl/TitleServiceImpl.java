@@ -7,6 +7,7 @@ import com.provider.model.TitleGetReturnModel;
 import com.provider.model.TitleGetReturnModelResult;
 import com.provider.service.EntityConverterService;
 import com.provider.service.TitleService;
+import com.provider.service.TitleValidator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import java.util.List;
@@ -24,6 +25,14 @@ public class TitleServiceImpl implements TitleService {
 
   private final EntityConverterService entityConverterService;
 
+  private final TitleValidator titleValidator;
+
+  private static final String queryString =
+      "select id, title, type, :orderBy FROM ( select id, title, '1' as type, :orderBy from \"provider-service\".provider WHERE title LIKE :query AND name LIKE :query UNION "
+          + "select id, title, '2' as type, :orderBy from \"provider-service\".item WHERE title LIKE :query UNION "
+          + "select id, title, '3' as type, :orderBy from \"provider-service\".sub_item WHERE title LIKE :query) AS all_records "
+          + "ORDER BY type, :orderBy";
+
   @Value("${page.size.default}")
   private Integer defaultPageSize;
 
@@ -35,26 +44,13 @@ public class TitleServiceImpl implements TitleService {
       OrderEnum orderEnum,
       Integer page,
       Integer pageSize) {
+    titleValidator.validateTitleGetRequest(query);
     Integer pageSizeActual = Objects.requireNonNullElse(pageSize, defaultPageSize);
     OrderByEnum orderByEnumActual = Objects.requireNonNullElse(orderByEnum, OrderByEnum.CREATED_AT);
     OrderEnum orderEnumActual = Objects.requireNonNullElse(orderEnum, OrderEnum.ASC);
-    String databaseQuery =
-        "select id, title, 'provider' as type, CONCAT('/api/v1/provider/', CAST(id as CHAR)) as ref, created_at from \"provider-service\".provider WHERE title LIKE '%"
-            + query
-            + "%' AND name LIKE '%"
-            + query
-            + "%' UNION "
-            + "select id, title, 'item' as type, CONCAT(CONCAT('/api/v1/provider/', CAST(provider_id as CHAR)), CONCAT('/item/', CAST(id as CHAR))), created_at as ref from \"provider-service\".item WHERE title LIKE '%"
-            + query
-            + "%' UNION "
-            + "select id, title, 'subitem' as type, CONCAT(CONCAT('/api/v1/item/', CAST(item_id as CHAR)), CONCAT('/subitem/', CAST(id as CHAR))), created_at from \"provider-service\".sub_item WHERE title LIKE '%"
-            + query
-            + "%' "
-            + "ORDER BY "
-            + orderByEnumActual.toString()
-            + " "
-            + orderEnumActual.toString();
-    Query queryExecute = entityManager.createNativeQuery(databaseQuery);
+    Query queryExecute = entityManager.createNativeQuery(queryString + orderEnumActual.toString());
+    queryExecute.setParameter("query", "%" + query + "%");
+    queryExecute.setParameter("orderBy", orderByEnumActual.toString());
     queryExecute.setFirstResult(page * pageSizeActual);
     queryExecute.setMaxResults(pageSizeActual);
     List<Object[]> objects = queryExecute.getResultList();

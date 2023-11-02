@@ -119,9 +119,9 @@ public class EntityConverterTest {
   }
 
   private static List<Object[]> createListOfObjects() {
-    Object[] object1 = new Object[] {1, "providertitle", "provider", "path"};
-    Object[] object2 = new Object[] {2, "itemTitle", "item", "path"};
-    Object[] object3 = new Object[] {3, "subItemTitle", "subitem", "path"};
+    Object[] object1 = new Object[] {1, "providertitle", "1", "path"};
+    Object[] object2 = new Object[] {2, "itemTitle", "2", "path"};
+    Object[] object3 = new Object[] {3, "subItemTitle", "3", "path"};
     List<Object[]> objects = List.of(object2, object1, object3);
     return objects;
   }
@@ -263,13 +263,9 @@ public class EntityConverterTest {
     List<Object[]> objects = createListOfObjects();
     List<TitleGetModel> titleGetModels =
         entityConverterService.convertObjectsListToTitleGetModel(objects);
-    assertEquals(titleGetModels.get(0).getId().intValue(), objects.get(1)[0]);
-    assertEquals(titleGetModels.get(0).getTitle(), objects.get(1)[1]);
-    assertEquals(titleGetModels.get(0).getType(), objects.get(1)[2]);
-    assertEquals(titleGetModels.get(0).getRef(), objects.get(1)[3]);
-    assertEquals(titleGetModels.get(1).getId().intValue(), objects.get(0)[0]);
-    assertEquals(titleGetModels.get(1).getTitle(), objects.get(0)[1]);
-    assertEquals(titleGetModels.get(1).getType(), objects.get(0)[2]);
-    assertEquals(titleGetModels.get(1).getRef(), objects.get(0)[3]);
+    assertEquals(titleGetModels.get(0).getId().intValue(), objects.get(0)[0]);
+    assertEquals(titleGetModels.get(0).getTitle(), objects.get(0)[1]);
+    assertEquals(titleGetModels.get(1).getId().intValue(), objects.get(1)[0]);
+    assertEquals(titleGetModels.get(1).getTitle(), objects.get(1)[1]);
   }
 }

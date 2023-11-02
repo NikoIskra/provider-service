@@ -37,7 +37,7 @@ public interface TitleApi {
       produces = {"application/json"})
   ResponseEntity<TitleGetReturnModel> getAllByTitle(
       @NotNull @RequestHeader(value = "X-ACCOUNT-ID", required = true) UUID X_ACCOUNT_ID,
-      @NotNull @Size(min = 3) @Valid @RequestParam(value = "query", required = true) String query,
+      @NotNull @Valid @RequestParam(value = "query", required = true) String query,
       @NotNull @Valid @RequestParam(value = "page", required = true) Integer page,
       @Valid @RequestParam(value = "order-by", required = false) OrderByEnum orderBy,
       @Valid @RequestParam(value = "order", required = false) OrderEnum order,

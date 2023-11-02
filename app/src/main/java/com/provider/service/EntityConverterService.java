@@ -119,26 +119,38 @@ public class EntityConverterService {
     for (Object[] row : objects) {
       Long id = ((Number) row[0]).longValue();
       String title = (String) row[1];
-      String type = (String) row[2];
-      String ref = (String) row[3];
+      String type = "";
+      Integer typeInteger = Integer.parseInt((String) row[2]);
+      switch (typeInteger) {
+        case 1:
+          type = "provider";
+          break;
+        case 2:
+          type = "item";
+          break;
+        case 3:
+          type = "sub item";
+          break;
+        default:
+          break;
+      }
+      String ref = "";
+      switch (type) {
+        case "provider":
+          ref = "/api/v1/provider/" + id;
+          break;
+        case "item":
+          ref = "/api/v1/item/" + id;
+          break;
+        case "sub item":
+          ref = "/api/v1/subitem" + id;
+          break;
+        default:
+          break;
+      }
       TitleGetModel titleGetModel = new TitleGetModel().id(id).title(title).type(type).ref(ref);
       titleGetModels.add(titleGetModel);
     }
-    Collections.sort(
-        titleGetModels, Comparator.comparingInt(model -> getTypeOrder(model.getType())));
     return titleGetModels;
-  }
-
-  private int getTypeOrder(String type) {
-    switch (type) {
-      case "provider":
-        return 1;
-      case "item":
-        return 2;
-      case "subitem":
-        return 3;
-      default:
-        return 10;
-    }
   }
 }

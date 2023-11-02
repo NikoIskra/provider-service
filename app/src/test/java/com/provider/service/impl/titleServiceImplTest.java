@@ -1,17 +1,22 @@
 package com.provider.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
+import com.provider.exception.NoContentException;
 import com.provider.model.OrderByEnum;
 import com.provider.model.OrderEnum;
 import com.provider.model.TitleGetModel;
 import com.provider.model.TitleGetReturnModel;
 import com.provider.model.TitleGetReturnModelResult;
 import com.provider.service.EntityConverterService;
+import com.provider.service.TitleValidator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import java.util.ArrayList;
@@ -31,6 +36,8 @@ public class titleServiceImplTest {
   @Mock EntityConverterService entityConverterService;
 
   @Mock Query query;
+
+  @Mock TitleValidator titleValidator;
 
   @InjectMocks TitleServiceImpl titleServiceImpl;
 
@@ -74,7 +81,20 @@ public class titleServiceImplTest {
     assertEquals(titleGetReturnModel2.isOk(), true);
     assertEquals(titleGetReturnModel2.getResult().getPage(), 0);
     assertEquals(titleGetReturnModel2.getResult().getData().get(0).getId(), 1L);
+    verify(titleValidator).validateTitleGetRequest("test");
     verify(entityManager).createNativeQuery(any());
     verify(entityConverterService).convertObjectsListToTitleGetModel(any());
+  }
+
+  @Test
+  void testGet_validatorException() {
+    doThrow(NoContentException.class).when(titleValidator).validateTitleGetRequest("query");
+    assertThrows(
+        NoContentException.class,
+        () ->
+            titleServiceImpl.getAllByTitle(
+                uuid, "query", OrderByEnum.CREATED_AT, OrderEnum.ASC, 0, 50));
+    verify(titleValidator).validateTitleGetRequest("query");
+    verifyNoInteractions(entityManager, entityConverterService);
   }
 }

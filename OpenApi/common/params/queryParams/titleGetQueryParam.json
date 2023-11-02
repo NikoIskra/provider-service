@@ -3,7 +3,6 @@
     "in": "query",
     "required": true,
     "schema": {
-      "type": "string",
-      "minLength" : 3
+      "type": "string"
     }
 }

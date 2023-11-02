@@ -10,9 +10,9 @@ import org.hibernate.validator.constraints.*;
 /** Gets or Sets orderEnum */
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public enum OrderEnum {
-  ASC("asc"),
+  ASC("ASC"),
 
-  DESC("desc");
+  DESC("DESC");
 
   private String value;
 
