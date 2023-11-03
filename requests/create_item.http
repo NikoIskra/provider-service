@@ -1,17 +1,19 @@
 @account_id = 86fd29fc-eb3e-48c4-a6e6-7fd50b92d131
-@provider_id = 1013
 
+# @name providerPost
 post http://localhost:3001/api/v1/provider
 X-ACCOUNT-ID : {{account_id}}
 content-type : application/json
 
 {
-    "name": "vscrestname",
+    "name": "vscrest12",
     "title": "testtile",
     "phoneNumber": "1234567890"
 }
 
 ###
+
+@provider_id = {{providerPost.response.body.$.result.$.id}}
 
 post http://localhost:3001/api/v1/provider/{{provider_id}}/item
 X-ACCOUNT-ID : {{account_id}}
