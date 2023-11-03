@@ -16,6 +16,7 @@ import com.provider.model.ProviderPostReturnModelResult;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.model.SubItemPostRequestModel;
+import com.provider.model.TitleGetModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
@@ -115,6 +116,14 @@ public class EntityConverterTest {
     item.setProvider(provider);
     item.setSubItems(subItems);
     return item;
+  }
+
+  private static List<Object[]> createListOfObjects() {
+    Object[] object1 = new Object[] {1, "providertitle", "1", 1, 2, 3};
+    Object[] object2 = new Object[] {2, "itemTitle", "2", 1, 2, 3};
+    Object[] object3 = new Object[] {3, "subItemTitle", "3", 1, 2, 3};
+    List<Object[]> objects = List.of(object2, object1, object3);
+    return objects;
   }
 
   private final List<StatusEnum> statusList =
@@ -247,5 +256,16 @@ public class EntityConverterTest {
         itemGetReturnModel.getResult().getSubItems().get(0).getId(),
         item.getSubItems().get(0).getId());
     assertEquals(itemGetReturnModel.getResult().getProvider().getId(), item.getProvider().getId());
+  }
+
+  @Test
+  void testConvertObjectsListToTitleGetModel() {
+    List<Object[]> objects = createListOfObjects();
+    List<TitleGetModel> titleGetModels =
+        entityConverterService.convertObjectsListToTitleGetModel(objects);
+    assertEquals(titleGetModels.get(0).getId().intValue(), objects.get(0)[0]);
+    assertEquals(titleGetModels.get(0).getTitle(), objects.get(0)[1]);
+    assertEquals(titleGetModels.get(1).getId().intValue(), objects.get(1)[0]);
+    assertEquals(titleGetModels.get(1).getTitle(), objects.get(1)[1]);
   }
 }

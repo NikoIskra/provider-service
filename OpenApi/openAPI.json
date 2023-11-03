@@ -185,6 +185,46 @@
           }
         }        
       }
+    },
+    "/api/v1/title/search" : {
+      "get" : {
+        "operationId": "getAllByTitle",
+        "tags": [
+          "title"
+        ],
+        "description": "Get all by title",
+        "parameters": [
+          {
+            "$ref" : "common/params/headers/accountIDParam.json"
+          },
+          {
+            "$ref" : "common/params/queryParams/titleGetQueryParam.json"
+          },
+          {
+            "$ref" : "common/params/queryParams/orderByQueryParam.json"
+          },
+          {
+            "$ref" : "common/params/queryParams/orderQueryParam.json"
+          },
+          {
+            "$ref" : "common/params/queryParams/pageQueryParam.json"
+          },
+          {
+            "$ref" : "common/params/queryParams/pageSizeQueryParam.json"
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "$ref" : "APIspecs/responses/titleGetOK.json"
+          },
+          "204" : {
+            "$ref" : "APIspecs/responses/noContent.json"
+          },
+          "400": {
+            "$ref": "APIspecs/responses/badRequest.json"
+          }
+        }        
+      }
     }
   }
 }

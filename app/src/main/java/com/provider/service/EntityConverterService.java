@@ -16,9 +16,11 @@ import com.provider.model.ProviderPostReturnModelResult;
 import com.provider.model.ProviderUpdateRequestModel;
 import com.provider.model.StatusEnum;
 import com.provider.model.SubItemPostRequestModel;
+import com.provider.model.TitleGetModel;
 import com.provider.persistence.entity.Item;
 import com.provider.persistence.entity.Provider;
 import com.provider.persistence.entity.SubItem;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -110,5 +112,47 @@ public class EntityConverterService {
     ItemGetReturnModelResult itemGetReturnModelResult =
         modelMapper.map(item, ItemGetReturnModelResult.class);
     return new ItemGetReturnModel().ok(true).result(itemGetReturnModelResult);
+  }
+
+  public List<TitleGetModel> convertObjectsListToTitleGetModel(List<Object[]> objects) {
+    List<TitleGetModel> titleGetModels = new ArrayList<>();
+    for (Object[] row : objects) {
+      Long id = ((Number) row[0]).longValue();
+      String title = (String) row[1];
+      String type = "";
+      Integer typeInteger = Integer.parseInt((String) row[2]);
+      switch (typeInteger) {
+        case 1:
+          type = "provider";
+          break;
+        case 2:
+          type = "item";
+          break;
+        case 3:
+          type = "sub item";
+          break;
+        default:
+          break;
+      }
+      Long parentID = ((Number) row[4]).longValue();
+      Long parentsParentID = ((Number) row[5]).longValue();
+      String ref = "";
+      switch (type) {
+        case "provider":
+          ref = "/api/v1/provider/" + id;
+          break;
+        case "item":
+          ref = "/api/v1/provider/" + parentID + "/item/" + id;
+          break;
+        case "sub item":
+          ref = "/api/v1/provider/" + parentsParentID + "/item/" + parentID + "/subitem/" + id;
+          break;
+        default:
+          break;
+      }
+      TitleGetModel titleGetModel = new TitleGetModel().id(id).title(title).type(type).ref(ref);
+      titleGetModels.add(titleGetModel);
+    }
+    return titleGetModels;
   }
 }

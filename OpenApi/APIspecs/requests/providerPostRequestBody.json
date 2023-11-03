@@ -7,7 +7,7 @@
                 "$ref" : "schema/providerPostRequestModel.json"
               },
               "example" : {
-                "$ref" : "example/providerPostRequestBody.json"
+                "$ref" : "example/providerPostRequestBodyExample.json"
               }
             }
           }
