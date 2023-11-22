@@ -5,12 +5,18 @@ services:
     container_name: provider-service
     ports:
       - 3002:3002
+    expose:
+      - "3002"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/provider_service_db
       - DB_HOST=database
       - POSTGRES_DB=provider_service_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - BASE.URL=http://account-service:3000
+    networks:
+      - default
+      - service-network
   database:
     image: postgres:14.1-alpine
     restart: always
@@ -23,3 +29,7 @@ services:
 volumes:
   db:
     driver: local
+networks:
+  service-network:
+    driver: bridge
+    external: true
