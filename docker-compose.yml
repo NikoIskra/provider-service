@@ -1,18 +1,25 @@
 services:
-  backend:
-    build: .
+  provider-service:
+    build: 
+      dockerfile: Dockerfile
+    container_name: provider-service
     ports:
-      - 3000:3000
+      - 3002:3002
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/provider_service_db
+      - DB_HOST=database
+      - POSTGRES_DB=provider_service_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
   database:
     image: postgres:14.1-alpine
     restart: always
+    container_name: provider-service-database
+    user: postgres
     environment:
-      - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=test
-    ports:
-      - 5432:5432
-    volumes: 
-      - db:/var/lib/postgresql/data
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=provider_service_db
 volumes:
   db:
     driver: local

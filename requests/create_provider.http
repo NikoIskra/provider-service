@@ -1,7 +1,7 @@
 @account_id = 86fd29fc-eb3e-48c4-a6e6-7fd50b92d131
 
 
-post http://localhost:3001/api/v1/provider
+post http://localhost:3002/api/v1/provider
 X-ACCOUNT-ID : {{account_id}}
 content-type : application/json
 

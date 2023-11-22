@@ -1,7 +1,7 @@
 @account_id = 86fd29fc-eb3e-48c4-a6e6-7fd50b92d131
 
 # @name providerPost
-post http://localhost:3001/api/v1/provider
+post http://localhost:3002/api/v1/provider
 X-ACCOUNT-ID : {{account_id}}
 content-type : application/json
 
@@ -15,7 +15,7 @@ content-type : application/json
 
 @provider_id = {{providerPost.response.body.$.result.$.id}}
 
-post http://localhost:3001/api/v1/provider/{{provider_id}}/item
+post http://localhost:3002/api/v1/provider/{{provider_id}}/item
 X-ACCOUNT-ID : {{account_id}}
 content-type : application/json
 
@@ -46,7 +46,7 @@ content-type : application/json
 @page = 0
 @page-size = 20
 
-http://localhost:3001/api/v1/title/search
+http://localhost:3002/api/v1/title/search
 ?query={{query}}
 &order-by={{order-by}}
 &order={{order}}
