@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "Spring boot template",
+    "title": "Provider service",
     "version": "1.0"
   },
   "paths": {
